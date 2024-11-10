@@ -1,0 +1,24 @@
+/* styles.css */
+
+/* Style for the navigation bar buttons */
+.nav-button {
+    -fx-background-radius: 10;
+    -fx-background-color: lightgray;
+    -fx-text-fill: black;
+}
+
+.nav-button:hover {
+    -fx-background-color: darkgray;
+    -fx-text-fill: white;
+}
+
+.nav-button.selected {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
+
+/* Style for the main label */
+.main-label {
+    -fx-font-family: "Consolas Bold";
+    -fx-font-size: 30px;
+}
