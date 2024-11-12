@@ -1,15 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 
-<AnchorPane prefHeight="584" prefWidth="1237.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BooksController">
-    <children>
-        <Label layoutX="460.0" layoutY="266.0" text="KHO SÁCH CỦA TUI">
-            <font>
-                <Font size="36.0" />
-            </font>
-        </Label>
-    </children>
+<AnchorPane prefHeight="584.0" prefWidth="1237.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BooksController">
+     <GridPane fx:id="booksGridPane" layoutX="59.0" layoutY="96.0" />
+   <HBox layoutX="58.0" layoutY="57.0">
+      <children>
+         <TextField prefHeight="26.0" prefWidth="248.0" promptText="Tìm kiếm" />
+         <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="33.0">
+            <graphic>
+               <FontAwesomeIcon glyphName="SEARCH" />
+            </graphic>
+         </Button>
+      </children>
+   </HBox>
+   <HBox layoutX="1081.0" layoutY="496.0" AnchorPane.rightAnchor="53.599999999999994">
+      <children>
+            <Button fx:id="previousButton" prefHeight="32.0" prefWidth="51.0">
+            <graphic>
+               <FontAwesomeIcon glyphName="ANGLE_LEFT" selectionStart="1" size="2em" />
+            </graphic>
+         </Button>
+            <Button fx:id="nextButton" prefWidth="51.0">
+            <graphic>
+               <FontAwesomeIcon glyphName="ANGLE_RIGHT" size="2em" text="" />
+            </graphic>
+         </Button>
+      </children>
+   </HBox>
 </AnchorPane>
