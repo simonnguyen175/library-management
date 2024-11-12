@@ -1,19 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="584.0" prefWidth="1237.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UsersController">
     <children>
-        <TableView fx:id="userTable" layoutX="47.0" layoutY="85.0" prefHeight="414.0" prefWidth="615.0">
+        <TableView fx:id="userTable" layoutX="47.0" layoutY="85.0" prefHeight="414.0" prefWidth="615.0" AnchorPane.leftAnchor="50.0">
             <columns>
                 <TableColumn fx:id="userIdColumn" text="Mã số" />
                 <TableColumn fx:id="fullnameColumn" prefWidth="111.0" text="Họ và tên" />
                 <TableColumn fx:id="usernameColumn" prefWidth="124.0" text="Tài khoản" />
                 <TableColumn fx:id="phoneColumn" minWidth="0.0" prefWidth="133.0" text="Sđt" />
-                <TableColumn fx:id="emailColumn" prefWidth="166.0" text="Email" />
+                <TableColumn fx:id="emailColumn" prefWidth="165.5999633789063" text="Email" />
             </columns>
         </TableView>
+      <TextField fx:id="searchBar" layoutX="47.0" layoutY="46.0" prefHeight="26.0" prefWidth="241.0" promptText="Tìm kiếm" />
+      <Button layoutX="289.0" layoutY="46.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="36.0">
+         <graphic>
+            <FontAwesomeIcon fx:id="searchButton" glyphName="SEARCH" />
+         </graphic>
+      </Button>
+      <TabPane layoutX="719.0" layoutY="312.0" prefHeight="187.0" prefWidth="462.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.rightAnchor="51.0">
+        <tabs>
+          <Tab text="Add user">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextField layoutX="50.0" layoutY="14.0" promptText="Họ và tên " AnchorPane.leftAnchor="50.0" />
+                        <TextField layoutX="50.0" layoutY="66.0" promptText="Số điện thoại" AnchorPane.leftAnchor="50.0" />
+                        <TextField layoutX="50.0" layoutY="118.0" promptText="Email" AnchorPane.leftAnchor="50.0" />
+                        <TextField layoutX="262.0" layoutY="14.0" promptText="Tài khoản" AnchorPane.rightAnchor="50.799999999999955" />
+                        <TextField layoutX="262.0" layoutY="66.0" promptText="Mật khẩu" AnchorPane.rightAnchor="50.799999999999955" />
+                        <Button layoutX="373.0" layoutY="118.0" mnemonicParsing="false" text="Add" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Remove user">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextField layoutX="14.0" layoutY="14.0" promptText="Mã số" AnchorPane.leftAnchor="50.0" />
+                        <Button layoutX="51.0" layoutY="54.0" mnemonicParsing="false" text="Remove" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+      <TitledPane animated="false" layoutX="723.0" layoutY="85.0" prefHeight="187.0" prefWidth="462.0" text="User details">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="130.0" prefWidth="461.0">
+               <children>
+                  <Label layoutX="14.0" layoutY="14.0" text="Ngày đăng kí:" AnchorPane.topAnchor="10.0" />
+                  <Label layoutX="15.0" layoutY="53.0" text="Tổng số sách đã mượn:" AnchorPane.topAnchor="40.0" />
+                  <Label layoutX="14.0" layoutY="100.0" prefHeight="18.0" prefWidth="125.0" text="Số lượt mượn quá hạn:" AnchorPane.topAnchor="70.0" />
+               </children>
+            </AnchorPane>
+        </content>
+      </TitledPane>
     </children>
 </AnchorPane>
