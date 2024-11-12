@@ -1,5 +1,8 @@
 package controller;
 
+
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -9,52 +12,64 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ResourceBundle;
+import library.User;
 
-public class UsersController implements Initializable {
+public class UsersController extends Controller implements Initializable {
 
     @FXML
     private TableView<User> userTable;
 
     @FXML
+    private TableColumn<User, Integer> userIdColumn;
+
+    @FXML
+    private TableColumn<User, String> fullnameColumn;
+
+    @FXML
     private TableColumn<User, String> usernameColumn;
+
+    @FXML
+    private TableColumn<User, String> phoneColumn;
 
     @FXML
     private TableColumn<User, String> emailColumn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        usernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
-        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+        super.initialize(); // Ensure the database connection is initialized
 
-        // Load user data (excluding admin)
+        userIdColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getUserId()).asObject());
+        fullnameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFullname()));
+        usernameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getUsername()));
+        phoneColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPhone()));
+        emailColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEmail()));
+
+        // Load user data from the database
         userTable.setItems(getUserData());
     }
 
     private ObservableList<User> getUserData() {
-        // Replace with actual data retrieval logic
         ObservableList<User> users = FXCollections.observableArrayList();
-        users.add(new User("user1", "user1@example.com"));
-        users.add(new User("user2", "user2@example.com"));
-        // Add more users as needed
+        String query = "SELECT user_id, fullname, username, phone, email FROM users;";
+
+        try (Statement stmt = connection.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
+            while (rs.next()) {
+                users.add(new User(
+                        rs.getInt("user_id"),
+                        rs.getString("fullname"),
+                        rs.getString("username"),
+                        rs.getString("phone"),
+                        rs.getString("email")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return users;
-    }
-
-    public static class User {
-        private final String username;
-        private final String email;
-
-        public User(String username, String email) {
-            this.username = username;
-            this.email = email;
-        }
-
-        public String getUsername() {
-            return username;
-        }
-
-        public String getEmail() {
-            return email;
-        }
     }
 }

@@ -4,12 +4,15 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controller.UsersController" prefHeight="400.0" prefWidth="600.0">
+<AnchorPane prefHeight="584.0" prefWidth="1237.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UsersController">
     <children>
-        <TableView fx:id="userTable" layoutX="50.0" layoutY="50.0" prefHeight="300.0" prefWidth="500.0">
+        <TableView fx:id="userTable" layoutX="47.0" layoutY="85.0" prefHeight="414.0" prefWidth="615.0">
             <columns>
-                <TableColumn fx:id="usernameColumn" text="Username" />
-                <TableColumn fx:id="emailColumn" text="Email" />
+                <TableColumn fx:id="userIdColumn" text="Mã số" />
+                <TableColumn fx:id="fullnameColumn" prefWidth="111.0" text="Họ và tên" />
+                <TableColumn fx:id="usernameColumn" prefWidth="124.0" text="Tài khoản" />
+                <TableColumn fx:id="phoneColumn" minWidth="0.0" prefWidth="133.0" text="Sđt" />
+                <TableColumn fx:id="emailColumn" prefWidth="166.0" text="Email" />
             </columns>
         </TableView>
     </children>
