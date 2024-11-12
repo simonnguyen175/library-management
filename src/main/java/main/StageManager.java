@@ -18,6 +18,7 @@ public class StageManager {
             Stage stage = new Stage();
             stage.setTitle(title);
             stage.setScene(new Scene(root, width, height));
+            stage.setResizable(false);
             stage.show();
 
             root.setOnMouseClicked(event -> root.requestFocus());
