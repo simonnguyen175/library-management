@@ -56,7 +56,7 @@
           </Tab>
         </tabs>
       </TabPane>
-      <TitledPane animated="false" layoutX="723.0" layoutY="85.0" prefHeight="187.0" prefWidth="462.0" text="User details">
+      <TitledPane animated="false" layoutX="723.0" layoutY="85.0" prefHeight="187.0" prefWidth="462.0" text="User details" expanded="false">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="130.0" prefWidth="461.0">
                <children>

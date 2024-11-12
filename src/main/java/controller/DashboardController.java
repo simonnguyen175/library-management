@@ -65,6 +65,14 @@ public class DashboardController {
             }
         });
 
+        borrowListButton.setOnAction(actionEvent -> {
+            try {
+                showPane("/view/BorrowList.fxml");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
         logoutButton.setOnAction(actionEvent -> {
             try {
                 Stage currentStage = (Stage) logoutButton.getScene().getWindow();
