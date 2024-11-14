@@ -40,7 +40,7 @@ public class UsersController extends Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        super.initialize(); // Ensure the database connection is initialized
+//        super.initialize(); // Ensure the database connection is initialized
 
         userIdColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getUserId()).asObject());
         fullnameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFullname()));
