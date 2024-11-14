@@ -21,14 +21,14 @@ public class DashboardController {
     private Button homeButton, booksButton, usersButton, borrowListButton, notiButton, logoutButton;
 
     @FXML
-    private AnchorPane container;
+    protected AnchorPane container;
 
-    private void setNode(Node node) {
+    protected void setNode(Node node) {
         container.getChildren().clear();
         container.getChildren().add(node);
     }
 
-    private void showPane(String path) {
+    protected void showPane(String path) {
         System.out.println("Loading pane: " + path); // Debug statement
         try {
             AnchorPane pane = FXMLLoader.load(getClass().getResource(path));

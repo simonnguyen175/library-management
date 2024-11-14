@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane prefHeight="584.0" prefWidth="1237.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BorrowlistController">
+<AnchorPane prefHeight="584.0" prefWidth="1237.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BorrowListController">
    <children>
       <TableView fx:id="userTable" layoutX="52.0" layoutY="95.0" prefHeight="393.0" prefWidth="751.0" AnchorPane.leftAnchor="52.0">
          <columns>
