@@ -3,34 +3,28 @@ package controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.*;
-import javafx.stage.Stage;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import library.Book;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-public class BooksController extends DashboardController implements Initializable {
-
-    @FXML
-    private GridPane booksGridPane;
+public class BooksController implements Initializable {
     @FXML
     private AnchorPane rootPane;
     @FXML
-    private Button previousButton, nextButton;
+    private GridPane booksGridPane;
     @FXML
-    private TextField searchBar;
+    private Button previousButton, nextButton;
 
     private int currentPage = 0;
     private final int itemsPerPage = 12; // 2 rows * 6 columns
@@ -39,19 +33,6 @@ public class BooksController extends DashboardController implements Initializabl
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loadBooksFromDatabase();
-
-        // Set column and row constraints for consistent cell sizes
-        for (int i = 0; i < 6; i++) { // 6 columns
-            ColumnConstraints colConstraints = new ColumnConstraints();
-            colConstraints.setPrefWidth(200); // Set preferred width for each cell
-            booksGridPane.getColumnConstraints().add(colConstraints);
-        }
-        for (int i = 0; i < 2; i++) { // 2 rows
-            RowConstraints rowConstraints = new RowConstraints();
-            rowConstraints.setPrefHeight(200); // Set preferred height for each cell
-            booksGridPane.getRowConstraints().add(rowConstraints);
-        }
-
         loadPage(currentPage);
 
         previousButton.setOnAction(event -> {
@@ -68,7 +49,6 @@ public class BooksController extends DashboardController implements Initializabl
             }
         });
     }
-
     private void loadBooksFromDatabase() {
         try (Statement statement = Controller.connection.createStatement();
              ResultSet resultSet = statement.executeQuery("SELECT title, COUNT(*) as copies FROM Book GROUP BY title")) {
@@ -103,15 +83,17 @@ public class BooksController extends DashboardController implements Initializabl
         Label countLabel = new Label("Copies: " + book.getCopies());
         Button detailButton = new Button("Detail");
         detailButton.setOnAction(event -> {
-            try{
+            try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/BookDetail.fxml"));
-                Pane bookDetailPane = loader.load();
+                AnchorPane bookDetailPane = loader.load();
 
+                // Get the controller and set the book title
                 BookDetailController controller = loader.getController();
                 controller.setBookTitle(book.getTitle());
 
+                // Replace the current root pane with the book detail pane
                 rootPane.getChildren().setAll(bookDetailPane);
-            } catch (Exception e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         });
@@ -120,11 +102,5 @@ public class BooksController extends DashboardController implements Initializabl
         vBox.setSpacing(10);
         vBox.setPrefSize(200, 200); // Set preferred size for each book cell
         return vBox;
-    }
-
-    private void showBookDetails(String title) {
-        // Implement the logic to switch to the tab that shows the book details
-        System.out.println("Showing details for: " + title);
-        // Example: tabPane.getSelectionModel().select(detailsTab);
     }
 }

@@ -7,8 +7,8 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane prefHeight="584.0" prefWidth="1237.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BooksController">
-     <GridPane fx:id="booksGridPane" layoutX="59.0" layoutY="96.0" />
+<AnchorPane fx:id="rootPane" prefHeight="584.0" prefWidth="1237.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BooksController">
+   <GridPane fx:id="booksGridPane" layoutX="59.0" layoutY="96.0" />
    <HBox layoutX="58.0" layoutY="57.0">
       <children>
          <TextField prefHeight="26.0" prefWidth="248.0" promptText="Tìm kiếm" />
@@ -21,12 +21,12 @@
    </HBox>
    <HBox layoutX="1081.0" layoutY="496.0" AnchorPane.rightAnchor="53.599999999999994">
       <children>
-            <Button fx:id="previousButton" prefHeight="32.0" prefWidth="51.0">
+         <Button fx:id="previousButton" prefHeight="32.0" prefWidth="51.0">
             <graphic>
                <FontAwesomeIcon glyphName="ANGLE_LEFT" selectionStart="1" size="2em" />
             </graphic>
          </Button>
-            <Button fx:id="nextButton" prefWidth="51.0">
+         <Button fx:id="nextButton" prefWidth="51.0">
             <graphic>
                <FontAwesomeIcon glyphName="ANGLE_RIGHT" size="2em" text="" />
             </graphic>
