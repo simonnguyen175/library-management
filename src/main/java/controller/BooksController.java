@@ -1,17 +1,13 @@
 package controller;
 
-import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import library.Book;
 import javafx.scene.image.ImageView;
@@ -21,7 +17,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 
@@ -85,6 +80,11 @@ public class BooksController extends Controller implements Initializable {
                         book.setImageUrl(resultSet.getString("image_url"));
                         book.setAuthor(resultSet.getString("author"));
                         book.setBook_id(resultSet.getString("book_id"));
+                        book.setPublisher(resultSet.getString("publisher"));
+                        book.setGenre(resultSet.getString("genre"));
+                        book.setPages(Integer.parseInt(resultSet.getString("pages")));
+                        book.setLanguage(resultSet.getString("language"));
+                        book.setDescription(resultSet.getString("description"));
                         res.add (book);
                         nums -- ;
                     }
@@ -93,7 +93,6 @@ public class BooksController extends Controller implements Initializable {
                 }
             };
 
-            Object lock = new Object ();
             task.setOnSucceeded(e -> {
                 try {
                     books = task.get();
@@ -149,19 +148,25 @@ public class BooksController extends Controller implements Initializable {
         detailsButton.setOnAction(event -> {
             Task<Book> task = new Task<>() {
                 @Override
-                protected Book call() throws Exception {
+                protected Book call() {
                     return getBook(book.getIsbn());
                 }
             };
 
             task.setOnSucceeded(e -> {
                 Book temp = getBook(book.getIsbn());
-                openNewWindow(Objects.requireNonNullElse(temp, book));
+                if (temp != null && temp.getImageUrl() != null){
+                    showBookDetails(temp);
+                }
+                else {
+                    showBookDetails(book);
+                }
             });
 
             task.run();
         });
         VBox vBox;
+
         if (!books.isEmpty() && !book.getImageUrl().equals("No Image"))
         {
             ImageView imageView = new ImageView(new Image(book.getImageUrl()));
@@ -176,13 +181,7 @@ public class BooksController extends Controller implements Initializable {
         return vBox;
     }
 
-    private void showBookDetails(String title) {
-        // Implement the logic to switch to the tab that shows the book details
-
-        // Example: tabPane.getSelectionModel().select(detailsTab);
-    }
-
-    private synchronized void openNewWindow (Book book) {
+    private synchronized void showBookDetails (Book book) {
         if (book == null) return;
         Stage newWindow = new Stage(); // Tạo một cửa sổ mới
         newWindow.setTitle("Book");
@@ -197,32 +196,61 @@ public class BooksController extends Controller implements Initializable {
         book_Info.setWrapText(true);
         book_Info.setPrefWidth(300);
 
-        Label description = new Label();
-        description.setText("Description:\t" + book.getDescription());
-        description.setWrapText(true);
-        description.setPrefWidth(270);
+        List<String> des = new ArrayList<>();
+        List<String> temp = List.of(book.getDescription().split(" "));
+        StringBuilder iter = new StringBuilder("Description:\t");
+        for (String i : temp){
+            if (iter.length() + i.length() > 50){
+                des.add (iter.toString());
+                iter = new StringBuilder();
+                iter.append (i).append (" ");
+            }
+            else {
+                iter.append (i).append(" ");
+            }
+        }
 
-        ImageView imageView = new ImageView(new Image(book.getImageUrl()));
-        imageView.setFitHeight(150);
-        imageView.setFitWidth(150);
-        imageView.setPreserveRatio(true);
-        imageView.setX(50);
-        imageView.setY(90);
+        VBox description = new VBox();
+        for (String line : des){
+            Text lineText = new Text();
+            lineText.setText(line);
+            description.getChildren().add(lineText);
+        }
+
+        ScrollPane scrollPane = new ScrollPane(description);
+        scrollPane.setPrefSize(320,380);
+        scrollPane.setStyle("-fx-border-color: transparent; -fx-background-color: transparent;");
+
+        scrollPane.setFitToWidth(true);
 
         AnchorPane secondaryLayout = new AnchorPane();
+        if (book.getImageUrl() != null)
+        {
+            ImageView imageView = new ImageView(new Image(book.getImageUrl()));
+            imageView.setFitHeight(150);
+            imageView.setFitWidth(150);
+            imageView.setPreserveRatio(true);
+            imageView.setX(50);
+            imageView.setY(90);
+            secondaryLayout.getChildren().add(imageView);
 
-        secondaryLayout.getChildren().add(imageView);
+
+            AnchorPane.setTopAnchor(imageView,30.0);
+            AnchorPane.setLeftAnchor(imageView,50.0);
+
+        }
+
         secondaryLayout.getChildren().add(book_Info);
-        secondaryLayout.getChildren().add(description);
+        secondaryLayout.getChildren().add(scrollPane);
 
-        AnchorPane.setTopAnchor(imageView,30.0);
-        AnchorPane.setLeftAnchor(imageView,70.0);
-
-        AnchorPane.setTopAnchor(description,50.0);
-        AnchorPane.setLeftAnchor(description,370.0);
+        AnchorPane.setTopAnchor(scrollPane,20.0);
+        AnchorPane.setLeftAnchor(scrollPane,335.0);
 
         AnchorPane.setTopAnchor(book_Info,200.0);
-        AnchorPane.setLeftAnchor(book_Info,50.0);
+        AnchorPane.setLeftAnchor(book_Info,30.0);
+
+//        AnchorPane.setTopAnchor(scrollPane,0.0);
+//        AnchorPane.setLeftAnchor(scrollPane,640.0);
 
         Scene secondScene = new Scene(secondaryLayout, 660, 450);
 
