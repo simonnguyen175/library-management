@@ -11,6 +11,7 @@ module main.librarymanagement {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires java.sql;
+    requires java.desktop;
 
     opens main to javafx.fxml;
     exports main;

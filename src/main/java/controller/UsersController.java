@@ -45,8 +45,6 @@ public class UsersController extends Controller implements Initializable {
         userIdColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getUserId()).asObject());
         fullnameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFullname()));
         usernameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getUsername()));
-        phoneColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPhone()));
-        emailColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEmail()));
 
         // Load user data from the database
         userTable.setItems(getUserData());
@@ -54,16 +52,14 @@ public class UsersController extends Controller implements Initializable {
 
     private ObservableList<User> getUserData() {
         ObservableList<User> users = FXCollections.observableArrayList();
-        String query = "SELECT user_id, fullname, username, phone, email FROM users;";
+        String query = "SELECT user_id, fullname, username FROM users;";
 
         try (Statement stmt = connection.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
                 users.add(new User(
                         rs.getInt("user_id"),
                         rs.getString("fullname"),
-                        rs.getString("username"),
-                        rs.getString("phone"),
-                        rs.getString("email")
+                        rs.getString("username")
                 ));
             }
         } catch (SQLException e) {

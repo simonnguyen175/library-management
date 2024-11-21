@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public abstract class Controller {
-    static Connection connection;
+    public static Connection connection;
 
     public void initialize() {
         connectToDatabase();
