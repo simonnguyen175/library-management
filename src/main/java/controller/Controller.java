@@ -14,7 +14,7 @@ public abstract class Controller {
     private void connectToDatabase() {
         String url = "jdbc:mysql://localhost:3306/library";
         String dbUser = "root";
-        String dbPassword = "123";
+        String dbPassword = "";
 
         try {
             connection = DriverManager.getConnection(url, dbUser, dbPassword);
