@@ -38,53 +38,47 @@ INSERT INTO Users (fullname, username, password, phone, email) VALUES
 
 select * from users;
 
-CREATE TABLE books (
-                       book_id INT PRIMARY KEY AUTO_INCREMENT, -- Mã sách tự động tăng, bắt đầu từ 1000001
-                       title VARCHAR(255) NOT NULL,            -- Tiêu đề sách
-                       author VARCHAR(100) NOT NULL,           -- Tác giả
-                       genre VARCHAR(50),                      -- Thể loại
-                       publisher VARCHAR(100),                 -- Nhà xuất bản
-                       publication_year INT,                  -- Năm xuất bản
-                       isbn VARCHAR(20) UNIQUE NOT NULL,       -- Mã ISBN
-                       pages INT,                              -- Số trang
-                       language VARCHAR(50),                   -- Ngôn ngữ
-                       copies INT NOT NULL DEFAULT 1           -- Số bản copies
-) AUTO_INCREMENT = 1001;
+CREATE TABLE Books (
+                       id INT AUTO_INCREMENT PRIMARY KEY,
+                       title VARCHAR(255) NOT NULL,
+                       author VARCHAR(255) NOT NULL,
+                       genre VARCHAR(100),
+                       publisher VARCHAR(255),
+                       publication_year INT,
+                       isbn VARCHAR(20) UNIQUE,
+                       pages INT,
+                       language VARCHAR(50),
+                       copies INT,
+                       imageURL TEXT
+) auto_increment = 1001;
+
 
 INSERT INTO Books (title, author, genre, publisher, publication_year, isbn, pages, language, copies) VALUES
--- Các sách tiếng Việt
-('Đắc Nhân Tâm', 'Dale Carnegie', 'Phát triển bản thân', 'NXB Tổng Hợp TP.HCM', 2019, '9786045877326', 320, 'Tiếng Việt', 10),
-('Tôi Thấy Hoa Vàng Trên Cỏ Xanh', 'Nguyễn Nhật Ánh', 'Văn học Việt Nam', 'NXB Trẻ', 2020, '9786041135796', 378, 'Tiếng Việt', 8),
-('Cho Tôi Xin Một Vé Đi Tuổi Thơ', 'Nguyễn Nhật Ánh', 'Văn học Việt Nam', 'NXB Trẻ', 2018, '9786041134218', 400, 'Tiếng Việt', 12),
-('Nhà Giả Kim', 'Paulo Coelho', 'Tiểu thuyết', 'NXB Văn Học', 2021, '9786041137448', 228, 'Tiếng Việt', 7),
-('Hạt Giống Tâm Hồn', 'Nhiều tác giả', 'Truyện ngắn', 'NXB Tổng Hợp TP.HCM', 2015, '9786045877203', 250, 'Tiếng Việt', 5),
+('The Great Gatsby', 'F. Scott Fitzgerald', 'Fiction', 'Scribner', 2004, '9780743273565', 180, 'English', 10),
+('Pride and Prejudice', 'Jane Austen', 'Romance', 'Penguin Classics', 2002, '9780141439518', 279, 'English', 7),
+('The Catcher in the Rye', 'J.D. Salinger', 'Fiction', 'Little, Brown and Company', 2001, '9780316769488', 277, 'English', 6),
 
--- Sách khoa học và học thuật
-('Sapiens: Lược Sử Loài Người', 'Yuval Noah Harari', 'Lịch sử', 'NXB Tri Thức', 2021, '9786049900877', 500, 'Tiếng Việt', 6),
-('21 Bài Học Cho Thế Kỷ 21', 'Yuval Noah Harari', 'Lịch sử', 'NXB Tri Thức', 2022, '9786049900884', 450, 'Tiếng Việt', 4),
-('Thế Giới Phẳng', 'Thomas L. Friedman', 'Kinh tế', 'NXB Trẻ', 2020, '9786041137025', 760, 'Tiếng Việt', 3),
+('The Lord of the Rings', 'J.R.R. Tolkien', 'Fantasy', 'Mariner Books', 2012, '9780544003415', 1178, 'English', 5),
+('The Hobbit', 'J.R.R. Tolkien', 'Fantasy', 'Mariner Books', 2012, '9780547928227', 300, 'English', 8),
+('The Hunger Games', 'Suzanne Collins', 'Dystopian', 'Scholastic Press', 2010, '9780439023528', 374, 'English', 9),
+('Divergent', 'Veronica Roth', 'Dystopian', 'Katherine Tegen Books', 2012, '9780062024039', 487, 'English', 7),
 
--- Sách thiếu nhi
-('Harry Potter và Hòn Đá Phù Thủy', 'J.K. Rowling', 'Phiêu lưu', 'NXB Trẻ', 2022, '9786041114675', 336, 'Tiếng Việt', 6),
-('Dế Mèn Phiêu Lưu Ký', 'Tô Hoài', 'Văn học thiếu nhi', 'NXB Kim Đồng', 2019, '9786042114677', 180, 'Tiếng Việt', 7),
+('The Fault in Our Stars', 'John Green', 'Romance', 'Dutton Books', 2012, '9780525478812', 313, 'English', 6),
+('Twilight', 'Stephenie Meyer', 'Romance', 'Little, Brown and Company', 2006, '9780316015844', 498, 'English', 5),
+('A Game of Thrones', 'George R.R. Martin', 'Fantasy', 'Bantam Books', 2011, '9780553593716', 835, 'English', 4),
+('The Alchemist', 'Paulo Coelho', 'Philosophy', 'HarperOne', 1993, '9780062315007', 208, 'English', 6),
+('The Road', 'Cormac McCarthy', 'Post-apocalyptic', 'Vintage International', 2006, '9780307387899', 287, 'English', 5),
 
--- Sách ngoại văn
-('Atomic Habits', 'James Clear', 'Phát triển bản thân', 'Penguin Books', 2018, '9780735211292', 320, 'Tiếng Anh', 5),
-('The Subtle Art of Not Giving a F*ck', 'Mark Manson', 'Phát triển bản thân', 'Harper', 2019, '9780062457714', 224, 'Tiếng Anh', 4),
-('Think and Grow Rich', 'Napoleon Hill', 'Kinh doanh', 'The Ralston Society', 2020, '9781937879501', 320, 'Tiếng Anh', 8),
+('Becoming', 'Michelle Obama', 'Memoir', 'Crown Publishing', 2018, '9781524763138', 448, 'English', 7),
+('Educated', 'Tara Westover', 'Memoir', 'Random House', 2018, '9780399590504', 334, 'English', 6),
+('The Power of Habit', 'Charles Duhigg', 'Self-help', 'Random House', 2014, '9780812981605', 371, 'English', 5),
+('Atomic Habits', 'James Clear', 'Self-help', 'Penguin Books', 2018, '9780735211292', 320, 'English', 8),
+('The Subtle Art of Not Giving a F*ck', 'Mark Manson', 'Self-help', 'Harper', 2016, '9780062457714', 224, 'English', 9),
 
--- Thêm sách tiếng Việt
-('Bố Già', 'Mario Puzo', 'Tiểu thuyết', 'NXB Văn Học', 2020, '9786049590222', 512, 'Tiếng Việt', 7),
-('Mắt Biếc', 'Nguyễn Nhật Ánh', 'Văn học Việt Nam', 'NXB Trẻ', 2019, '9786041135772', 300, 'Tiếng Việt', 9),
-('Cánh Đồng Bất Tận', 'Nguyễn Ngọc Tư', 'Văn học Việt Nam', 'NXB Trẻ', 2017, '9786041132443', 252, 'Tiếng Việt', 6),
-('Người Đua Diều', 'Khaled Hosseini', 'Tiểu thuyết', 'NXB Văn Học', 2020, '9786041139893', 420, 'Tiếng Việt', 5),
-('Tắt Đèn', 'Ngô Tất Tố', 'Văn học Việt Nam', 'NXB Trẻ', 2019, '9786041134119', 360, 'Tiếng Việt', 8),
-
--- Các sách về kỹ năng
-('Làm Chủ Tư Duy, Thay Đổi Vận Mệnh', 'Adam Khoo', 'Kỹ năng sống', 'NXB Trẻ', 2018, '9786041137592', 500, 'Tiếng Việt', 4),
-('Dám Bị Ghét', 'Ichiro Kishimi & Fumitake Koga', 'Tâm lý', 'NXB Trẻ', 2021, '9786045693221', 300, 'Tiếng Việt', 5),
-('Bí Quyết Gây Dựng Cơ Nghiệp Bạc Tỷ', 'Adam Khoo', 'Kinh doanh', 'NXB Trẻ', 2020, '9786041137882', 480, 'Tiếng Việt', 4);
-
-
+('Sapiens: A Brief History of Humankind', 'Yuval Noah Harari', 'History', 'Harper', 2018, '9780062316097', 464, 'English', 7),
+('Homo Deus: A Brief History of Tomorrow', 'Yuval Noah Harari', 'History', 'Harper', 2018, '9780062464316', 464, 'English', 6),
+('21 Lessons for the 21st Century', 'Yuval Noah Harari', 'History', 'Spiegel & Grau', 2018, '9780525512196', 368, 'English', 8),
+('Factfulness', 'Hans Rosling', 'Non-fiction', 'Flatiron Books', 2018, '9781250123824', 352, 'English', 5),
+('Outliers: The Story of Success', 'Malcolm Gladwell', 'Non-fiction', 'Little, Brown and Company', 2008, '9780316017930', 309, 'English', 6);
 
 select * from books;
