@@ -82,3 +82,23 @@ INSERT INTO Books (title, author, genre, publisher, publication_year, isbn, page
 ('Outliers: The Story of Success', 'Malcolm Gladwell', 'Non-fiction', 'Little, Brown and Company', 2008, '9780316017930', 309, 'English', 6);
 
 select * from books;
+
+CREATE TABLE BorrowList (
+                            borrow_id INT AUTO_INCREMENT PRIMARY KEY, -- ID mượn tự động tăng
+                            user_id INT NOT NULL,                     -- ID của người dùng
+                            book_id INT NOT NULL,                     -- ID của sách
+                            borrowed_copies INT NOT NULL,             -- Số bản mượn
+                            borrow_date DATE NOT NULL,                -- Ngày mượn
+                            due_date DATE NOT NULL,                   -- Hạn trả sách
+                            FOREIGN KEY (user_id) REFERENCES Users(user_id), -- Liên kết đến bảng Users
+                            FOREIGN KEY (book_id) REFERENCES Books(id)       -- Liên kết đến bảng Books
+);
+
+
+INSERT INTO BorrowList (user_id, book_id, borrowed_copies, borrow_date, due_date)
+VALUES
+(240001, 1001, 2, '2024-11-01', '2024-11-10'),
+(240002, 1003, 1, '2024-11-02', '2024-11-12'),
+(240003, 1005, 3, '2024-11-03', '2024-11-15'),
+(240004, 1007, 1, '2024-11-04', '2024-11-20'),
+(240005, 1009, 2, '2024-11-05', '2024-11-25');
