@@ -1,22 +1,24 @@
 package controller;
 
-
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import library.User;
 
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
-import library.User;
 
 public class UsersController extends Controller implements Initializable {
 
@@ -33,21 +35,40 @@ public class UsersController extends Controller implements Initializable {
     private TableColumn<User, String> usernameColumn;
 
     @FXML
-    private TableColumn<User, String> phoneColumn;
-
-    @FXML
-    private TableColumn<User, String> emailColumn;
+    private TableColumn<User, Void> deleteColumn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        super.initialize(); // Ensure the database connection is initialized
-
         userIdColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getUserId()).asObject());
         fullnameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFullname()));
         usernameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getUsername()));
 
+        addDeleteButtonToTable();
+
         // Load user data from the database
         userTable.setItems(getUserData());
+    }
+
+    private void addDeleteButtonToTable() {
+        deleteColumn.setCellFactory(param -> new TableCell<>() {
+            private final Button deleteButton = new Button("Delete");
+            private final HBox hBox = new HBox(deleteButton);
+
+            {
+                hBox.setStyle("-fx-alignment: center;");
+                HBox.setHgrow(deleteButton, Priority.ALWAYS);
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(hBox);
+                }
+            }
+        });
     }
 
     private ObservableList<User> getUserData() {

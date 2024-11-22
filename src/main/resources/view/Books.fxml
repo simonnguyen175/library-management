@@ -33,7 +33,7 @@
          </Button>
       </children>
    </HBox>
-   <Button layoutX="1119.0" layoutY="51.0" mnemonicParsing="false" text="New book">
+   <Button layoutX="1119.0" layoutY="51.0" mnemonicParsing="false" text="New book" fx:id="newBookButton">
       <graphic>
          <FontAwesomeIcon glyphName="PLUS" />
       </graphic>
