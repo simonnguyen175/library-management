@@ -14,7 +14,7 @@ public class APIControllerTest {
         String title = "Tắt đèn" ;
         String ISBN = "6044913104";
 
-        Book result = apiController.getBookFromISBN(ISBN);
+        Book result = apiController.getBookInfoFromAPI(title);
         String description = apiController.getBookDescriptionFromAPI(title);
         // Kiểm tra các thuộc tính của đối tượng Book
 //        Assertions.assertNotNull(result, "Kết quả trả về không được null");

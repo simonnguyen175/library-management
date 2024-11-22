@@ -17,10 +17,5 @@
                 <Font size="24.0" />
             </font>
         </Label>
-        <ScrollPane fx:id="bookContainer" hbarPolicy="NEVER" layoutX="50.0" layoutY="84.0" prefHeight="499.0" prefWidth="1186.0">
-            <content>
-                <VBox fx:id="bookA" />
-            </content>
-        </ScrollPane>
     </children>
 </AnchorPane>

@@ -108,15 +108,24 @@ public class APIController {
         }
     }
 
-    //trả về thông tin quyển sách bao gồm tên sách, tác giả, mã ISBN, số trang, ngôn ngữ, thể loại, ảnh bìa
-    public synchronized Book getBookInfoFromAPI(String title) {
+
+    /**
+     * Lấy thông tin sách từ API
+     * @param inp Tên sách hoặc mã ISBN
+     * @return Đối tượng Book chứa thông tin sách
+     */
+    public synchronized Book getBookInfoFromAPI(String inp) {
         try {
-            String encode_title = URLEncoder.encode(title.trim(), StandardCharsets.UTF_8);
-            return getBookInfoFromJson(getHttpResponse(api +"intitle:"+ encode_title + "&key=" + API_KEY), title);
+            try {
+                Long.parseLong(inp);
+                return getBookFromISBN(inp);
+            }catch (NumberFormatException e){
+                return getBookInfoFromJson(getHttpResponse(api + "intitle:" + URLEncoder.encode(inp, StandardCharsets.UTF_8) + "&key=" + API_KEY), inp);
+            }
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
         }
+        return null;
     }
     // trả về mô tả của sách
     public synchronized String getBookDescriptionFromAPI(String title) {
@@ -129,7 +138,7 @@ public class APIController {
         }
     }
 
-    private String getBookTitleFromISBN (String json){
+    private String getBookTitleFromJson (String json){
         try {
             JsonNode node = new ObjectMapper().readTree(json);
             JsonNode items = node.get("items");
@@ -142,7 +151,7 @@ public class APIController {
     }
 
     // trả về thông tin sách từ mã ISBN
-    public synchronized Book getBookFromISBN(String isbn) {
+    private synchronized Book getBookFromISBN(String isbn) {
         try {
             String url = api + "isbn:" + URLEncoder.encode(isbn, StandardCharsets.UTF_8) + "&key=" + API_KEY;
             String jsonResponse = getHttpResponse(url);
@@ -154,7 +163,7 @@ public class APIController {
             }
 
 
-            String title = getBookTitleFromISBN(jsonResponse);
+            String title = getBookTitleFromJson(jsonResponse);
 
             if (title == null) {
                 System.out.println("No book found with the given ISBN");
