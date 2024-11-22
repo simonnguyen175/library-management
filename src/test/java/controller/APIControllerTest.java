@@ -8,10 +8,10 @@ public class APIControllerTest {
 
     @Test
     void testGetBookFromAPI() {
-        APIController apiController = new APIController();
+        APIController apiController = APIController.getInstance();
 
         // Thực hiện tìm kiếm cuốn sách với tiêu đề "Chí Phèo"
-        String title = "Tắt đèn" ;
+        String title = "Harry Potter and the Sorcerer's Stone" ;
         String ISBN = "6044913104";
 
         Book result = apiController.getBookInfoFromAPI(title);
@@ -29,7 +29,7 @@ public class APIControllerTest {
         System.out.println ("Language: " + result.getLanguage());
         System.out.println ("Genre: " + result.getGenre());
         System.out.println ("Image URL: " + result.getImageUrl());
-        System.out.println ("Year Published: " + result.getYearPublished());
+        System.out.println ("Year Published: " + result.getPublicationYear());
         System.out.println ("Description: " + description);
     }
 }

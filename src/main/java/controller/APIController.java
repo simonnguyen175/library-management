@@ -12,9 +12,20 @@ import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 
 public class APIController {
-
     protected final String api = "https://www.googleapis.com/books/v1/volumes?q=";
     protected final String API_KEY = "AIzaSyCGjYZoZgZxXgNmU3_uVQxag9ddQN_O2p4";
+
+    private static APIController instance;
+
+    private APIController() {
+    }
+
+    public static synchronized APIController getInstance() {
+        if (instance == null) {
+            instance = new APIController();
+        }
+        return instance;
+    }
 
     private boolean check_valid_book(JsonNode volume , String raw_title) {
         return volume.has("title")
@@ -51,7 +62,7 @@ public class APIController {
                         temp.setLanguage(volumeInfo.get("language").asText().trim());
                         String publishedDate = volumeInfo.get("publishedDate").asText().trim();
                         int year = publishedDate.length() >= 4 ? Integer.parseInt(publishedDate.substring(0, 4)) : 0;
-                        temp.setYearPublished(year);
+                        temp.setPublicationYear(year);
                         if (temp.getGenre()!= null && temp.getImageUrl() != null) {
                             break;
                         }
