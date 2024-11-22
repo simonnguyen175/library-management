@@ -10,6 +10,8 @@ module main.librarymanagement {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires com.fasterxml.jackson.databind;
+    requires java.net.http;
     requires java.sql;
     requires java.desktop;
 
