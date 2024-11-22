@@ -3,6 +3,7 @@ package controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -10,7 +11,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import library.Book;
+import main.StageManager;
 
 import javafx.scene.image.ImageView;
 import java.io.IOException;
@@ -27,7 +30,7 @@ public class BooksController implements Initializable {
     @FXML
     private GridPane booksGridPane;
     @FXML
-    private Button previousButton, nextButton;
+    private Button previousButton, nextButton, newBookButton;
 
     private int currentPage = 0;
     private final int itemsPerPage = 8; // 2 rows * 4 columns
@@ -57,15 +60,20 @@ public class BooksController implements Initializable {
                 loadPage(currentPage);
             }
         });
+
+        newBookButton.setOnAction(event -> {
+            StageManager.loadStage("/view/AddBook.fxml", "Add Book", 400, 500);
+        });
     }
 
     private void loadBooksFromDatabase() {
         try (Statement statement = Controller.connection.createStatement();
-             ResultSet resultSet = statement.executeQuery("SELECT title, COUNT(*) as copies FROM books GROUP BY title")) {
+             ResultSet resultSet = statement.executeQuery("SELECT title, copies FROM books")) {
 
             while (resultSet.next()) {
                 String title = resultSet.getString("title");
                 int copies = resultSet.getInt("copies");
+                System.out.println(title + " " + copies);
                 Book book = new Book(title, copies);
                 booksList.add(book);
                 bookBoxes.add(createBookBox(book));
