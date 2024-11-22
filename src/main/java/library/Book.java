@@ -5,34 +5,33 @@ import java.util.List;
 public class Book {
     private String title;
     private String author;
+    private String genre;
     private String publisher;
+    private int publicationYear;
     private String isbn;
     private int pages;
-    private String genre;
-    private int year_published;
-    private String image_url;
+    private String language;
     private int copies;
 
-    public Book(String title) {
-        this.title = title;
-    }
-
+    // Constructor
     public Book(String title, int copies) {
         this.title = title;
         this.copies = copies;
     }
 
-    public Book(String title, String author, String publisher, String isbn, int pages, String genre, int year_published, int copies) {
+    public Book(String title, String author, String genre, String publisher, int publicationYear, String isbn, int pages, String language, int copies) {
         this.title = title;
         this.author = author;
+        this.genre = genre;
         this.publisher = publisher;
+        this.publicationYear = publicationYear;
         this.isbn = isbn;
         this.pages = pages;
-        this.genre = genre;
-        this.year_published = year_published;
+        this.language = language;
         this.copies = copies;
     }
 
+    // Getters and Setters
     public String getTitle() {
         return title;
     }
@@ -41,7 +40,68 @@ public class Book {
         this.title = title;
     }
 
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public int getPublicationYear() {
+        return publicationYear;
+    }
+
+    public void setPublicationYear(int publicationYear) {
+        this.publicationYear = publicationYear;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public int getPages() {
+        return pages;
+    }
+
+    public void setPages(int pages) {
+        this.pages = pages;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
     public int getCopies() {
         return copies;
     }
+
+    public void setCopies(int copies) {
+        this.copies = copies;
+    }
 }
+
