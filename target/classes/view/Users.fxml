@@ -14,53 +14,53 @@
 
 <AnchorPane prefHeight="584.0" prefWidth="1237.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UsersController">
     <children>
-        <TableView fx:id="userTable" layoutX="51.0" layoutY="85.0" prefHeight="415.0" prefWidth="625.0" AnchorPane.leftAnchor="51.0">
+        <TableView fx:id="userTable" layoutX="51.0" layoutY="85.0" prefHeight="415.0" prefWidth="589.0" AnchorPane.leftAnchor="51.0">
             <columns>
                 <TableColumn fx:id="userIdColumn" prefWidth="119.0" text="Mã số" />
-                <TableColumn fx:id="fullnameColumn" prefWidth="199.0" text="Họ và tên" />
-                <TableColumn fx:id="usernameColumn" minWidth="0.0" prefWidth="232.0" text="Tài khoản" />
-                <TableColumn fx:id="deleteColumn" maxWidth="88.0" minWidth="0.0" prefWidth="74.0" />
+                <TableColumn fx:id="fullnameColumn" prefWidth="189.0" text="Họ và tên" />
+                <TableColumn fx:id="usernameColumn" minWidth="0.0" prefWidth="176.0" text="Tài khoản" />
+                <TableColumn fx:id="deleteColumn" maxWidth="252.0" minWidth="0.0" prefWidth="90.0" />
             </columns>
         </TableView>
-      <Group layoutX="47.0" layoutY="46.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="50.0">
-         <children>
-            <TextField fx:id="searchBar" prefHeight="26.0" prefWidth="241.0" promptText="Tìm kiếm" />
-            <Button layoutX="242.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="36.0">
-               <graphic>
-                  <FontAwesomeIcon fx:id="searchButton" glyphName="SEARCH" />
-               </graphic>
-            </Button>
-         </children>
-      </Group>
-      <TabPane layoutX="724.0" layoutY="313.0" prefHeight="187.0" prefWidth="462.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.rightAnchor="51.0">
-        <tabs>
-          <Tab text="Add user">
+        <Group layoutX="47.0" layoutY="46.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="50.0">
+            <children>
+                <TextField fx:id="searchTextField" layoutX="80.0" layoutY="1.0" prefHeight="26.0" prefWidth="241.0" promptText="Mã số, Tên" />
+                <Button fx:id="searchButton" prefHeight="26.0" prefWidth="80.0" text="Tìm kiếm">
+                    <graphic>
+                        <FontAwesomeIcon glyphName="SEARCH" />
+                    </graphic>
+                </Button>
+            </children>
+        </Group>
+        <TabPane layoutX="724.0" layoutY="313.0" prefHeight="187.0" prefWidth="462.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.rightAnchor="51.0">
+            <tabs>
+                <Tab text="Add user">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <TextField layoutX="50.0" layoutY="14.0" promptText="Họ và tên " AnchorPane.leftAnchor="50.0" />
+                                <TextField layoutX="50.0" layoutY="66.0" promptText="Số điện thoại" AnchorPane.leftAnchor="50.0" />
+                                <TextField layoutX="50.0" layoutY="118.0" promptText="Email" AnchorPane.leftAnchor="50.0" />
+                                <TextField layoutX="262.0" layoutY="14.0" promptText="Tài khoản" AnchorPane.rightAnchor="50.799999999999955" />
+                                <TextField layoutX="262.0" layoutY="66.0" promptText="Mật khẩu" AnchorPane.rightAnchor="50.799999999999955" />
+                                <Button layoutX="373.0" layoutY="118.0" mnemonicParsing="false" text="Add" />
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+        <TitledPane animated="false" expanded="false" layoutX="724.0" layoutY="85.0" prefHeight="187.0" prefWidth="462.0" text="User details">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <TextField layoutX="50.0" layoutY="14.0" promptText="Họ và tên " AnchorPane.leftAnchor="50.0" />
-                        <TextField layoutX="50.0" layoutY="66.0" promptText="Số điện thoại" AnchorPane.leftAnchor="50.0" />
-                        <TextField layoutX="50.0" layoutY="118.0" promptText="Email" AnchorPane.leftAnchor="50.0" />
-                        <TextField layoutX="262.0" layoutY="14.0" promptText="Tài khoản" AnchorPane.rightAnchor="50.799999999999955" />
-                        <TextField layoutX="262.0" layoutY="66.0" promptText="Mật khẩu" AnchorPane.rightAnchor="50.799999999999955" />
-                        <Button layoutX="373.0" layoutY="118.0" mnemonicParsing="false" text="Add" />
-                     </children>
-                  </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="130.0" prefWidth="461.0">
+                    <children>
+                        <Label fx:id="emailLabel" layoutX="15.0" layoutY="15.0" scaleShape="false" text="Email:" />
+                        <Label fx:id="phoneLabel" layoutX="15.0" layoutY="45.0" text="SĐT:" />
+                        <Label fx:id="totalBooksBorrowedLabel" layoutX="15.0" layoutY="75.0" text="Tổng số sách đã mượn:" />
+                        <Label fx:id="totalBooksCurrentlyBorrowedLabel" layoutX="15.0" layoutY="105.0" text="Tổng số sách đang mượn:" />
+                    </children>
+                </AnchorPane>
             </content>
-          </Tab>
-        </tabs>
-      </TabPane>
-      <TitledPane animated="false" expanded="false" layoutX="724.0" layoutY="85.0" prefHeight="187.0" prefWidth="462.0" text="User details">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="130.0" prefWidth="461.0">
-               <children>
-                  <Label layoutX="15.0" layoutY="15.0" scaleShape="false" text="Email:" />
-                  <Label layoutX="15.0" layoutY="45.0" text="Số điện thoại:" />
-                   <Label layoutX="15.0" layoutY="75.0" text="Tổng số sách đã mượn:" />
-                   <Label layoutX="15.0" layoutY="105.0" text="Tổng số sách đang mượn:" />
-               </children>
-            </AnchorPane>
-        </content>
-      </TitledPane>
+        </TitledPane>
     </children>
 </AnchorPane>
