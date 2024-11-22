@@ -16,9 +16,8 @@ public class APIController {
     protected final String api = "https://www.googleapis.com/books/v1/volumes?q=";
     protected final String API_KEY = "AIzaSyCGjYZoZgZxXgNmU3_uVQxag9ddQN_O2p4";
 
-    private boolean check_valid_book(JsonNode volume , String raw_title) {
+    private boolean check_valid_book(JsonNode volume) {
         return volume.has("title")
-                && volume.get("title").asText().trim().equalsIgnoreCase(raw_title)
                 && volume.has("authors")
                 && volume.has("industryIdentifiers")
                 && volume.get("industryIdentifiers").isArray()
@@ -28,7 +27,7 @@ public class APIController {
     }
 
 
-    private Book getBookInfoFromJson(String json , String raw_title) {
+    private Book getBookInfoFromJson(String json) {
         try {
             Book temp = new Book();
             JsonNode node = new ObjectMapper().readTree(json);
@@ -43,7 +42,7 @@ public class APIController {
                         if (volumeInfo.has("imageLinks") && temp.getImageUrl() == null) {
                             temp.setImageUrl(volumeInfo.get("imageLinks").get("thumbnail").asText().trim());
                         }
-                        if (!check_valid_book(volumeInfo,raw_title)) continue;
+                        if (!check_valid_book(volumeInfo)) continue;
                         temp.setTitle(volumeInfo.get("title").asText().trim());
                         temp.setAuthor(volumeInfo.get("authors").get(0).asText().trim());
                         temp.setIsbn(volumeInfo.get("industryIdentifiers").get(0).get("identifier").asText().trim());
@@ -120,7 +119,7 @@ public class APIController {
                 Long.parseLong(inp);
                 return getBookFromISBN(inp);
             }catch (NumberFormatException e){
-                return getBookInfoFromJson(getHttpResponse(api + "intitle:" + URLEncoder.encode(inp, StandardCharsets.UTF_8) + "&key=" + API_KEY), inp);
+                return getBookInfoFromJson(getHttpResponse(api + "intitle:" + URLEncoder.encode(inp, StandardCharsets.UTF_8) + "&key=" + API_KEY));
             }
         } catch (Exception e) {
             e.printStackTrace();
