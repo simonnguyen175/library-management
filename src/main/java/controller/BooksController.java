@@ -7,10 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import library.Book;
 import main.StageManager;
@@ -31,6 +29,8 @@ public class BooksController implements Initializable {
     private GridPane booksGridPane;
     @FXML
     private Button previousButton, nextButton, newBookButton;
+
+    private APIController apiController = APIController.getInstance();
 
     private int currentPage = 0;
     private final int itemsPerPage = 8; // 2 rows * 4 columns
@@ -68,13 +68,23 @@ public class BooksController implements Initializable {
 
     private void loadBooksFromDatabase() {
         try (Statement statement = Controller.connection.createStatement();
-             ResultSet resultSet = statement.executeQuery("SELECT title, copies FROM books")) {
+             ResultSet resultSet = statement.executeQuery("SELECT title, copies, imageUrl FROM books")) {
 
             while (resultSet.next()) {
                 String title = resultSet.getString("title");
                 int copies = resultSet.getInt("copies");
-                System.out.println(title + " " + copies);
-                Book book = new Book(title, copies);
+                String imageUrl = resultSet.getString("imageUrl");
+
+//                if (imageUrl == null || imageUrl.isEmpty()) {
+//                    imageUrl = apiController.getBookInfoFromAPI(resultSet.getString("isbn")).getImageUrl();
+//                    if (imageUrl != null) {
+//                        try (Statement updateStatement = Controller.connection.createStatement()) {
+//                            updateStatement.executeUpdate("UPDATE books SET imageUrl = '" + imageUrl + "' WHERE title = '" + title + "'");
+//                        }
+//                    }
+//                }
+
+                Book book = new Book(title, copies, imageUrl);
                 booksList.add(book);
                 bookBoxes.add(createBookBox(book));
             }
@@ -95,19 +105,27 @@ public class BooksController implements Initializable {
 
     private VBox createBookBox(Book book) {
         Label titleLabel = new Label(book.getTitle());
-        titleLabel.setMaxWidth(125);
-        titleLabel.setPrefHeight(0); // Set a fixed height for the title label
-        titleLabel.setWrapText(true);// Set a fixed height for the title label
+        titleLabel.setMaxWidth(100);
+        titleLabel.setPrefHeight(0);
+        titleLabel.setWrapText(true);
 
         Label countLabel = new Label("Copies: " + book.getCopies());
-        countLabel.setMaxWidth(125);
+        countLabel.setMaxWidth(100);
         countLabel.setWrapText(true);
 
         ImageView bookImageView = new ImageView();
-        bookImageView.setFitHeight(200.0);
-        bookImageView.setFitWidth(100.0);
+        if (book.getImageUrl() != null) {
+            new Thread(() -> {
+                Image image = new Image(book.getImageUrl());
+                bookImageView.setImage(image);
+            }).start();
+        } else {
+            bookImageView.setImage(new Image("/resources/image-placeholder.png"));
+        }
+
+        bookImageView.setFitHeight(100);
+        bookImageView.setFitWidth(75);
         bookImageView.setPreserveRatio(true);
-        bookImageView.setImage(new Image("https://nxbhcm.com.vn/Image/Biasach/dacnhantam86.jpg"));
 
         Button detailButton = new Button("Detail");
         detailButton.setOnAction(event -> {
@@ -115,11 +133,9 @@ public class BooksController implements Initializable {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/BookDetail.fxml"));
                 AnchorPane bookDetailPane = loader.load();
 
-                // Get the controller and set the book title
                 BookDetailController controller = loader.getController();
                 controller.setBook(book);
 
-                // Replace the current root pane with the book detail pane
                 rootPane.getChildren().setAll(bookDetailPane);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -131,7 +147,7 @@ public class BooksController implements Initializable {
         HBox buttonBox = new HBox(10, detailButton, removeButton);
         VBox vBox = new VBox(10, bookImageView, titleLabel, countLabel, buttonBox);
         vBox.setSpacing(10);
-        vBox.setPrefSize(200, 200); // Set preferred size for each book cell
+        vBox.setPrefSize(150, 150);
         return vBox;
     }
 }

@@ -26,7 +26,7 @@
       </Label>
       <Group layoutX="50.0" layoutY="100.0">
          <children>
-            <ImageView fitHeight="204.0" fitWidth="152.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="bookImage" fitHeight="204.0" fitWidth="152.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@/image-placeholder.png" />
                </image>
@@ -65,12 +65,11 @@
                   </Text>
                </children>
             </Group>
-            <TextArea editable="false" focusTraversable="false" layoutX="196.0" mouseTransparent="true"
-                      prefHeight="450.0" prefWidth="500.0"
-                      text="Chí Phèo là một tác phẩm kinh điển của văn học Việt Nam, được viết bởi nhà văn Nam Cao. Câu chuyện kể về cuộc đời bi thảm của Chí Phèo, một người nông dân lương thiện bị xã hội tha hóa và đẩy vào con đường bần cùng, trở thành con quỷ dữ làng Vũ Đại. Qua hình ảnh Chí Phèo, tác phẩm phơi bày sự bất công trong xã hội phong kiến, đồng thời khắc họa nỗi đau khát vọng làm người của những con người bị chà đạp. Với lối viết chân thực, sâu sắc, Nam Cao đã biến Chí Phèo thành biểu tượng của số phận con người bị xã hội đương thời vùi dập, nhưng vẫn khao khát tìm lại nhân tính." wrapText="true">
+            <TextArea fx:id="description" editable="false" layoutX="196.0" prefHeight="450.0" prefWidth="500.0" wrapText="true">
                <font>
                   <Font size="14.0" />
-               </font></TextArea>
+               </font>
+            </TextArea>
          </children>
       </Group>
       <Label layoutX="781.0" layoutY="100.0" text="Comments">

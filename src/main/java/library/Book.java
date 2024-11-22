@@ -12,6 +12,11 @@ public class Book {
     private int pages;
     private String language;
     private int copies;
+    private String imageUrl;
+
+    public Book(){
+
+    }
 
     // Constructor
     public Book(String title, int copies) {
@@ -29,6 +34,12 @@ public class Book {
         this.pages = pages;
         this.language = language;
         this.copies = copies;
+    }
+
+    public Book(String title, int copies, String imageUrl) {
+        this.title = title;
+        this.copies = copies;
+        this.imageUrl = imageUrl;
     }
 
     // Getters and Setters
@@ -102,6 +113,14 @@ public class Book {
 
     public void setCopies(int copies) {
         this.copies = copies;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
 

@@ -4,8 +4,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import library.Book;
 import java.io.IOException;
 
@@ -16,6 +20,10 @@ public class BookDetailController {
     private AnchorPane rootPane;
     @FXML
     private Label labelTitle;
+    @FXML
+    private TextArea description;
+    @FXML
+    private ImageView bookImage;
 
     private Book book;
 
@@ -31,6 +39,18 @@ public class BookDetailController {
     public void setBook(Book book) {
         this.book = book;
         labelTitle.setText(book.getTitle());
+        new Thread(() -> {
+            APIController apiController = APIController.getInstance();
+            String des = apiController.getBookDescriptionFromAPI(book.getTitle());
+            if (des != null) {
+                description.setText(des);
+            }
+
+            new Thread(() -> {
+                Image image = new Image(book.getImageUrl());
+                bookImage.setImage(image);
+            }).start();
+        }).start();
     }
 
     private void handleBackButtonAction() {
