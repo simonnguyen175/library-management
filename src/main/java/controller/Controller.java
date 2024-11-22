@@ -17,11 +17,19 @@ public abstract class Controller {
         String dbPassword = "123";
 
         try {
-            connection = DriverManager.getConnection(url, dbUser, dbPassword);
-            System.out.println("Database connection successful");
-        } catch (SQLException e) {
+            Thread dbThread = new Thread(() -> {
+                try {
+                    connection = DriverManager.getConnection(url, dbUser, dbPassword);
+                    System.out.println("Database connection successful");
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    System.out.println("Database connection failed");
+                }
+            });
+            dbThread.start();
+        } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Database connection failed");
+            System.out.println("Error starting database connection thread");
         }
     }
 }

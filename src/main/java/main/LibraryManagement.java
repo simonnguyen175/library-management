@@ -12,7 +12,7 @@ import java.io.IOException;
 public class LibraryManagement extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        StageManager.loadStage("/view/Login.fxml", "Library Management", 640, 480);
+        StageManager.loadStage("/view/Login.fxml", "Library Management", 640, 480, false);
     }
 
     public static void main(String[] args) {

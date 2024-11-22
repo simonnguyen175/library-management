@@ -3,12 +3,15 @@ package controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import library.Book;
 import main.StageManager;
@@ -33,7 +36,7 @@ public class BooksController implements Initializable {
     private APIController apiController = APIController.getInstance();
 
     private int currentPage = 0;
-    private final int itemsPerPage = 8; // 2 rows * 4 columns
+    private final int itemsPerPage = 10; // 2 rows * 5 columns
     private static List<Book> booksList = new ArrayList<>();
     private static List<VBox> bookBoxes = new ArrayList<>();
 
@@ -62,7 +65,20 @@ public class BooksController implements Initializable {
         });
 
         newBookButton.setOnAction(event -> {
-            StageManager.loadStage("/view/AddBook.fxml", "Add Book", 400, 500);
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AddBook.fxml"));
+                AnchorPane addBookPane = loader.load();
+                Stage addBookStage = new Stage();
+                addBookStage.setResizable(false);
+                addBookStage.setScene(new Scene(addBookPane));
+                addBookStage.setTitle("Add Book");
+                addBookStage.initModality(Modality.APPLICATION_MODAL);
+                addBookStage.showAndWait();
+
+                addBookPane.setOnMouseClicked(mouseEvent -> addBookPane.requestFocus());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
     }
 
@@ -99,7 +115,7 @@ public class BooksController implements Initializable {
         int end = Math.min(start + itemsPerPage, bookBoxes.size());
 
         for (int i = start; i < end; i++) {
-            booksGridPane.add(bookBoxes.get(i), (i - start) % 4, (i - start) / 4); // 4 columns
+            booksGridPane.add(bookBoxes.get(i), (i - start) % 5, (i - start) / 5); // 5 columns
         }
     }
 

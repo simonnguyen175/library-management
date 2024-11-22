@@ -1,23 +1,18 @@
 package controller;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.stage.Stage;
 import main.StageManager;
+import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class LoginController extends Controller{
-
+public class LoginController extends Controller {
     @FXML
     private TextField usernameField;
 
@@ -26,6 +21,8 @@ public class LoginController extends Controller{
 
     @FXML
     private Label errorMessage;
+
+    private boolean isAuthenticated = false;
 
     @FXML
     public void initialize() {
@@ -48,7 +45,9 @@ public class LoginController extends Controller{
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        if (authenticate(username, password)) {
+        authenticate(username, password);
+
+        if (isAuthenticated) {
             errorMessage.setText("Login successful!");
             errorMessage.setTextFill(javafx.scene.paint.Color.BLUE);
             openDashboard();
@@ -58,24 +57,32 @@ public class LoginController extends Controller{
         }
     }
 
-    private boolean authenticate(String username, String password) {
-        return true;
-//        try{
-//            String query = "SELECT * FROM users WHERE username = ? AND password = ?";
-//            PreparedStatement statement = connection.prepareStatement(query);
-//            statement.setString(1, username);
-//            statement.setString(2, password);
-//
-//            ResultSet resultSet = statement.executeQuery();
-//            return resultSet.next();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return false;
-//        }
+    private void authenticate(String username, String password) {
+        Thread dbThread = new Thread(() -> {
+            try {
+                String query = "SELECT * FROM users WHERE username = ? AND password = ?";
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setString(1, username);
+                statement.setString(2, password);
+
+                ResultSet resultSet = statement.executeQuery();
+                isAuthenticated = resultSet.next();
+            } catch (Exception e) {
+                e.printStackTrace();
+                isAuthenticated = false;
+            }
+        });
+        dbThread.start();
+        try {
+            dbThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        isAuthenticated = true;
     }
 
     private void openDashboard() {
-        StageManager.loadStage("/view/Dashboard.fxml", "Dashboard", 1290, 720);
+        StageManager.loadStage("/view/Dashboard.fxml", "Dashboard", 1290, 720, false);
 
         // Close the login window
         Stage loginStage = (Stage) errorMessage.getScene().getWindow();
