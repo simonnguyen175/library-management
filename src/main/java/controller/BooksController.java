@@ -87,6 +87,7 @@ public class BooksController implements Initializable {
         });
 
         searchButton.setOnAction(event -> searchBooks());
+        genreComboBox.setOnAction(event -> searchBooks());
     }
 
     private void searchBooks() {
