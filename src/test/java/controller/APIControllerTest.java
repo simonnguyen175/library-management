@@ -13,9 +13,9 @@ public class APIControllerTest {
 
         // Thực hiện tìm kiếm cuốn sách với tiêu đề "Chí Phèo"
         String title = "The Great Gatsby"; ;
-        String ISBN = "9781781100219";
+        String ISBN = "9781250123824";
 
-        Book result = apiController.getBookInfoFromAPI(title);
+        Book result = apiController.getBookInfoFromAPI(ISBN);
         String description = apiController.getBookDescriptionFromAPI(result.getTitle());
         // Kiểm tra các thuộc tính của đối tượng Book
 //        Assertions.assertNotNull(result, "Kết quả trả về không được null");
