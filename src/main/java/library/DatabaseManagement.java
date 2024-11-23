@@ -1,11 +1,27 @@
 package library;
 import controller.Controller;
+import controller.DashboardController;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class DatabaseManagement {
-  // Phương thức thêm sách vào database
+  // singleton pattern
+
+  private static DatabaseManagement INSTANCE;
+
+  private DatabaseManagement() {
+
+  }
+
+  public static DatabaseManagement getInstance() {
+    if(INSTANCE == null) {
+      INSTANCE = new DatabaseManagement();
+    }
+    return INSTANCE;
+  }
+
+  // Add book to database
   public void addBook(Book book) {
     String sql = "INSERT INTO Books (title, author, genre, publisher, publication_year, isbn, pages, language, copies) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -29,8 +45,9 @@ public class DatabaseManagement {
     }
   }
 
+  //delete book from database by book id
   public void deleteBook(int bookId) {
-    String sql = "DELETE FROM Books WHERE book_id = ?";
+    String sql = "DELETE FROM Books WHERE id = ?";
 
     try (PreparedStatement preparedStatement = Controller.connection.prepareStatement(sql)) {
       preparedStatement.setString(1, Integer.toString(bookId));
@@ -45,6 +62,45 @@ public class DatabaseManagement {
       System.err.println("Error while deleting book: " + e.getMessage());
     }
   }
+
+  // Add user to database
+  public void addUser(User user) {
+    String sql = "INSERT INTO Users (fullname, username, password, phone, email) VALUES (?, ?, ?, ?, ?)";
+
+    try (PreparedStatement preparedStatement = Controller.connection.prepareStatement(sql)) {
+      preparedStatement.setString(1, user.getFullname());
+      preparedStatement.setString(2, user.getUsername());
+      preparedStatement.setString(3, "0");
+      preparedStatement.setString(4, user.getPhone());
+      preparedStatement.setString(5, user.getEmail());
+
+      int rowsAffected = preparedStatement.executeUpdate();
+      if (rowsAffected > 0) {
+        System.out.println("User added successfully.");
+      }
+    } catch (SQLException e) {
+      System.err.println("Error while adding user: " + e.getMessage());
+    }
+  }
+
+  public void deleteUser(int userId) {
+    String sql = "DELETE FROM Users WHERE user_id = ?";
+
+    try (PreparedStatement preparedStatement = Controller.connection.prepareStatement(sql)) {
+      preparedStatement.setString(1, Integer.toString(userId));
+
+      int rowsAffected = preparedStatement.executeUpdate();
+      if (rowsAffected > 0) {
+        System.out.println("User with ID " + userId + " was deleted successfully.");
+      } else {
+        System.out.println("No user found with ID " + userId + ".");
+      }
+    } catch (SQLException e) {
+      System.err.println("Error while deleting user: " + e.getMessage());
+    }
+  }
+
+
 
 
 
