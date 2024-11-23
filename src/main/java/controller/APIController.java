@@ -15,6 +15,14 @@ public class APIController {
 
     protected final String api = "https://www.googleapis.com/books/v1/volumes?q=";
     protected final String API_KEY = "AIzaSyCGjYZoZgZxXgNmU3_uVQxag9ddQN_O2p4";
+    static APIController instance = null;
+
+    public static APIController getInstance() {
+        if (instance == null) {
+            instance = new APIController();
+        }
+        return instance;
+    }
 
     private boolean check_valid_book(JsonNode volume) {
         return volume.has("title")
@@ -99,7 +107,7 @@ public class APIController {
                         if (temp.getLanguage() == null && volumeInfo.has("language")) {
                             temp.setLanguage(volumeInfo.get("language").asText().trim());
                         }
-                        if (temp.getYearPublished() == 0 && volumeInfo.has("publishedDate")) {
+                        if (temp.getPublicationYear() == 0 && volumeInfo.has("publishedDate")) {
                             String publishedDate = volumeInfo.get("publishedDate").asText().trim();
                             int year = publishedDate.length() >= 4 ? Integer.parseInt(publishedDate.substring(0, 4)) : 0;
                             temp.setYearPublished(year);

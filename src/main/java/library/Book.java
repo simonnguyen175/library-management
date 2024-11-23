@@ -122,5 +122,9 @@ public class Book {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+
+    public void setYearPublished(int year) {
+        this.publicationYear = year;
+    }
 }
 

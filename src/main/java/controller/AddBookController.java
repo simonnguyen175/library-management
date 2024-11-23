@@ -1,6 +1,7 @@
 package controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -43,12 +44,22 @@ public class AddBookController {
         String author = authorTextField.getText().trim();
         String genre = genreTextField.getText().trim();
         String publisher = publisherTextField.getText().trim();
-        int year = Integer.parseInt(yearTextField.getText().trim());
+        int year = yearTextField.getText().trim().isEmpty() ? 0 : Integer.parseInt(yearTextField.getText().trim());
         String isbn = isbnTextField.getText().trim();
-        int pages = Integer.parseInt(pagesTextField.getText().trim());
+        int pages = pagesTextField.getText().trim().isEmpty() ? 0 : Integer.parseInt(pagesTextField.getText().trim());
         String language = languageTextField.getText().trim();
-        int copies = Integer.parseInt(copiesTextField.getText().trim());
+        int copies = copiesTextField.getText().trim().isEmpty() ? 0 : Integer.parseInt(copiesTextField.getText().trim());
         String imageUrl = imageUrlTextField.getText().trim();
+
+        if (title.isEmpty() || author.isEmpty() || genre.isEmpty() || publisher.isEmpty() || year == 0 || isbn.isEmpty() || pages == 0 || language.isEmpty() || copies == 0 || imageUrl.isEmpty()) {
+            // Show alert for missing information
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Missing information");
+            alert.showAndWait();
+            return;
+        }
 
         // Close the stage
         Stage stage = (Stage) addButton.getScene().getWindow();
