@@ -39,17 +39,17 @@ public class BookDetailController {
     public void setBook(Book book) {
         this.book = book;
         labelTitle.setText(book.getTitle());
+        Image image = new Image(book.getImageUrl());
+        bookImage.setImage(image);
         new Thread(() -> {
             APIController apiController = APIController.getInstance();
             String des = apiController.getBookDescriptionFromAPI(book.getTitle());
             if (des != null) {
                 description.setText(des);
             }
-
-            new Thread(() -> {
-                Image image = new Image(book.getImageUrl());
-                bookImage.setImage(image);
-            }).start();
+            else {
+                description.setText("No description available");
+            }
         }).start();
     }
 

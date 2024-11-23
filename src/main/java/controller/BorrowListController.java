@@ -39,7 +39,7 @@ public class BorrowListController implements Initializable {
     @FXML
     private TableColumn<Borrow, String> dueDateColumn;
 
-    private ObservableList<Borrow> BorrowData = FXCollections.observableArrayList();
+    static private ObservableList<Borrow> BorrowData = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

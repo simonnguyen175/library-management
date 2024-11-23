@@ -73,9 +73,9 @@ public class BooksController implements Initializable {
                 addBookStage.setScene(new Scene(addBookPane));
                 addBookStage.setTitle("Add Book");
                 addBookStage.initModality(Modality.APPLICATION_MODAL);
-                addBookStage.showAndWait();
-
                 addBookPane.setOnMouseClicked(mouseEvent -> addBookPane.requestFocus());
+
+                addBookStage.showAndWait();
             } catch (IOException e) {
                 e.printStackTrace();
             }
