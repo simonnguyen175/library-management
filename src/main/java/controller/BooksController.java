@@ -3,12 +3,11 @@ package controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -216,8 +215,41 @@ public class BooksController implements Initializable {
         });
 
         Button removeButton = new Button("Remove");
-        HBox BBox = new HBox(10, detailButton, removeButton);
+        removeButton.setOnAction(event -> showRemoveConfirmation(book));
 
+        HBox BBox = new HBox(10, detailButton, removeButton);
         return BBox;
     }
+
+    private void showRemoveConfirmation(Book book) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirm Remove");
+        alert.setHeaderText(null);
+        alert.setContentText("Bạn có chắc muốn xoá sách " + book.getTitle() + "?");
+
+        ButtonType cancelButton = new ButtonType("Huỷ", ButtonBar.ButtonData.CANCEL_CLOSE);
+        ButtonType deleteButton = new ButtonType("Xoá", ButtonBar.ButtonData.OK_DONE);
+
+        alert.getButtonTypes().setAll(cancelButton, deleteButton);
+
+        alert.showAndWait().ifPresent(response -> {
+            if (response == deleteButton) {
+                removeBook(book);
+            }
+        });
+    }
+
+    private void removeBook(Book book) {
+        // Implement the logic to remove the book from the database and update the UI
+        // For example:
+//        try (Statement statement = Controller.connection.createStatement()) {
+//            statement.executeUpdate("DELETE FROM books WHERE title = '" + book.getTitle() + "'");
+//            loadBooksFromDatabase("SELECT title, copies, imageUrl FROM books");
+//            loadPage(currentPage);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+    }
+
+
 }

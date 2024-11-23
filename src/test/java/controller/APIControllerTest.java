@@ -11,10 +11,10 @@ public class APIControllerTest {
         APIController apiController = APIController.getInstance();
 
         // Thực hiện tìm kiếm cuốn sách với tiêu đề "Chí Phèo"
-        String title = "Harry Potter and the Sorcerer's Stone" ;
-        String ISBN = "6044913104";
+        String title = "Harry Potter and the Philosopher's Stone" ;
+        String ISBN = "9781526646651";
 
-        Book result = apiController.getBookInfoFromAPI(title);
+        Book result = apiController.getBookInfoFromAPI(ISBN);
         String description = apiController.getBookDescriptionFromAPI(title);
         // Kiểm tra các thuộc tính của đối tượng Book
 //        Assertions.assertNotNull(result, "Kết quả trả về không được null");

@@ -11,16 +11,16 @@
    <children>
       <VBox layoutX="123.0" layoutY="85.0" spacing="10" AnchorPane.topAnchor="85.0">
          <children>
-            <TextField promptText="Tiêu đề" />
-            <TextField promptText="Tác giả" />
-            <TextField promptText="Thể loại" />
-            <TextField promptText="Nhà xuất bản" />
-            <TextField promptText="Năm xuất bản" />
-            <TextField promptText="ISBN" />
-            <TextField promptText="Số trang" />
-            <TextField promptText="Ngôn ngữ" />
-            <TextField promptText="Số lượng" />
-            <TextField promptText="Link ảnh" />
+            <TextField fx:id="titleTextField" promptText="Tiêu đề" />
+            <TextField fx:id="authorTextField" promptText="Tác giả" />
+            <TextField fx:id="genreTextField" promptText="Thể loại" />
+            <TextField fx:id="publisherTextField" promptText="Nhà xuất bản" />
+            <TextField fx:id="yearTextField" promptText="Năm xuất bản" />
+            <TextField fx:id="isbnTextField" promptText="ISBN" />
+            <TextField fx:id="pagesTextField" promptText="Số trang" />
+            <TextField fx:id="languageTextField" promptText="Ngôn ngữ" />
+            <TextField fx:id="copiesTextField" promptText="Số lượng" />
+            <TextField fx:id="imageUrlTextField" promptText="Link ảnh" />
          </children>
       </VBox>
       <Label layoutX="14.0" layoutY="14.0" text="THÊM SÁCH MỚI" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="25.0">
@@ -28,7 +28,7 @@
             <Font name="Consolas Bold" size="24.0" />
          </font>
       </Label>
-      <Button layoutX="179.0" layoutY="442.0" mnemonicParsing="false" text="Add" AnchorPane.topAnchor="435.0" />
-      <Button layoutX="272.0" layoutY="261.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="Autofill" AnchorPane.leftAnchor="280.0" />
+      <Button fx:id="addButton" layoutX="179.0" layoutY="442.0" mnemonicParsing="false" text="Add" AnchorPane.topAnchor="435.0" />
+      <Button fx:id="autofillButton" layoutX="272.0" layoutY="261.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="Autofill" AnchorPane.leftAnchor="280.0" />
    </children>
 </AnchorPane>
