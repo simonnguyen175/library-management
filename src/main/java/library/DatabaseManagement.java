@@ -1,11 +1,27 @@
 package library;
 import controller.Controller;
+import controller.DashboardController;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class DatabaseManagement {
-  // Phương thức thêm sách vào database
+  // singleton pattern
+
+  private static DatabaseManagement INSTANCE;
+
+  private DatabaseManagement() {
+
+  }
+
+  public static DatabaseManagement getInstance() {
+    if(INSTANCE == null) {
+      INSTANCE = new DatabaseManagement();
+    }
+    return INSTANCE;
+  }
+
+  // Add book to database
   public void addBook(Book book) {
     String sql = "INSERT INTO Books (title, author, genre, publisher, publication_year, isbn, pages, language, copies) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -29,6 +45,7 @@ public class DatabaseManagement {
     }
   }
 
+  //delete book from database by book id
   public void deleteBook(int bookId) {
     String sql = "DELETE FROM Books WHERE book_id = ?";
 
@@ -45,6 +62,11 @@ public class DatabaseManagement {
       System.err.println("Error while deleting book: " + e.getMessage());
     }
   }
+
+  // Add user to database
+
+
+
 
 
 
