@@ -6,7 +6,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -31,7 +33,11 @@ public class BooksController implements Initializable {
     @FXML
     private GridPane booksGridPane;
     @FXML
-    private Button previousButton, nextButton, newBookButton;
+    private Button searchButton, previousButton, nextButton, newBookButton;
+    @FXML
+    private ComboBox<String> genreComboBox;
+    @FXML
+    private TextField bookTitleTextField, authorTextField;
 
     private APIController apiController = APIController.getInstance();
 
@@ -45,7 +51,8 @@ public class BooksController implements Initializable {
         booksGridPane.setHgap(50); // Set horizontal gap between columns
         booksGridPane.setVgap(35); // Set vertical gap between rows
 
-        loadBooksFromDatabase();
+        loadBooksFromDatabase("SELECT title, copies, imageUrl FROM books");
+        loadGenresFromDatabase();
         loadPage(currentPage);
         System.out.println(buttonBoxes.size());
 
@@ -79,11 +86,51 @@ public class BooksController implements Initializable {
                 e.printStackTrace();
             }
         });
+
+        searchButton.setOnAction(event -> searchBooks());
     }
 
-    private void loadBooksFromDatabase() {
+    private void searchBooks() {
+        String bookTitle = bookTitleTextField.getText().trim();
+        String author = authorTextField.getText().trim();
+        String selectedGenre = genreComboBox.getValue();
+        String query = "SELECT title, copies, imageUrl FROM books WHERE 1=1";
+
+        if (!bookTitle.isEmpty()) {
+            query += " AND title LIKE '%" + bookTitle + "%'";
+        }
+        if (!author.isEmpty()) {
+            query += " AND author LIKE '%" + author + "%'";
+        }
+        if (selectedGenre != null && !"All".equals(selectedGenre)) {
+            query += " AND genre = '" + selectedGenre + "'";
+        }
+
+        loadBooksFromDatabase(query);
+        loadPage(currentPage);
+    }
+
+    private void loadGenresFromDatabase() {
+        genreComboBox.getItems().add("All");
         try (Statement statement = Controller.connection.createStatement();
-             ResultSet resultSet = statement.executeQuery("SELECT title, copies, imageUrl FROM books")) {
+             ResultSet resultSet = statement.executeQuery("SELECT DISTINCT genre FROM books")) {
+
+            while (resultSet.next()) {
+                String genre = resultSet.getString("genre");
+                genreComboBox.getItems().add(genre);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadBooksFromDatabase(String query) {
+        booksGridPane.getChildren().clear();
+        bookBoxes.clear();
+        buttonBoxes.clear();
+
+        try (Statement statement = Controller.connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
 
             while (resultSet.next()) {
                 String title = resultSet.getString("title");
