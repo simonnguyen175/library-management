@@ -11,7 +11,7 @@ public class APIControllerTest {
         APIController apiController = new APIController();
 
         // Thực hiện tìm kiếm cuốn sách với tiêu đề "Chí Phèo"
-        String title = "Chí Phèo"; ;
+        String title = "Harry Potter"; ;
         String ISBN = "6044913104";
 
         Book result = apiController.getBookInfoFromAPI(title);

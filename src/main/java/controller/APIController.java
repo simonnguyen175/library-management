@@ -23,7 +23,8 @@ public class APIController {
                 && volume.get("industryIdentifiers").isArray()
                 && !volume.get("industryIdentifiers").isEmpty()
                 && (volume.get("industryIdentifiers").findValuesAsText("type").contains("ISBN_13")
-                || volume.get("industryIdentifiers").findValuesAsText("type").contains("ISBN_10"));
+                || volume.get("industryIdentifiers").findValuesAsText("type").contains("ISBN_10"))
+                && volume.has("imageLinks");
     }
 
 
@@ -36,11 +37,11 @@ public class APIController {
                 for (int i = 0; i < items.size(); i++) {
                     JsonNode volumeInfo = items.get(i).get("volumeInfo");
                     if (volumeInfo != null) {
+                        if (temp.getGenre()!= null && temp.getImageUrl() != null) {
+                            break;
+                        }
                         if (volumeInfo.has("categories") && temp.getGenre() == null) {
                             temp.setGenre(volumeInfo.get("categories").get(0).asText().trim());
-                        }
-                        if (volumeInfo.has("imageLinks") && temp.getImageUrl() == null) {
-                            temp.setImageUrl(volumeInfo.get("imageLinks").get("thumbnail").asText().trim());
                         }
                         if (!check_valid_book(volumeInfo)) continue;
                         temp.setTitle(volumeInfo.get("title").asText().trim());
@@ -51,9 +52,7 @@ public class APIController {
                         String publishedDate = volumeInfo.get("publishedDate").asText().trim();
                         int year = publishedDate.length() >= 4 ? Integer.parseInt(publishedDate.substring(0, 4)) : 0;
                         temp.setYearPublished(year);
-                        if (temp.getGenre()!= null && temp.getImageUrl() != null) {
-                            break;
-                        }
+                        temp.setImageUrl(volumeInfo.get("imageLinks").get("thumbnail").asText().trim());
                     }
                 }
             }
@@ -115,12 +114,11 @@ public class APIController {
      */
     public synchronized Book getBookInfoFromAPI(String inp) {
         try {
-            try {
-                Long.parseLong(inp);
+            if (inp.length() >= 10 && inp.matches("[0-9]+")) {
                 return getBookFromISBN(inp);
-            }catch (NumberFormatException e){
-                return getBookInfoFromJson(getHttpResponse(api + "intitle:" + URLEncoder.encode(inp, StandardCharsets.UTF_8) + "&key=" + API_KEY));
             }
+            String encode_title = URLEncoder.encode(inp.trim(), StandardCharsets.UTF_8);
+            return getBookInfoFromJson(getHttpResponse(api + "intitle:" + encode_title + "&key=" + API_KEY));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -130,7 +128,7 @@ public class APIController {
     public synchronized String getBookDescriptionFromAPI(String title) {
         try {
             String encode_title = URLEncoder.encode(title.trim(), StandardCharsets.UTF_8);
-            return getBookDescriptionFromJson(getHttpResponse(api +"intitle:"+ encode_title + "&key=" + API_KEY), title);
+            return getBookDescriptionFromJson(getHttpResponse(api + encode_title + "&key=" + API_KEY), title);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
