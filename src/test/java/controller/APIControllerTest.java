@@ -3,6 +3,7 @@ package controller;
 import library.Book;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import library.Book;
 
 public class APIControllerTest {
 
@@ -11,11 +12,11 @@ public class APIControllerTest {
         APIController apiController = new APIController();
 
         // Thực hiện tìm kiếm cuốn sách với tiêu đề "Chí Phèo"
-        String title = "Harry Potter"; ;
+        String title = "Tắt đèn"; ;
         String ISBN = "6044913104";
 
-        Book result = apiController.getBookInfoFromAPI(title);
-        String description = apiController.getBookDescriptionFromAPI(title);
+        Book result = apiController.getBookInfoFromAPI(ISBN);
+        String description = apiController.getBookDescriptionFromAPI(result.getTitle());
         // Kiểm tra các thuộc tính của đối tượng Book
 //        Assertions.assertNotNull(result, "Kết quả trả về không được null");
 //        Assertions.assertNotNull(result.getTitle(), "Tiêu đề sách không được null");
