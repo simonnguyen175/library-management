@@ -271,4 +271,18 @@ public class APIController {
             return null;
         }
     }
+
+    public String getPreviewLink(String ISBN) {
+        try {
+            String url = api + "isbn:" + URLEncoder.encode(ISBN, StandardCharsets.UTF_8) + "&key=" + API_KEY;
+            String jsonResponse = getHttpResponse(url);
+            JsonNode items = new ObjectMapper().readTree(jsonResponse).get("items");
+            if (items != null && !items.isEmpty()) {
+                return items.get(0).get("volumeInfo").get("previewLink").asText();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

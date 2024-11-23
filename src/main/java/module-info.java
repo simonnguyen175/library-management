@@ -14,6 +14,8 @@ module main.librarymanagement {
     requires java.net.http;
     requires java.sql;
     requires java.desktop;
+    requires com.google.zxing;
+    requires com.google.zxing.javase;
 
     opens main to javafx.fxml;
     exports main;
