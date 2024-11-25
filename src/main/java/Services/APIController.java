@@ -1,7 +1,8 @@
-package controller;
+package Services;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.scene.control.Alert;
 import library.Book;
 
 import java.net.URI;
@@ -60,7 +61,8 @@ public class APIController {
                                 && volumeInfo.has("industryIdentifiers")
                                 && volumeInfo.has("pageCount")
                                 && volumeInfo.has("language")
-                                && volumeInfo.has("publishedDate")) {
+                                && volumeInfo.has("publishedDate")
+                                && volumeInfo.has("publisher")) {
 
                             // Gán giá trị cho temp nếu đầy đủ thông tin
                             temp.setTitle(volumeInfo.get("title").asText().trim());
@@ -70,7 +72,7 @@ public class APIController {
                             temp.setIsbn(volumeInfo.get("industryIdentifiers").get(0).get("identifier").asText().trim());
                             temp.setPages(volumeInfo.get("pageCount").asInt());
                             temp.setLanguage(volumeInfo.get("language").asText().trim());
-
+                            temp.setPublisher(volumeInfo.get("publisher").asText().trim());
                             String publishedDate = volumeInfo.get("publishedDate").asText().trim();
                             int year = publishedDate.length() >= 4 ? Integer.parseInt(publishedDate.substring(0, 4)) : 0;
                             temp.setYearPublished(year);
@@ -112,6 +114,9 @@ public class APIController {
                             int year = publishedDate.length() >= 4 ? Integer.parseInt(publishedDate.substring(0, 4)) : 0;
                             temp.setYearPublished(year);
                         }
+                        if (temp.getPublisher() == null && volumeInfo.has("publisher")) {
+                            temp.setPublisher(volumeInfo.get("publisher").asText().trim());
+                        }
 
                         // Nếu đã đủ thông tin, thoát vòng lặp
                         if (temp.getTitle() != null && temp.getAuthor() != null
@@ -119,6 +124,23 @@ public class APIController {
                             break;
                         }
                     }
+                }
+            }
+            // check book available
+            if (temp.getTitle() == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Have no book available");
+                alert.setContentText("Please try again with another book");
+                alert.showAndWait();
+                return null;
+            }
+            else {
+                if (temp.getGenre() == null) {
+                    temp.setGenre("No genre found");
+                }
+                if (temp.getPublisher() == null) {
+                    temp.setPublisher("No publisher found");
                 }
             }
             return temp;

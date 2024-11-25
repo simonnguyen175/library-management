@@ -1,21 +1,16 @@
 package controller;
 
+import Services.APIController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import library.Book;
-import main.StageManager;
 
 import javafx.scene.image.ImageView;
 import java.io.IOException;
@@ -50,7 +45,7 @@ public class BooksController implements Initializable {
         booksGridPane.setHgap(50); // Set horizontal gap between columns
         booksGridPane.setVgap(35); // Set vertical gap between rows
 
-        loadBooksFromDatabase("SELECT title, copies, imageUrl FROM books");
+        loadBooksFromDatabase("SELECT title, copies, imageUrl, isbn FROM books");
         loadGenresFromDatabase();
         loadPage(currentPage);
         System.out.println(buttonBoxes.size());
