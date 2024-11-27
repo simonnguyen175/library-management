@@ -203,7 +203,7 @@ public class APIController {
      * @param inp Tên sách hoặc mã ISBN
      * @return Đối tượng Book chứa thông tin sách
      */
-    public synchronized Book getBookInfoFromAPI(String inp) {
+    public Book getBookInfoFromAPI(String inp) {
         try {
             if (inp.length() >= 10 && inp.matches("[0-9]+")) {
                 return getBookFromISBN(inp);
@@ -216,7 +216,7 @@ public class APIController {
         return null;
     }
     // trả về mô tả của sách
-    public synchronized String getBookDescriptionFromAPI(String title) {
+    public String getBookDescriptionFromAPI(String title) {
         try {
             String encode_title = URLEncoder.encode(title.trim(), StandardCharsets.UTF_8);
             return getBookDescriptionFromJson(getHttpResponse(api + encode_title + "&key=" + API_KEY), title);
@@ -239,7 +239,7 @@ public class APIController {
     }
 
     // trả về thông tin sách từ mã ISBN
-    private synchronized Book getBookFromISBN(String isbn) {
+    private Book getBookFromISBN(String isbn) {
         try {
             Book result = new Book();
             String url = api + "isbn:" + URLEncoder.encode(isbn, StandardCharsets.UTF_8) + "&key=" + API_KEY;
