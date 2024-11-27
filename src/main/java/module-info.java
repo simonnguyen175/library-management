@@ -21,6 +21,6 @@ module main.librarymanagement {
     exports main;
     exports controller;
     opens controller to javafx.fxml;
-    exports Services;
-    opens Services to javafx.fxml;
+    exports services;
+    opens services to javafx.fxml;
 }

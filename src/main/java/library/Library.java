@@ -1,24 +1,22 @@
 package library;
 
 import controller.Controller;
-import controller.DashboardController;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class DatabaseManagement {
+public class Library {
     // singleton pattern
 
-    private static DatabaseManagement INSTANCE;
+    private static Library INSTANCE;
 
-    private DatabaseManagement() {
+    private Library() {
 
     }
 
-    public static DatabaseManagement getInstance() {
+    public static Library getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new DatabaseManagement();
+            INSTANCE = new Library();
         }
         return INSTANCE;
     }
