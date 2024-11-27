@@ -24,7 +24,8 @@ public class Book {
         this.copies = copies;
     }
 
-    public Book(String title, String author, String genre, String publisher, int publicationYear, String isbn, int pages, String language, int copies) {
+
+    public Book(String title, String author, String genre, String publisher, int publicationYear, String isbn, int pages, String language, int copies, String imageUrl) {
         this.title = title;
         this.author = author;
         this.genre = genre;
@@ -34,12 +35,14 @@ public class Book {
         this.pages = pages;
         this.language = language;
         this.copies = copies;
+        this.imageUrl = imageUrl;
     }
 
-    public Book(String title, int copies, String imageUrl) {
+    public Book(String title, int copies, String imageUrl, String isbn) {
         this.title = title;
         this.copies = copies;
         this.imageUrl = imageUrl;
+        this.isbn = isbn;
     }
 
     // Getters and Setters

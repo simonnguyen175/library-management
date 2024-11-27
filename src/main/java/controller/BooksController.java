@@ -1,6 +1,6 @@
 package controller;
 
-import Services.APIController;
+import services.APIController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,6 +20,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import controller.AddBookController;
 
 public class BooksController implements Initializable {
     @FXML
@@ -45,7 +46,7 @@ public class BooksController implements Initializable {
         booksGridPane.setHgap(50); // Set horizontal gap between columns
         booksGridPane.setVgap(35); // Set vertical gap between rows
 
-        loadBooksFromDatabase("SELECT title, copies, imageUrl, isbn FROM books");
+        loadBooksFromDatabase("SELECT * FROM books");
         loadGenresFromDatabase();
         loadPage(currentPage);
         System.out.println(buttonBoxes.size());
@@ -74,8 +75,13 @@ public class BooksController implements Initializable {
                 addBookStage.setTitle("Add Book");
                 addBookStage.initModality(Modality.APPLICATION_MODAL);
                 addBookPane.setOnMouseClicked(mouseEvent -> addBookPane.requestFocus());
-
                 addBookStage.showAndWait();
+                AddBookController addController = loader.getController();
+                if ( addController.isAddSuccess() == true ) {
+                    loadBooksFromDatabase("SELECT * FROM books");
+                    loadGenresFromDatabase();
+                    loadPage(currentPage);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -89,7 +95,7 @@ public class BooksController implements Initializable {
         String bookTitle = bookTitleTextField.getText().trim();
         String author = authorTextField.getText().trim();
         String selectedGenre = genreComboBox.getValue();
-        String query = "SELECT title, copies, imageUrl FROM books WHERE 1=1";
+        String query = "SELECT * FROM books WHERE 1=1";
 
         if (!bookTitle.isEmpty()) {
             query += " AND title LIKE '%" + bookTitle + "%'";
@@ -128,12 +134,22 @@ public class BooksController implements Initializable {
              ResultSet resultSet = statement.executeQuery(query)) {
 
             while (resultSet.next()) {
+                String author = resultSet.getString("author");
+                String genre = resultSet.getString("genre");
+                String publisher = resultSet.getString("publisher");
+                int publicationYear = resultSet.getInt("publication_year");
+                int pages = resultSet.getInt("pages");
+                String language = resultSet.getString("language");
                 String title = resultSet.getString("title");
                 int copies = resultSet.getInt("copies");
                 String imageUrl = resultSet.getString("imageUrl");
+                String isbn = resultSet.getString("isbn");
 
-                if (imageUrl == null || imageUrl.isEmpty()) {
+                if ( imageUrl == null || imageUrl.isEmpty() ) {
                     imageUrl = apiController.getBookInfoFromAPI(resultSet.getString("isbn")).getImageUrl();
+                    if ( imageUrl == null ){
+                        imageUrl = apiController.getBookInfoFromAPI(resultSet.getString("title")).getImageUrl();
+                    }
                     if (imageUrl != null) {
                         try (Statement updateStatement = Controller.connection.createStatement()) {
                             updateStatement.executeUpdate("UPDATE books SET imageUrl = '" + imageUrl + "' WHERE title = '" + title + "'");
@@ -141,7 +157,7 @@ public class BooksController implements Initializable {
                     }
                 }
 
-                Book book = new Book(title, copies, imageUrl);
+                Book book = new Book(title, author, genre, publisher, publicationYear, isbn, pages, language, copies, imageUrl);
                 bookBoxes.add(createBookBox(book));
                 buttonBoxes.add(buttonBox(book));
             }
@@ -236,15 +252,14 @@ public class BooksController implements Initializable {
     }
 
     private void removeBook(Book book) {
-        // Implement the logic to remove the book from the database and update the UI
-        // For example:
-//        try (Statement statement = Controller.connection.createStatement()) {
-//            statement.executeUpdate("DELETE FROM books WHERE title = '" + book.getTitle() + "'");
-//            loadBooksFromDatabase("SELECT title, copies, imageUrl FROM books");
-//            loadPage(currentPage);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        try (Statement statement = Controller.connection.createStatement()) {
+            statement.executeUpdate("DELETE FROM books WHERE title = '" + book.getTitle() + "'");
+            loadBooksFromDatabase("SELECT * FROM books");
+            loadGenresFromDatabase();
+            loadPage(currentPage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
