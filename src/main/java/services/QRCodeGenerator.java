@@ -1,4 +1,4 @@
-package Services;
+package services;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
@@ -14,6 +14,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class QRCodeGenerator {
+    private static QRCodeGenerator instance;
+
+    private QRCodeGenerator() {
+    }
+
+    public static QRCodeGenerator getInstance() {
+        if (instance == null) {
+            instance = new QRCodeGenerator();
+        }
+        return instance;
+    }
 
     public static Image generateQRCode(String ISBN) {
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
@@ -21,9 +32,12 @@ public class QRCodeGenerator {
         hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
         hints.put(EncodeHintType.MARGIN, 1);
 
-        APIController apiController = new APIController();
+        APIController apiController = APIController.getInstance();
+        System.out.println("get preview link");
         String data = apiController.getPreviewLink(ISBN);
+        System.out.println(data);
         if (data == null || data.isEmpty()) {
+            System.out.println("khong co data");
             throw new IllegalArgumentException("Invalid data for QR code generation");
         }
 

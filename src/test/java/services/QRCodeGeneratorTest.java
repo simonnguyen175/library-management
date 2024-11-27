@@ -1,4 +1,4 @@
-package Services;
+package services;
 
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.image.Image;
@@ -18,7 +18,7 @@ class QRCodeGeneratorTest {
     @Test
     void testGenerateQRCode() {
         // Arrange
-        String validISBN = "9781234567890";
+        String validISBN = "9780544003415";
 
         // Act
         Image qrCodeImage = QRCodeGenerator.generateQRCode(validISBN);
