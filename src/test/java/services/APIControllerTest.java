@@ -1,14 +1,14 @@
-package Services;
+package services;
 
-import Services.APIController;
 import library.Book;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestTemplate;
 
 public class APIControllerTest {
 
     @Test
     void testGetBookFromAPI() {
-        APIController apiController = new APIController();
+        APIController apiController = APIController.getInstance();
 
         // Thực hiện tìm kiếm cuốn sách với tiêu đề "Chí Phèo"
         String title = "The Great Gatsby"; ;
@@ -35,9 +35,17 @@ public class APIControllerTest {
 
     @Test
     void getBookDescriptionFromAPI() {
-        APIController apiController = new APIController();
+        APIController apiController = APIController.getInstance();
         String title = "The Great Gatsby";
         String description = apiController.getBookDescriptionFromAPI(title);
         System.out.println("Description: " + description);
+    }
+
+    @Test
+    void getPreviewLink() {
+        APIController apiController = APIController.getInstance();
+        String ISBN = "9780553593716";
+        String previewLink = apiController.getPreviewLink(ISBN);
+        System.out.println("Preview Link: " + previewLink);
     }
 }

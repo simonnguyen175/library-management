@@ -1,4 +1,4 @@
-package Services;
+package services;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,6 +17,9 @@ public class APIController {
     protected final String api = "https://www.googleapis.com/books/v1/volumes?q=";
     protected final String API_KEY = "AIzaSyCGjYZoZgZxXgNmU3_uVQxag9ddQN_O2p4";
     static APIController instance = null;
+
+    private APIController() {
+    }
 
     public static APIController getInstance() {
         if (instance == null) {
@@ -259,6 +262,11 @@ public class APIController {
                     result.setYearPublished(Integer.parseInt(volumeInfo.get("publishedDate").asText().substring(0, 4)));
                     result.setPages(volumeInfo.get("pageCount").asInt());
                     result.setAuthor(volumeInfo.get("authors").get(0).asText().trim());
+                    if (volumeInfo.has("publisher")) {
+                        result.setPublisher(volumeInfo.get("publisher").asText().trim());
+                    }else {
+                        result.setPublisher("No publisher found");
+                    }
                     if (volumeInfo.has("categories")) {
                         result.setGenre(volumeInfo.get("categories").get(0).asText().trim());
                     }
