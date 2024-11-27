@@ -1,6 +1,7 @@
 package controller;
 
-import Services.APIController;
+import library.Library;
+import services.APIController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -16,6 +17,7 @@ public class AddBookController {
     private Button addButton, autofillButton;
 
     private APIController apiController = APIController.getInstance();
+    private boolean addSuccess = false; // Check if the book is added successfully
 
     @FXML
     public void initialize() {
@@ -61,9 +63,19 @@ public class AddBookController {
             alert.showAndWait();
             return;
         }
+        else{
+            // Add book to database
+            addSuccess = true;
+            Library myLib = Library.getInstance();
+            myLib.addBook(new Book(title, author, genre, publisher, year, isbn, pages, language, copies, imageUrl));
+        }
 
         // Close the stage
         Stage stage = (Stage) addButton.getScene().getWindow();
         stage.close();
+    }
+
+    public boolean isAddSuccess() {
+        return addSuccess;
     }
 }
