@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import library.Library;
 import library.User;
 
 import java.net.URL;
@@ -52,6 +53,21 @@ public class UsersController extends Controller implements Initializable {
     @FXML
     private Label totalBooksCurrentlyBorrowedLabel;
 
+    @FXML
+    private TextField fullnameField;
+
+    @FXML
+    private TextField usernameField;
+
+    @FXML
+    private TextField phoneField;
+
+    @FXML
+    private TextField emailField;
+
+    @FXML
+    private Button addButton;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         userIdColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getUserId()).asObject());
@@ -68,6 +84,9 @@ public class UsersController extends Controller implements Initializable {
 
         // Add listener to table selection
         userTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> showUserDetails(newValue));
+
+        // Add action for addButton
+        addButton.setOnAction(event -> addUser());
     }
 
     private void addDeleteButtonToTable() {
@@ -78,6 +97,11 @@ public class UsersController extends Controller implements Initializable {
             {
                 hBox.setStyle("-fx-alignment: center;");
                 HBox.setHgrow(deleteButton, Priority.ALWAYS);
+
+                deleteButton.setOnAction(event -> {
+                    User user = getTableView().getItems().get(getIndex());
+                    deleteUser(user);
+                });
             }
 
             @Override
@@ -90,6 +114,55 @@ public class UsersController extends Controller implements Initializable {
                 }
             }
         });
+    }
+
+    private void deleteUser(User user) {
+        String query = "DELETE FROM users WHERE user_id = " + user.getUserId() + ";";
+
+        Thread dbThread = new Thread(() -> {
+            try (Statement stmt = connection.createStatement()) {
+                stmt.executeUpdate(query);
+                // Reload the user data
+                ObservableList<User> updatedUsers = getUserData();
+                userTable.setItems(updatedUsers);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
+        dbThread.start();
+    }
+
+    private void addUser() {
+        String fullname = ((TextField) addButton.getScene().lookup("#fullnameField")).getText();
+        String username = ((TextField) addButton.getScene().lookup("#usernameField")).getText();
+        String phone = ((TextField) addButton.getScene().lookup("#phoneField")).getText();
+        String email = ((TextField) addButton.getScene().lookup("#emailField")).getText();
+
+        if (fullname.isEmpty() || username.isEmpty() || phone.isEmpty() || email.isEmpty()) {
+            System.out.println("Thiếu thông tin người dùng.");
+            return;
+        }
+
+        User newUser = new User(fullname, username, phone, email);
+
+        Thread dbThread = new Thread(() -> {
+            try {
+                Library myLib = Library.getInstance();
+                myLib.addUser(newUser);
+                // Reload the user data
+                ObservableList<User> updatedUsers = getUserData();
+                userTable.setItems(updatedUsers);
+
+                // Clear the input fields
+                fullnameField.clear();
+                usernameField.clear();
+                phoneField.clear();
+                emailField.clear();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        dbThread.start();
     }
 
     private ObservableList<User> getUserData() {

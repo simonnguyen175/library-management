@@ -38,12 +38,11 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <TextField layoutX="50.0" layoutY="14.0" promptText="Họ và tên " AnchorPane.leftAnchor="50.0" />
-                                <TextField layoutX="50.0" layoutY="66.0" promptText="Số điện thoại" AnchorPane.leftAnchor="50.0" />
-                                <TextField layoutX="50.0" layoutY="118.0" promptText="Email" AnchorPane.leftAnchor="50.0" />
-                                <TextField layoutX="262.0" layoutY="14.0" promptText="Tài khoản" AnchorPane.rightAnchor="50.799999999999955" />
-                                <TextField layoutX="262.0" layoutY="66.0" promptText="Mật khẩu" AnchorPane.rightAnchor="50.799999999999955" />
-                                <Button layoutX="373.0" layoutY="118.0" mnemonicParsing="false" text="Add" />
+                                <TextField fx:id="fullnameField" layoutX= "50.0" layoutY="14.0" promptText="Họ và tên" AnchorPane.leftAnchor="50.0" />
+                                <TextField fx:id="phoneField" layoutX="50.0" layoutY="66.0" promptText="Số điện thoại" AnchorPane.leftAnchor="50.0" />
+                                <TextField fx:id="emailField" layoutX="262.0" layoutY="66.0" promptText="Email" AnchorPane.leftAnchor="262.0" />
+                                <TextField fx:id="usernameField" layoutX="262.0" layoutY="14.0" promptText="Tài khoản" AnchorPane.rightAnchor="50.799999999999955" />
+                                <Button fx:id="addButton" layoutX="373.0" layoutY="118.0" mnemonicParsing="false" text="Add" />
                             </children>
                         </AnchorPane>
                     </content>
