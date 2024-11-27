@@ -5,6 +5,7 @@ import controller.DashboardController;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DatabaseManagement {
@@ -24,29 +25,52 @@ public class DatabaseManagement {
     }
 
     // Add book to database
+    // if book already exits base on isbn, just change the copies of book
     public void addBook(Book book) {
-        String sql = "INSERT INTO Books (title, author, genre, publisher, publication_year, isbn, pages, language, copies, imageUrl) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String checkSql = "SELECT copies FROM Books WHERE isbn = ?";
+        String updateSql = "UPDATE Books SET copies = copies + ? WHERE isbn = ?";
+        String insertSql = "INSERT INTO Books (title, author, genre, publisher, publication_year, isbn, pages, language, copies, imageUrl) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        try (PreparedStatement preparedStatement = Controller.connection.prepareStatement(sql)) {
-            preparedStatement.setString(1, book.getTitle());
-            preparedStatement.setString(2, book.getAuthor());
-            preparedStatement.setString(3, book.getGenre());
-            preparedStatement.setString(4, book.getPublisher());
-            preparedStatement.setInt(5, book.getPublicationYear());
-            preparedStatement.setString(6, book.getIsbn());
-            preparedStatement.setInt(7, book.getPages());
-            preparedStatement.setString(8, book.getLanguage());
-            preparedStatement.setInt(9, book.getCopies());
-            preparedStatement.setString(10, book.getImageUrl());
+        try (PreparedStatement checkStatement = Controller.connection.prepareStatement(checkSql)) {
+            checkStatement.setString(1, book.getIsbn());
+            ResultSet resultSet = checkStatement.executeQuery();
 
-            int rowsAffected = preparedStatement.executeUpdate();
-            if (rowsAffected > 0) {
-                System.out.println("Book added successfully.");
+            if (resultSet.next()) {
+                // already exists, increase copies
+                int currentCopies = resultSet.getInt("copies");
+                try (PreparedStatement updateStatement = Controller.connection.prepareStatement(updateSql)) {
+                    updateStatement.setInt(1, book.getCopies());
+                    updateStatement.setString(2, book.getIsbn());
+                    int rowsUpdated = updateStatement.executeUpdate();
+                    if (rowsUpdated > 0) {
+                        System.out.println("Book already exists. Copies updated successfully.");
+                    }
+                }
+            } else {
+                // Sách không tồn tại, thêm mới
+                try (PreparedStatement insertStatement = Controller.connection.prepareStatement(insertSql)) {
+                    insertStatement.setString(1, book.getTitle());
+                    insertStatement.setString(2, book.getAuthor());
+                    insertStatement.setString(3, book.getGenre());
+                    insertStatement.setString(4, book.getPublisher());
+                    insertStatement.setInt(5, book.getPublicationYear());
+                    insertStatement.setString(6, book.getIsbn());
+                    insertStatement.setInt(7, book.getPages());
+                    insertStatement.setString(8, book.getLanguage());
+                    insertStatement.setInt(9, book.getCopies());
+                    insertStatement.setString(10, book.getImageUrl());
+
+                    int rowsInserted = insertStatement.executeUpdate();
+                    if (rowsInserted > 0) {
+                        System.out.println("New book added successfully.");
+                    }
+                }
             }
         } catch (SQLException e) {
-            System.err.println("Error while adding book: " + e.getMessage());
+            System.err.println("Error while adding/updating book: " + e.getMessage());
         }
     }
+
 
     //delete book from database by book id
     public void deleteBook(int bookId) {
