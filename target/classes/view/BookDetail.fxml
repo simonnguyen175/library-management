@@ -32,7 +32,7 @@
                   <Image url="@/image-placeholder.png" />
                </image>
             </ImageView>
-            <TextArea fx:id="description" editable="false" layoutX="216.0" prefHeight="450.0" prefWidth="500.0" wrapText="true">
+            <TextArea fx:id="description" editable="false" layoutX="254.0" prefHeight="450.0" prefWidth="400.0" wrapText="true">
                <font>
                   <Font size="14.0" />
                </font>
@@ -74,8 +74,7 @@
             <Font name="Consolas" size="20.0" />
          </font>
       </Label>
-      <VBox layoutX="781.0" layoutY="150.0" prefHeight="0.0" prefWidth="0.0" />
       <TextField layoutX="781.0" layoutY="137.0" prefHeight="26.0" prefWidth="414.0" promptText="Bình luận..." AnchorPane.leftAnchor="781.0" />
-      <VBox layoutX="781.0" layoutY="178.0" prefHeight="0.0" prefWidth="0.0" AnchorPane.leftAnchor="781.0" />
+      <VBox fx:id="commentList" layoutX="781.0" layoutY="178.0" prefHeight="0.0" prefWidth="0.0" AnchorPane.leftAnchor="781.0" />
    </children>
 </AnchorPane>

@@ -1,5 +1,6 @@
 package controller;
 
+import library.Library;
 import services.APIController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -134,6 +135,7 @@ public class BooksController implements Initializable {
              ResultSet resultSet = statement.executeQuery(query)) {
 
             while (resultSet.next()) {
+                int bookId = resultSet.getInt("id");
                 String author = resultSet.getString("author");
                 String genre = resultSet.getString("genre");
                 String publisher = resultSet.getString("publisher");
@@ -157,7 +159,7 @@ public class BooksController implements Initializable {
                     }
                 }
 
-                Book book = new Book(title, author, genre, publisher, publicationYear, isbn, pages, language, copies, imageUrl);
+                Book book = new Book(bookId, title, author, genre, publisher, publicationYear, isbn, pages, language, copies, imageUrl);
                 bookBoxes.add(createBookBox(book));
                 buttonBoxes.add(buttonBox(book));
             }
@@ -252,15 +254,10 @@ public class BooksController implements Initializable {
     }
 
     private void removeBook(Book book) {
-        try (Statement statement = Controller.connection.createStatement()) {
-            statement.executeUpdate("DELETE FROM books WHERE title = '" + book.getTitle() + "'");
-            loadBooksFromDatabase("SELECT * FROM books");
-            loadGenresFromDatabase();
-            loadPage(currentPage);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Library mylib = Library.getInstance();
+        mylib.deleteBook(book.getBookId());
+        loadBooksFromDatabase("SELECT * FROM books");
+        loadPage(currentPage);
+        loadGenresFromDatabase();
     }
-
-
 }
