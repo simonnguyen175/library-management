@@ -16,7 +16,6 @@
                  <Button fx:id="booksButton" styleClass="nav-button" text="Sách" />
                  <Button fx:id="usersButton" styleClass="nav-button" text="Người dùng" />
                  <Button fx:id="borrowListButton" styleClass="nav-button" text="Danh sách mượn" />
-                 <Button fx:id="notificationsButton" mnemonicParsing="false" styleClass="nav-button" text="Thông báo" />
                  <Button fx:id="logoutButton" styleClass="nav-button" text="Đăng xuất" />
              </children>
          </HBox>
