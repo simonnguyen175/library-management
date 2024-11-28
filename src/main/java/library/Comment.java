@@ -46,4 +46,21 @@ public class Comment {
     public String getDate() {
         return date.toString();
     }
+
+    //method getSQLDate using for add comment
+    public java.sql.Date getSQLDate() {
+        return new java.sql.Date(date.getTime());
+    }
+
+    public int getCommentId() {
+        return commentId;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public int getBookId() {
+        return bookId;
+    }
 }
