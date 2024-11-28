@@ -26,6 +26,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import library.Book;
 import services.QRCodeGenerator;
+import javafx.scene.input.MouseEvent;
 
 import javax.swing.plaf.TableHeaderUI;
 import java.io.IOException;
@@ -211,6 +212,21 @@ public class BookDetailController {
         popup.show(QRButton.getScene().getWindow());
     }
 
-    private void handleBookBorrowAction(){
+    private void handleBookBorrowAction() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/BorrowBook.fxml"));
+            AnchorPane borrowBookPane = loader.load();
+            Stage borrowBookStage = new Stage();
+            borrowBookStage.setResizable(false);
+            borrowBookStage.setScene(new Scene(borrowBookPane));
+            borrowBookStage.setTitle("BorrowBook Book");
+            BorrowBookController borrowBookController = loader.getController();
+            borrowBookController.setBook(book);
+            borrowBookStage.initModality(Modality.APPLICATION_MODAL);
+            borrowBookPane.setOnMouseClicked(mouseEvent -> borrowBookPane.requestFocus());
+            borrowBookStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -77,7 +77,7 @@ public class DashboardController {
             try {
                 Stage currentStage = (Stage) logoutButton.getScene().getWindow();
                 currentStage.close();
-                StageManager.loadStage("/view/Login.fxml", "Library Management", 640, 480, false);
+                StageManager.loadStage("/view/Login.fxml", "Library Management", 640, 480);
             } catch (Exception e) {
                 e.printStackTrace();
             }

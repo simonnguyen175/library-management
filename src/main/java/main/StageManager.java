@@ -14,7 +14,7 @@ public class StageManager {
     private static double xOffset = 0;
     private static double yOffset = 0;
 
-    public static void loadStage(String fxmlPath, String title, double width, double height, boolean modality) {
+    public static void loadStage(String fxmlPath, String title, double width, double height) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(StageManager.class.getResource(fxmlPath));
             Parent root = fxmlLoader.load();
@@ -25,12 +25,7 @@ public class StageManager {
 
             root.setOnMouseClicked(event -> root.requestFocus());
             root.requestFocus();
-
-            if ( modality ) {
-                stage.initModality(Modality.APPLICATION_MODAL);
-                stage.showAndWait();
-            }
-            else stage.show();
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }

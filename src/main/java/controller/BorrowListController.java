@@ -6,10 +6,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import library.Borrowed;
+import library.Library;
 
 import java.net.URL;
 import java.sql.ResultSet;
@@ -57,7 +59,10 @@ public class BorrowListController implements Initializable {
     @FXML
     private Label userEmailLabel;
 
-    static private ObservableList<Borrowed> borrowedData = FXCollections.observableArrayList();
+    @FXML
+    private Button returnBookButton;
+
+    private ObservableList<Borrowed> borrowedData = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -79,7 +84,8 @@ public class BorrowListController implements Initializable {
         String query = "SELECT b.borrow_id, b.user_id, b.book_id, b.borrow_date, b.borrowed_copies, b.due_date, b.status, u.fullname AS user_fullname, u.phone AS phone, u.email AS email, bk.title AS book_title " +
                 "FROM borrowed b " +
                 "JOIN users u ON b.user_id = u.user_id " +
-                "JOIN books bk ON b.book_id = bk.id";
+                "JOIN books bk ON b.book_id = bk.id " +
+                "ORDER BY b.borrow_date DESC";
 
         try (Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
@@ -112,6 +118,28 @@ public class BorrowListController implements Initializable {
             borrowedCopiesLabel.setText("Số lượng: " + String.valueOf(borrowed.getBorrowedCopies()));
             userPhoneLabel.setText("Sđt người mượn: " + borrowed.getUserPhone());
             userEmailLabel.setText("Email người mượn: " + borrowed.getUserEmail());
+
+            if (borrowed.getStatus().equals("borrowed")) {
+                returnBookButton.setVisible(true);
+            } else {
+                returnBookButton.setVisible(false) ;
+            }
+
+            returnBookButton.setOnAction(event->handleReturnBook(borrowed));
         }
+    }
+
+    private void handleReturnBook(Borrowed borrowed) {
+        if (borrowed != null) {
+            Library myLib = Library.getInstance();
+            myLib.ReturnBook(borrowed.getBorrowId());
+        }
+
+        borrowedData.clear();
+        loadBorrowData();
+        BorrowTable.setItems(borrowedData);
+        BorrowTable.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> showBorrowDetails(newValue)
+        );
     }
 }

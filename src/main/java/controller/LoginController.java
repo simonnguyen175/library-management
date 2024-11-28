@@ -82,7 +82,7 @@ public class LoginController extends Controller {
     }
 
     private void openDashboard() {
-        StageManager.loadStage("/view/Dashboard.fxml", "Dashboard", 1290, 720, false);
+        StageManager.loadStage("/view/Dashboard.fxml", "Dashboard", 1290, 720);
 
         // Close the login window
         Stage loginStage = (Stage) errorMessage.getScene().getWindow();

@@ -30,7 +30,7 @@
                   <Label fx:id="borrowedCopiesLabel" layoutX="14.0" layoutY="74.0" text="Số lượng:" />
                   <Label fx:id="userPhoneLabel" layoutX="14.0" layoutY="104.0" text="Sđt người mượn:" />
                   <Label fx:id="userEmailLabel" layoutX="14.0" layoutY="134.0" text="Email người mượn:" />
-                  <Button layoutX="277.0" layoutY="168.0" mnemonicParsing="false" text="Nhắc nhở" />
+                  <Button fx:id="returnBookButton"  layoutX="282.0" layoutY="169.0" mnemonicParsing="false" text="Trả sách" />
                </children>
             </AnchorPane>
         </content>
