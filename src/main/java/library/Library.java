@@ -5,14 +5,17 @@ import controller.Controller;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 
 public class Library {
     // singleton pattern
-
+    static DateTimeFormatter formatter;
     private static Library INSTANCE;
 
     private Library() {
-
+        formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     }
 
     public static Library getInstance() {
@@ -144,7 +147,8 @@ public class Library {
         }
     }
     // them truy van muon sach
-    public boolean BorrowBook(int user_id, int book_id, int borrowed_copies)
+    // luu y: dueDate dau vao phai co dinh dang "YYYY-MM-DD" VD: "2005-01-07"
+    public boolean BorrowBook(int user_id, int book_id, int borrowed_copies, String dueDate)
     {
         try {
             Controller.connection.setAutoCommit(false);
@@ -176,11 +180,12 @@ public class Library {
             insertBorrowStmt.setInt(1, user_id);
             insertBorrowStmt.setInt(2, book_id);
             insertBorrowStmt.setInt(3, borrowed_copies);
-            insertBorrowStmt.setString(4, "2024-12-29");
-            insertBorrowStmt.setString(5, "2025-02-05");
+            insertBorrowStmt.setString(4, LocalDate.now().format(formatter));
+            insertBorrowStmt.setString(5, dueDate);
             insertBorrowStmt.setString(6, "borrowed");
             insertBorrowStmt.executeUpdate();
             Controller.connection.commit();
+            System.out.println("Book borrowed successfully.");
             return true;
         } catch (SQLException e) {
             // neu loi phai rollback lai
@@ -227,6 +232,7 @@ public class Library {
             updateBorrowedStatusStmt.executeUpdate();
 
             Controller.connection.commit();
+            System.out.println("Book returned successfully.");
             return true;
 
         } catch (SQLException e) {
