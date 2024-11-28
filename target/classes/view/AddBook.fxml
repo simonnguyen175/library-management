@@ -9,7 +9,7 @@
 
 <AnchorPane prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddBookController">
    <children>
-      <VBox layoutX="123.0" layoutY="85.0" spacing="10" AnchorPane.topAnchor="85.0">
+      <VBox layoutX="121.0" layoutY="75.0" spacing="10" AnchorPane.topAnchor="75.0">
          <children>
             <TextField fx:id="titleTextField" promptText="Tiêu đề" />
             <TextField fx:id="authorTextField" promptText="Tác giả" />
@@ -28,7 +28,7 @@
             <Font name="Consolas Bold" size="24.0" />
          </font>
       </Label>
-      <Button fx:id="addButton" layoutX="179.0" layoutY="442.0" mnemonicParsing="false" text="Add" AnchorPane.topAnchor="435.0" />
-      <Button fx:id="autofillButton" layoutX="272.0" layoutY="261.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="Autofill" AnchorPane.leftAnchor="280.0" />
+      <Button fx:id="addButton" layoutX="177.0" layoutY="460.0" mnemonicParsing="false" text="Add" AnchorPane.leftAnchor="177.0" AnchorPane.topAnchor="435.0" />
+      <Button fx:id="autofillButton" layoutX="284.0" layoutY="256.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="Autofill" AnchorPane.leftAnchor="280.0" AnchorPane.topAnchor="255.0" />
    </children>
 </AnchorPane>

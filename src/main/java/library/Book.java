@@ -3,6 +3,7 @@ package library;
 import java.util.List;
 
 public class Book {
+    private int bookId;
     private String title;
     private String author;
     private String genre;
@@ -24,7 +25,10 @@ public class Book {
         this.copies = copies;
     }
 
-    public Book(String title, String author, String genre, String publisher, int publicationYear, String isbn, int pages, String language, int copies) {
+    public Book(int bookId, String title, String author, String genre,
+                String publisher, int publicationYear, String isbn,
+                int pages, String language, int copies, String imageUrl) {
+        this.bookId = bookId;
         this.title = title;
         this.author = author;
         this.genre = genre;
@@ -34,10 +38,25 @@ public class Book {
         this.pages = pages;
         this.language = language;
         this.copies = copies;
+        this.imageUrl = imageUrl;
     }
 
-    public Book(String title, int copies, String imageUrl) {
+    public Book(String title, int copies, String imageUrl, String isbn) {
         this.title = title;
+        this.copies = copies;
+        this.imageUrl = imageUrl;
+        this.isbn = isbn;
+    }
+
+    public Book(String title, String author, String genre, String publisher, int year, String isbn, int pages, String language, int copies, String imageUrl) {
+        this.title = title;
+        this.author = author;
+        this.genre = genre;
+        this.publisher = publisher;
+        this.publicationYear = year;
+        this.isbn = isbn;
+        this.pages = pages;
+        this.language = language;
         this.copies = copies;
         this.imageUrl = imageUrl;
     }
@@ -125,6 +144,10 @@ public class Book {
 
     public void setYearPublished(int year) {
         this.publicationYear = year;
+    }
+
+    public int getBookId() {
+        return this.bookId;
     }
 }
 

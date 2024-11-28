@@ -13,12 +13,14 @@ module main.librarymanagement {
     requires com.fasterxml.jackson.databind;
     requires java.net.http;
     requires java.sql;
-    requires java.desktop;
     requires com.google.zxing;
     requires com.google.zxing.javase;
+    requires javafx.swing;
 
     opens main to javafx.fxml;
     exports main;
     exports controller;
     opens controller to javafx.fxml;
+    exports services;
+    opens services to javafx.fxml;
 }

@@ -1,7 +1,8 @@
-package controller;
+package services;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.scene.control.Alert;
 import library.Book;
 
 import java.net.URI;
@@ -16,6 +17,9 @@ public class APIController {
     protected final String api = "https://www.googleapis.com/books/v1/volumes?q=";
     protected final String API_KEY = "AIzaSyCGjYZoZgZxXgNmU3_uVQxag9ddQN_O2p4";
     static APIController instance = null;
+
+    private APIController() {
+    }
 
     public static APIController getInstance() {
         if (instance == null) {
@@ -60,7 +64,8 @@ public class APIController {
                                 && volumeInfo.has("industryIdentifiers")
                                 && volumeInfo.has("pageCount")
                                 && volumeInfo.has("language")
-                                && volumeInfo.has("publishedDate")) {
+                                && volumeInfo.has("publishedDate")
+                                && volumeInfo.has("publisher")) {
 
                             // Gán giá trị cho temp nếu đầy đủ thông tin
                             temp.setTitle(volumeInfo.get("title").asText().trim());
@@ -70,7 +75,7 @@ public class APIController {
                             temp.setIsbn(volumeInfo.get("industryIdentifiers").get(0).get("identifier").asText().trim());
                             temp.setPages(volumeInfo.get("pageCount").asInt());
                             temp.setLanguage(volumeInfo.get("language").asText().trim());
-
+                            temp.setPublisher(volumeInfo.get("publisher").asText().trim());
                             String publishedDate = volumeInfo.get("publishedDate").asText().trim();
                             int year = publishedDate.length() >= 4 ? Integer.parseInt(publishedDate.substring(0, 4)) : 0;
                             temp.setYearPublished(year);
@@ -112,6 +117,9 @@ public class APIController {
                             int year = publishedDate.length() >= 4 ? Integer.parseInt(publishedDate.substring(0, 4)) : 0;
                             temp.setYearPublished(year);
                         }
+                        if (temp.getPublisher() == null && volumeInfo.has("publisher")) {
+                            temp.setPublisher(volumeInfo.get("publisher").asText().trim());
+                        }
 
                         // Nếu đã đủ thông tin, thoát vòng lặp
                         if (temp.getTitle() != null && temp.getAuthor() != null
@@ -119,6 +127,23 @@ public class APIController {
                             break;
                         }
                     }
+                }
+            }
+            // check book available
+            if (temp.getTitle() == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Have no book available");
+                alert.setContentText("Please try again with another book");
+                alert.showAndWait();
+                return null;
+            }
+            else {
+                if (temp.getGenre() == null) {
+                    temp.setGenre("No genre found");
+                }
+                if (temp.getPublisher() == null) {
+                    temp.setPublisher("No publisher found");
                 }
             }
             return temp;
@@ -178,7 +203,7 @@ public class APIController {
      * @param inp Tên sách hoặc mã ISBN
      * @return Đối tượng Book chứa thông tin sách
      */
-    public synchronized Book getBookInfoFromAPI(String inp) {
+    public Book getBookInfoFromAPI(String inp) {
         try {
             if (inp.length() >= 10 && inp.matches("[0-9]+")) {
                 return getBookFromISBN(inp);
@@ -191,7 +216,7 @@ public class APIController {
         return null;
     }
     // trả về mô tả của sách
-    public synchronized String getBookDescriptionFromAPI(String title) {
+    public String getBookDescriptionFromAPI(String title) {
         try {
             String encode_title = URLEncoder.encode(title.trim(), StandardCharsets.UTF_8);
             return getBookDescriptionFromJson(getHttpResponse(api + encode_title + "&key=" + API_KEY), title);
@@ -214,7 +239,7 @@ public class APIController {
     }
 
     // trả về thông tin sách từ mã ISBN
-    private synchronized Book getBookFromISBN(String isbn) {
+    private Book getBookFromISBN(String isbn) {
         try {
             Book result = new Book();
             String url = api + "isbn:" + URLEncoder.encode(isbn, StandardCharsets.UTF_8) + "&key=" + API_KEY;
@@ -237,6 +262,11 @@ public class APIController {
                     result.setYearPublished(Integer.parseInt(volumeInfo.get("publishedDate").asText().substring(0, 4)));
                     result.setPages(volumeInfo.get("pageCount").asInt());
                     result.setAuthor(volumeInfo.get("authors").get(0).asText().trim());
+                    if (volumeInfo.has("publisher")) {
+                        result.setPublisher(volumeInfo.get("publisher").asText().trim());
+                    }else {
+                        result.setPublisher("No publisher found");
+                    }
                     if (volumeInfo.has("categories")) {
                         result.setGenre(volumeInfo.get("categories").get(0).asText().trim());
                     }
