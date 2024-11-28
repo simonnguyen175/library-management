@@ -23,12 +23,12 @@ public class Comment {
         this.content = content;
         this.date = date;
 
-        String username = null;
+        this.username = null;
         String query = "SELECT username FROM users WHERE user_id = " + userId;
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
             if (rs.next()) {
-                username = rs.getString("username");
+                this.username = rs.getString("username");
             }
         } catch (SQLException e) {
             e.printStackTrace();

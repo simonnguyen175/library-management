@@ -33,6 +33,8 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import static controller.Controller.connection;
 
@@ -68,6 +70,8 @@ public class BookDetailController {
     @FXML
     private VBox commentList;
 
+    private ImageView qrCodeImage;
+
     private Book book;
 
     @FXML
@@ -78,6 +82,10 @@ public class BookDetailController {
 
         QRButton.setOnAction(event -> {
             handleQRButtonAction();
+        });
+
+        borrowButton.setOnAction(event -> {
+            handleBookBorrowAction();
         });
     }
 
@@ -112,12 +120,20 @@ public class BookDetailController {
 
         // Add comments to the commentList
         new Thread(() -> {
+            commentList.setSpacing(20);
             loadComments(this.book.getBookId());
+        }).start();
+
+        // Generate QR code
+        new Thread(()->{
+            qrCodeImage = new ImageView();
+            QRCodeGenerator QR = QRCodeGenerator.getInstance();
+            qrCodeImage.setImage(QR.generateQRCode(book.getIsbn()));
         }).start();
     }
 
     private void loadComments(int bookId) {
-        ObservableList<Comment> comments = getComments(bookId);
+        List<Comment> comments = getComments(bookId);
         Platform.runLater(() -> {
             commentList.getChildren().clear();
             for (Comment comment : comments) {
@@ -126,8 +142,8 @@ public class BookDetailController {
         });
     }
 
-    private ObservableList<Comment> getComments(int bookId) {
-        ObservableList<Comment> comments = FXCollections.observableArrayList();
+    private List<Comment> getComments(int bookId) {
+        List<Comment> comments = new ArrayList<>();
         String query = "SELECT * FROM comments WHERE book_id = " + bookId;
 
         try (Statement stmt = connection.createStatement();
@@ -150,9 +166,9 @@ public class BookDetailController {
         VBox commentBox = new VBox();
         commentBox.setSpacing(5);
 
-        Text userText = new Text(comment.getUsername());
-        userText.setStyle("-fx-font-weight: bold;");
-        userText.setWrappingWidth(750);
+        Text userName = new Text(comment.getUsername());
+        userName.setStyle("-fx-font-weight: bold;");
+        userName.setWrappingWidth(750);
 
         Text contentText = new Text(comment.getContent());
         contentText.setWrappingWidth(750);
@@ -161,7 +177,7 @@ public class BookDetailController {
         dateText.setStyle("-fx-font-size: 10px; -fx-text-fill: gray;");
         dateText.setWrappingWidth(750);
 
-        commentBox.getChildren().addAll(userText, contentText, dateText);
+        commentBox.getChildren().addAll(userName, contentText, dateText);
         return commentBox;
     }
 
@@ -177,10 +193,6 @@ public class BookDetailController {
 
     private void handleQRButtonAction() {
         Popup popup = new Popup();
-        ImageView qrCodeImage = new ImageView();
-
-        QRCodeGenerator QR = QRCodeGenerator.getInstance();
-        qrCodeImage.setImage(QR.generateQRCode(book.getIsbn()));
 
         // Create a DropShadow effect
         DropShadow dropShadow = new DropShadow();
@@ -197,5 +209,8 @@ public class BookDetailController {
         popup.getContent().add(stackPane);
         popup.setAutoHide(true);
         popup.show(QRButton.getScene().getWindow());
+    }
+
+    private void handleBookBorrowAction(){
     }
 }
