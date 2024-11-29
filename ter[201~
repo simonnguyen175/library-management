@@ -1,0 +1,79 @@
+[33m1f8faf8[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mDAO[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m Them file README
+[33md3d3c1c[m fixed
+[33m39bbbb6[m fixed
+[33m441f013[m borrow book and return book feature enable
+[33me95f27a[m merge newest DAO
+[33m64e9149[m fixed
+[33md70d3d6[m[33m ([m[1;31morigin/DAO[m[33m)[m Update w/ test by junit
+[33mb466ab1[m Fixed borrowBook func
+[33m46580c1[m Added Borrow Book and return Book
+[33m392fffa[m Re-update
+[33mf93ae4f[m comment class init
+[33me17c592[m fixed
+[33m4569be1[m update comment for book detail
+[33m962fa71[m fixed
+[33me1926c7[m fixed
+[33maf7dbdd[m user add and delete feature update
+[33maab3bae[m qrcode refolder
+[33m85a4350[m main fixed
+[33m0a25637[m book detail fixed
+[33m4ea5f63[m api refolder
+[33m167f14d[m update addbook feature
+[33m82a94c5[m Update addBook func
+[33m09cf765[m[33m ([m[1;31morigin/API[m[33m)[m fix
+[33m83fa4d4[m[33m ([m[1;32mBorrowedProcess[m[33m)[m borrowlist data update and build feature
+[33mc00309b[m fix
+[33m2823768[m .
+[33me4842a2[m api fix and addbook update
+[33m0e4f694[m merge api
+[33m9524afb[m .
+[33m024d3c6[m add book method update
+[33m00f01c8[m create search feature in book pane
+[33m8ee0db0[m .
+[33m19dd779[m add imageUrl in query
+[33md5ba823[m fix book detail error
+[33mb6cca13[m merge DatabaseManagement
+[33m7677fa4[m fix thread and UI
+[33mc68b9df[m Added User Adding & User Deleting to DBManagement
+[33m1ea57e7[m update QRCodeGenerator
+[33m06099cf[m .
+[33m4ebb00d[m fix
+[33m77621a2[m Add .gitignore
+[33m41e809f[m setup borrowlist data and update borrowlist UI
+[33md2f4d7d[m update book detail stage
+[33m11f38a1[m update search user feature
+[33m445bcb7[m change data
+[33mb4600f3[m enable API call for book detail and fix book class
+[33m35c2088[m merge API
+[33mb14661c[m merge
+[33m885fc8f[m commit before merge
+[33maa4a1e1[m update addbook
+[33mccedb58[m merge api
+[33mce5a01f[m fix
+[33ma227b44[m Merge branch 'master' of https://github.com/simonnguyen175/library-management
+[33m67c4f82[m Changed Book.java, Added DatabaseManagement.java
+[33me5b7025[m user ui fix
+[33m7fcffe1[m update delete user button ui
+[33mbff9409[m you can use method getBookFromAPI to get Book and param can be ISBN or title (String)
+[33m524300f[m update Books gridpane and set the action for detail button + update Book Detail UI and controller + update initial data query
+[33m24610af[m using call API to getBookInfo(with title), getDescription (with title) and getBook (with ISBN)
+[33m590e89b[m using call API to getBookInfo(with title), getDescription (with title) and getBook (with ISBN)
+[33maa74f89[m using call API to getBookInfo(with title), getDescription (with title) and getBook (with ISBN)
+[33m06543fe[m resolve conflict and add new update for BookDetail
+[33m636d958[m Empty commit to mark a rollback
+[33m4ff3511[m update Books gridpane and set the action for detail button + update Book Detail UI and controller
+[33m2544e93[m resolve conflict and add new update for BookDetail
+[33ma284989[m Empty commit to mark a rollback
+[33m334a008[m Merge pull request #1 from longnguyen2k5/API
+[33me3f7f36[m fix ...
+[33me9ecab8[m upgrade using API for book search
+[33m93ae489[m update Books gridpane and set the action for detail button + update Book Detail UI and controller
+[33m5cd4208[m update borrowlist UI
+[33mca38adf[m update book controller
+[33mbbbde42[m update book UI and controller
+[33m7d1fbdb[m update user UI
+[33m42411b3[m set up Users UI and data
+[33mdba557f[m Initial commit
+[33m61502af[m Initial commit
+[33me96880c[m Update README.md
+[33m119f645[m Initial commit

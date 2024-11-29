@@ -3,6 +3,9 @@ package library;
 import java.util.List;
 
 public class Book {
+
+
+
     private int bookId;
     private String title;
     private String author;
@@ -62,6 +65,10 @@ public class Book {
     }
 
     // Getters and Setters
+    public void setBookId(int bookId) {
+        this.bookId = bookId;
+    }
+
     public String getTitle() {
         return title;
     }

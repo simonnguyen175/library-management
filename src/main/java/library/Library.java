@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -249,7 +250,117 @@ public class Library {
         }
     }
 
+    public List<Book> suggestBook(int userId) {
+        List<Book> suggestedBooks = new ArrayList<>();
 
+        // SQL queries
+        String queryGenresAuthors = """
+            SELECT DISTINCT b.genre, b.author
+            FROM Borrowed br
+            JOIN Books b ON br.book_id = b.id
+            WHERE br.user_id = ?;
+        """;
+
+        String querySuggestionsTemplate = """
+            SELECT b.*
+            FROM Books b
+            WHERE (%s OR %s)
+            AND b.id NOT IN (
+                SELECT book_id FROM Borrowed WHERE user_id = ?
+            )
+            LIMIT 5;
+        """;
+
+        String queryMostBorrowed = """
+            SELECT b.*
+            FROM Books b
+            JOIN (
+                SELECT book_id
+                FROM Borrowed
+                GROUP BY book_id
+                ORDER BY COUNT(*) DESC
+            ) as most_borrowed ON b.id = most_borrowed.book_id;
+        """;
+
+        try  {
+            // Step 1: Get genres and authors of books the user has borrowed
+            List<String> genres = new ArrayList<>();
+            List<String> authors = new ArrayList<>();
+
+            try (PreparedStatement ps = Controller.connection.prepareStatement(queryGenresAuthors)) {
+                ps.setInt(1, userId);
+
+                try (ResultSet rs = ps.executeQuery()) {
+                    while (rs.next()) {
+                        genres.add(rs.getString("genre"));
+                        authors.add(rs.getString("author"));
+                    }
+                }
+            }
+
+            // Step 2: Suggest books based on genres and authors
+            if (!genres.isEmpty() || !authors.isEmpty()) {
+                String genreCondition = genres.isEmpty() ? "1=0" :
+                    "b.genre IN ('" + String.join("','", genres) + "')";
+                String authorCondition = authors.isEmpty() ? "1=0" :
+                    "b.author IN ('" + String.join("','", authors) + "')";
+
+                String querySuggestions = String.format(querySuggestionsTemplate, genreCondition, authorCondition);
+
+                try (PreparedStatement ps = Controller.connection.prepareStatement(querySuggestions)) {
+                    ps.setInt(1, userId);
+
+                    try (ResultSet rs = ps.executeQuery()) {
+                        while (rs.next()) {
+                            suggestedBooks.add(buildBookFromResultSet(rs));
+                        }
+                    }
+                }
+            }
+
+            // Step 3: If list size < 5, fill with most borrowed books
+            if (suggestedBooks.size() < 5) {
+                try (PreparedStatement ps = Controller.connection.prepareStatement(queryMostBorrowed);
+                    ResultSet rs = ps.executeQuery()) {
+
+                    while (rs.next() && suggestedBooks.size() < 5) {
+                        Book book = buildBookFromResultSet(rs);
+
+                        // Avoid adding duplicates
+                        if (!containsBook(suggestedBooks, book.getBookId())) {
+                            suggestedBooks.add(book);
+                        }
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return suggestedBooks;
+    }
+
+    // Helper method to build a Book object from ResultSet
+    private static Book buildBookFromResultSet(ResultSet rs) throws SQLException {
+        Book book = new Book();
+        book.setBookId(rs.getInt("id"));
+        book.setTitle(rs.getString("title"));
+        book.setAuthor(rs.getString("author"));
+        book.setGenre(rs.getString("genre"));
+        book.setPublisher(rs.getString("publisher"));
+        book.setPublicationYear(rs.getInt("publication_year"));
+        book.setIsbn(rs.getString("isbn"));
+        book.setPages(rs.getInt("pages"));
+        book.setLanguage(rs.getString("language"));
+        book.setCopies(rs.getInt("copies"));
+        book.setImageUrl(rs.getString("imageURL"));
+        return book;
+    }
+
+    // Helper method to check if a list already contains a book by ID
+    private static boolean containsBook(List<Book> books, int bookId) {
+        return books.stream().anyMatch(book -> book.getBookId() == bookId);
+    }
 
 
 
