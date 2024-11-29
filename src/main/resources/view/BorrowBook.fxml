@@ -12,7 +12,7 @@
          </font>
       </Label>
       <TextField fx:id="userIdField" layoutX="126.0" layoutY="93.0" promptText="ID người mượn" AnchorPane.topAnchor="90.0" />
-      <TextField fx:id="copiesField" layoutX="126.0" layoutY="133.0" promptText="Số lượng" AnchorPane.topAnchor="130.0" />
+      <TextField fx:id="amountField" layoutX="126.0" layoutY="133.0" promptText="Số lượng" AnchorPane.topAnchor="130.0" />
       <Button fx:id="borrowButton" layoutX="174.0" layoutY="211.0" mnemonicParsing="false" text="Borrow" AnchorPane.topAnchor="211.0" />
       <Label fx:id="titleLabel" layoutX="25.0" layoutY="53.0" text="Label" />
       <Label fx:id="remainLabel" layoutX="282.0" layoutY="134.0" text="Available:" AnchorPane.leftAnchor="280.0" />

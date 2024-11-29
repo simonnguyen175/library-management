@@ -26,7 +26,7 @@ public class BorrowBookController {
     private TextField userIdField;
 
     @FXML
-    private TextField copiesField;
+    private TextField amountField;
 
     @FXML
     private DatePicker dueDatePicker;
@@ -57,7 +57,7 @@ public class BorrowBookController {
     }
 
     private void handleBorrowButtonAction(Book book) {
-        if (userIdField.getText().isEmpty() || copiesField.getText().isEmpty() || dueDatePicker.getValue() == null) {
+        if (userIdField.getText().isEmpty() || amountField.getText().isEmpty() || dueDatePicker.getValue() == null) {
             // Show alert for missing information
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -67,10 +67,23 @@ public class BorrowBookController {
             return;
         }
 
+        int amount = Integer.parseInt(amountField.getText());
+        int available = getAvailable(book.getBookId(), book.getCopies());
+
+        if (amount > available) {
+            // Show alert for amount greater than available
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Amount exceeds available copies");
+            alert.showAndWait();
+            return;
+        }
+
         Library myLib = Library.getInstance();
         new Thread(() -> {
             myLib.BorrowBook(Integer.parseInt(userIdField.getText()),
-                    book.getBookId(), Integer.parseInt(copiesField.getText()),
+                    book.getBookId(), Integer.parseInt(amountField.getText()),
                     dueDatePicker.getValue().toString());
         }).start();
 

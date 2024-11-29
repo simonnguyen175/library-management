@@ -100,6 +100,8 @@ public class BorrowListController implements Initializable {
                 });
             }
         });
+
+        detailsPane.setExpanded(false);
     }
 
     private void loadBorrowData() {
