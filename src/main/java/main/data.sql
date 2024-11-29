@@ -56,7 +56,7 @@ CREATE TABLE Books (
 
 INSERT INTO Books (title, author, genre, publisher, publication_year, isbn, pages, language, copies) VALUES
                                                                                                          ('The Great Gatsby', 'F. Scott Fitzgerald', 'Fiction', 'Scribner', 2004, '9780743273565', 180, 'English', 10),
-                                                                                                         ('Pride and Prejudice', 'Jane Austen', 'Romance', 'Penguin Classics', 2002, '9780141439518', 279, 'English', 7),
+                                                                                                 ('Pride and Prejudice', 'Jane Austen', 'Romance', 'Penguin Classics', 2002, '9780141439518', 279, 'English', 7),
                                                                                                          ('The Catcher in the Rye', 'J.D. Salinger', 'Fiction', 'Little, Brown and Company', 2001, '9780316769488', 277, 'English', 5),
 
                                                                                                          ('The Lord of the Rings', 'J.R.R. Tolkien', 'Fantasy', 'Mariner Books', 2012, '9780544003415', 1178, 'English', 5),
@@ -185,3 +185,9 @@ VALUES
 (240013, 1005, 'Mình học được rất nhiều kiến thức thực tiễn từ sách này.', '2024-11-10'),
 (240012, 1004, 'Cuốn sách rất hữu ích cho công việc và cuộc sống.', '2024-11-09'),
 (240011, 1003, 'Nội dung sách đầy ý nghĩa, làm mình suy ngẫm rất nhiều.', '2024-11-08');
+
+select * from comments;
+
+delete from comments
+where comment_date = '2024-11-30';
+
