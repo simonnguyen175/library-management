@@ -1,16 +1,17 @@
 package controller;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
+import library.Library;
+import library.Library.Admin;
 import main.StageManager;
 import javafx.stage.Stage;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.List;
 
 public class LoginController extends Controller {
     @FXML
@@ -22,11 +23,20 @@ public class LoginController extends Controller {
     @FXML
     private Label errorMessage;
 
+    @FXML
+    private ComboBox<String> roleBox;
+
+    @FXML
+    private Button loginButton;
+
     private boolean isAuthenticated = false;
 
     @FXML
     public void initialize() {
         super.initialize();
+
+        loginButton.setOnAction(event -> handleLoginButtonAction());
+
         passwordField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
                 handleLoginButtonAction();
@@ -38,14 +48,28 @@ public class LoginController extends Controller {
                 handleLoginButtonAction();
             }
         });
+
+        roleBox.setItems(FXCollections.observableArrayList("Admin", "User"));
+        roleBox.setValue("Admin");
     }
 
     @FXML
     protected void handleLoginButtonAction() {
         String username = usernameField.getText();
         String password = passwordField.getText();
+        String role = roleBox.getValue();
 
-        authenticate(username, password);
+        if ("Admin".equals(role)) {
+            List<Admin> adminList = Library.admins;
+            for (Admin admin : adminList) {
+                if (admin.getName().equals(username) && admin.getPass().equals(password)) {
+                    isAuthenticated = true;
+                    break;
+                }
+            }
+        } else if ("User".equals(role)) {
+            authenticate(username, password);
+        }
 
         if (isAuthenticated) {
             errorMessage.setText("Login successful!");
@@ -78,7 +102,6 @@ public class LoginController extends Controller {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        isAuthenticated = true;
     }
 
     private void openDashboard() {

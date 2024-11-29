@@ -28,6 +28,30 @@ public class Library {
         return INSTANCE;
     }
 
+    public static class Admin {
+        private String name;
+        private String pass;
+
+        public Admin(String name, String pass) {
+            this.name = name;
+            this.pass = pass;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getPass() {
+            return pass;
+        }
+    }
+
+    public static List<Admin> admins = Arrays.asList(
+            new Admin("admin", "admin"),
+            new Admin("admin1", "admin1")
+    );
+
+
     // Add book to database
     // if book already exits base on isbn, just change the copies of book
     public void addBook(Book book) {
