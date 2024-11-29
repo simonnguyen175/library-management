@@ -5,7 +5,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -19,9 +21,6 @@ import library.Library;
 import services.APIController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -71,6 +70,10 @@ public class BookDetailController {
     private Label languageLabel;
     @FXML
     private VBox commentList;
+    @FXML
+    private TextField commentField;
+    @FXML
+    private ScrollPane commentScrollPane;
 
     private ImageView qrCodeImage;
 
@@ -97,6 +100,21 @@ public class BookDetailController {
         borrowButton.setOnAction(event -> {
             handleBookBorrowAction();
         });
+
+        if (Library.role == "admin") {
+            commentField.setDisable(true);
+        }
+        else commentField.setDisable(false);
+
+        commentField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                addComment();
+            }
+        });
+
+        commentScrollPane.setContent(commentList);
+        commentScrollPane.setFitToWidth(true);
+        commentScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
     }
 
     public void setBook(Book book) {
@@ -154,7 +172,8 @@ public class BookDetailController {
 
     private List<Comment> getComments(int bookId) {
         List<Comment> comments = new ArrayList<>();
-        String query = "SELECT * FROM comments WHERE book_id = " + bookId;
+        String query = "SELECT * FROM comments WHERE book_id = " + bookId
+                + " ORDER BY comment_id DESC";
 
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
@@ -178,17 +197,27 @@ public class BookDetailController {
 
         Text userName = new Text(comment.getUsername());
         userName.setStyle("-fx-font-weight: bold;");
-        userName.setWrappingWidth(750);
+        userName.setWrappingWidth(410);
 
         Text contentText = new Text(comment.getContent());
-        contentText.setWrappingWidth(750);
+        contentText.setWrappingWidth(410);
 
         Text dateText = new Text(comment.getDate());
         dateText.setStyle("-fx-font-size: 10px; -fx-text-fill: gray;");
-        dateText.setWrappingWidth(750);
+        dateText.setWrappingWidth(410);
 
         commentBox.getChildren().addAll(userName, contentText, dateText);
         return commentBox;
+    }
+
+    private void addComment() {
+        String content = commentField.getText();
+        Library myLib = Library.getInstance();
+        myLib.addComment(new Comment(0, Library.userId,
+                book.getBookId(), content, new Date(System.currentTimeMillis())));
+        commentField.clear();
+        commentField.getParent().requestFocus();
+        loadComments(book.getBookId());
     }
 
     private void handleBackButtonAction() {
