@@ -6,10 +6,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import library.Borrowed;
 import library.Library;
 
@@ -18,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import static controller.Controller.connection;
 
@@ -62,6 +61,15 @@ public class BorrowListController implements Initializable {
     @FXML
     private Button returnBookButton;
 
+    @FXML
+    private TextField searchBar;
+
+    @FXML
+    private Button searchButton;
+
+    @FXML
+    private TitledPane detailsPane;
+
     private ObservableList<Borrowed> borrowedData = FXCollections.observableArrayList();
 
     @Override
@@ -78,6 +86,20 @@ public class BorrowListController implements Initializable {
         BorrowTable.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showBorrowDetails(newValue)
         );
+
+        searchButton.setOnAction(event -> filterBorrowedData(searchBar.getText()));
+
+        // Add listener to detect when the TableView is added to the scene
+        BorrowTable.sceneProperty().addListener((observable, oldScene, newScene) -> {
+            if (newScene != null) {
+                newScene.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
+                    if (!BorrowTable.isHover() && !detailsPane.isHover()) {
+                        BorrowTable.getSelectionModel().clearSelection();
+                        clearBorrowDetails();
+                    }
+                });
+            }
+        });
     }
 
     private void loadBorrowData() {
@@ -86,6 +108,15 @@ public class BorrowListController implements Initializable {
                 "JOIN users u ON b.user_id = u.user_id " +
                 "JOIN books bk ON b.book_id = bk.id " +
                 "ORDER BY b.borrow_date DESC";
+
+        if ("user".equals(Library.role)) {
+            query = "SELECT b.borrow_id, b.user_id, b.book_id, b.borrow_date, b.borrowed_copies, b.due_date, b.status, u.fullname AS user_fullname, u.phone AS phone, u.email AS email, bk.title AS book_title " +
+                    "FROM borrowed b " +
+                    "JOIN users u ON b.user_id = u.user_id " +
+                    "JOIN books bk ON b.book_id = bk.id " +
+                    "WHERE b.user_id = " + Library.userId +
+                    " ORDER BY b.borrow_date DESC";
+        }
 
         try (Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
@@ -111,21 +142,33 @@ public class BorrowListController implements Initializable {
         }
     }
 
+    private void clearBorrowDetails() {
+        userIdLabel.setText("Mã người mượn:");
+        bookIdLabel.setText("Mã sách mượn:");
+        borrowedCopiesLabel.setText("Số lượng:");
+        userPhoneLabel.setText("Sđt người mượn:");
+        userEmailLabel.setText("Email người mượn:");
+        returnBookButton.setVisible(false);
+        detailsPane.setExpanded(false); // Collapse the details pane
+    }
+
     private void showBorrowDetails(Borrowed borrowed) {
+        detailsPane.setExpanded(false); // Collapse the details pane first
+
         if (borrowed != null) {
-            userIdLabel.setText("Mã người mượn: " + String.valueOf(borrowed.getUserId()));
-            bookIdLabel.setText("Mã sách mượn: " + String.valueOf(borrowed.getBookId()));
-            borrowedCopiesLabel.setText("Số lượng: " + String.valueOf(borrowed.getBorrowedCopies()));
+            userIdLabel.setText("Mã người mượn: " + borrowed.getUserId());
+            bookIdLabel.setText("Mã sách mượn: " + borrowed.getBookId());
+            borrowedCopiesLabel.setText("Số lượng: " + borrowed.getBorrowedCopies());
             userPhoneLabel.setText("Sđt người mượn: " + borrowed.getUserPhone());
             userEmailLabel.setText("Email người mượn: " + borrowed.getUserEmail());
 
-            if (borrowed.getStatus().equals("borrowed")) {
-                returnBookButton.setVisible(true);
-            } else {
-                returnBookButton.setVisible(false) ;
+            if ("user".equals(Library.role)) {
+                returnBookButton.setVisible(false);
+                return;
             }
 
-            returnBookButton.setOnAction(event->handleReturnBook(borrowed));
+            returnBookButton.setVisible("borrowed".equals(borrowed.getStatus()));
+            returnBookButton.setOnAction(event -> handleReturnBook(borrowed));
         }
     }
 
@@ -141,5 +184,14 @@ public class BorrowListController implements Initializable {
         BorrowTable.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showBorrowDetails(newValue)
         );
+    }
+
+    private void filterBorrowedData(String query) {
+        ObservableList<Borrowed> filteredData = borrowedData.stream()
+                .filter(borrowed -> String.valueOf(borrowed.getBorrowId()).contains(query) ||
+                        borrowed.getUserfullname().toLowerCase().contains(query.toLowerCase()) ||
+                        borrowed.getBooktitle().toLowerCase().contains(query.toLowerCase()))
+                .collect(Collectors.toCollection(FXCollections::observableArrayList));
+        BorrowTable.setItems(filteredData);
     }
 }

@@ -7,23 +7,23 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="720.0" prefWidth="1297.0" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DashboardController">
-    <!-- Main Container -->
-    <children>
-         <!-- Navigation Bar -->
-         <HBox layoutX="754.0" layoutY="27.0" spacing="10" style="-fx-background-color: lightgray; -fx-background-radius: 10; -fx-padding: 10;" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
-             <children>
-                 <Button fx:id="homeButton" styleClass="nav-button" text="Trang chủ" />
-                 <Button fx:id="booksButton" styleClass="nav-button" text="Sách" />
-                 <Button fx:id="usersButton" styleClass="nav-button" text="Người dùng" />
-                 <Button fx:id="borrowListButton" styleClass="nav-button" text="Danh sách mượn" />
-                 <Button fx:id="logoutButton" styleClass="nav-button" text="Đăng xuất" />
-             </children>
-         </HBox>
-      <Label layoutX="31.0" layoutY="28.0" text="Library Management" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="50.0">
-         <font>
+<!-- Main Container -->
+<children>
+    <!-- Navigation Bar -->
+    <HBox fx:id="menu" layoutX="754.0" layoutY="27.0" spacing="10" style="-fx-background-color: lightgray; -fx-background-radius: 10; -fx-padding: 10;" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
+        <children>
+            <Button fx:id="homeButton" styleClass="nav-button" text="Trang chủ" />
+            <Button fx:id="booksButton" styleClass="nav-button" text="Sách" />
+            <Button fx:id="usersButton" styleClass="nav-button" text="Người dùng"/>
+            <Button fx:id="borrowListButton" styleClass="nav-button" text="Danh sách mượn" />
+            <Button fx:id="logoutButton" styleClass="nav-button" text="Đăng xuất" />
+        </children>
+    </HBox>
+    <Label layoutX="31.0" layoutY="28.0" text="Library Management" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="50.0">
+        <font>
             <Font name="Consolas Bold" size="36.0" />
-         </font>
-      </Label>
-      <AnchorPane fx:id="container" layoutY="152.0" prefHeight="584.0" prefWidth="1237.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" />
-    </children>
+        </font>
+    </Label>
+    <AnchorPane fx:id="container" layoutY="152.0" prefHeight="584.0" prefWidth="1237.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" />
+</children>
 </AnchorPane>

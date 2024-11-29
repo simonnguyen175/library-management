@@ -67,7 +67,9 @@ public class LoginController extends Controller {
                     break;
                 }
             }
+            Library.role = "admin";
         } else if ("User".equals(role)) {
+            Library.role = "user";
             authenticate(username, password);
         }
 
@@ -84,13 +86,18 @@ public class LoginController extends Controller {
     private void authenticate(String username, String password) {
         Thread dbThread = new Thread(() -> {
             try {
-                String query = "SELECT * FROM users WHERE username = ? AND password = ?";
+                String query = "SELECT user_id FROM users WHERE username = ? AND password = ?";
                 PreparedStatement statement = connection.prepareStatement(query);
                 statement.setString(1, username);
                 statement.setString(2, password);
 
                 ResultSet resultSet = statement.executeQuery();
-                isAuthenticated = resultSet.next();
+                if (resultSet.next()) {
+                    Library.userId = resultSet.getInt("user_id");
+                    isAuthenticated = true;
+                } else {
+                    isAuthenticated = false;
+                }
             } catch (Exception e) {
                 e.printStackTrace();
                 isAuthenticated = false;

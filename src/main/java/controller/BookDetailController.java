@@ -15,6 +15,7 @@ import javafx.stage.Modality;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import library.Comment;
+import library.Library;
 import services.APIController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -84,6 +85,14 @@ public class BookDetailController {
         QRButton.setOnAction(event -> {
             handleQRButtonAction();
         });
+
+        if (Library.role == "admin") {
+            borrowButton.setVisible(true);
+        }
+        else{
+            borrowButton.setVisible(false);
+            QRButton.setLayoutX(QRButton.getLayoutX() + 25);
+        }
 
         borrowButton.setOnAction(event -> {
             handleBookBorrowAction();

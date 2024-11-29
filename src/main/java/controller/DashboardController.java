@@ -5,20 +5,29 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.stage.Stage;
+import library.Library;
 import main.StageManager;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.IllegalFormatCodePointException;
 import java.util.List;
 
 public class DashboardController {
     @FXML
     private Button homeButton, booksButton, usersButton, borrowListButton, notiButton, logoutButton;
+
+    @FXML
+    private Label dateLabel, userCountLabel, bookCountLabel;
+
+    @FXML
+    private HBox menu;
 
     @FXML
     protected AnchorPane container;
@@ -56,6 +65,10 @@ public class DashboardController {
                 e.printStackTrace();
             }
         });
+
+        if (Library.role == "user") { // Assuming 1 represents the user role
+            menu.getChildren().remove(usersButton);
+        }
 
         usersButton.setOnAction(actionEvent -> {
             try {

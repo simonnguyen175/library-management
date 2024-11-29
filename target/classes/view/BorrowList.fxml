@@ -21,25 +21,25 @@
             <TableColumn fx:id="statusColumn" prefWidth="83.0" text="Trạng thái" />
          </columns>
       </TableView>
-      <TitledPane animated="false" layoutX="776.0" layoutY="95.0" prefHeight="234.0" prefWidth="358.0" text="Borrow details" AnchorPane.rightAnchor="50.0">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="240.0" prefWidth="357.0">
+      <TitledPane fx:id="detailsPane" animated="false" collapsible="true" layoutX="776.0" layoutY="95.0" prefHeight="234.0" prefWidth="358.0" text="Borrow details" AnchorPane.rightAnchor="50.0">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="240.0" prefWidth="357.0">
                <children>
                   <Label fx:id="userIdLabel" layoutX="14.0" layoutY="14.0" text="Mã người mượn:" />
                   <Label fx:id="bookIdLabel" layoutX="14.0" layoutY="44.0" text="Mã sách mượn:" />
                   <Label fx:id="borrowedCopiesLabel" layoutX="14.0" layoutY="74.0" text="Số lượng:" />
                   <Label fx:id="userPhoneLabel" layoutX="14.0" layoutY="104.0" text="Sđt người mượn:" />
                   <Label fx:id="userEmailLabel" layoutX="14.0" layoutY="134.0" text="Email người mượn:" />
-                  <Button fx:id="returnBookButton"  layoutX="282.0" layoutY="169.0" mnemonicParsing="false" text="Trả sách" />
+                  <Button fx:id="returnBookButton" layoutX="282.0" layoutY="169.0" mnemonicParsing="false" text="Trả sách" />
                </children>
             </AnchorPane>
-        </content>
+         </content>
       </TitledPane>
-      <Button layoutX="46.0" layoutY="57.0" mnemonicParsing="false" text="Tìm kiếm" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="50.0">
+      <Button fx:id="searchButton" layoutX="46.0" layoutY="57.0" mnemonicParsing="false" text="Tìm kiếm" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="50.0">
          <graphic>
             <FontAwesomeIcon glyphName="SEARCH" />
          </graphic>
       </Button>
-      <TextField layoutX="130.0" layoutY="50.0" prefWidth="200.0" />
+      <TextField fx:id="searchBar" layoutX="130.0" layoutY="50.0" prefHeight="25.0" prefWidth="250.0" promptText="Mã mượn, Người mượn, Tên sách ..." />
    </children>
 </AnchorPane>

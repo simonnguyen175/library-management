@@ -17,6 +17,9 @@ public class Library {
     static DateTimeFormatter formatter;
     private static Library INSTANCE;
 
+    public static String role = "admin";
+    public static int userId = 1;
+
     private Library() {
         formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     }
@@ -47,6 +50,7 @@ public class Library {
     }
 
     public static List<Admin> admins = Arrays.asList(
+            new Admin("", ""),
             new Admin("admin", "admin"),
             new Admin("admin1", "admin1")
     );

@@ -66,6 +66,12 @@ public class BooksController implements Initializable {
             }
         });
 
+        if ( Library.role == "admin" ){
+            newBookButton.setVisible(true);
+        } else {
+            newBookButton.setVisible(false);
+        }
+
         newBookButton.setOnAction(event -> {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AddBook.fxml"));
@@ -227,6 +233,10 @@ public class BooksController implements Initializable {
                 e.printStackTrace();
             }
         });
+
+        if ( Library.role != "admin" ){
+            return new HBox(10, detailButton);
+        }
 
         Button removeButton = new Button("Remove");
         removeButton.setOnAction(event -> showRemoveConfirmation(book));

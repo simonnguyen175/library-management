@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import library.Library;
@@ -68,6 +69,9 @@ public class UsersController extends Controller implements Initializable {
     @FXML
     private Button addButton;
 
+    @FXML
+    private TitledPane detailsPane;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         userIdColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getUserId()).asObject());
@@ -87,6 +91,18 @@ public class UsersController extends Controller implements Initializable {
 
         // Add action for addButton
         addButton.setOnAction(event -> addUser());
+
+        // Add listener to detect when the TableView is added to the scene
+        userTable.sceneProperty().addListener((observable, oldScene, newScene) -> {
+            if (newScene != null) {
+                newScene.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
+                    if (!userTable.isHover() && !detailsPane.isHover()) {
+                        userTable.getSelectionModel().clearSelection();
+                        clearUserDetails();
+                    }
+                });
+            }
+        });
     }
 
     private void addDeleteButtonToTable() {
@@ -215,16 +231,47 @@ public class UsersController extends Controller implements Initializable {
         }
     }
 
+    private void clearUserDetails() {
+        emailLabel.setText("Email:");
+        phoneLabel.setText("Phone:");
+        totalBooksBorrowedLabel.setText("Tổng sách đã mượn:");
+        totalBooksCurrentlyBorrowedLabel.setText("Sách đang mượn:");
+        detailsPane.setExpanded(false); // Collapse the details pane
+    }
+
     private void showUserDetails(User user) {
+        detailsPane.setExpanded(false); // Collapse the details pane first
         if (user != null) {
+
             System.out.println("User selected: " + user.getEmail());
             emailLabel.setText("Email: " + user.getEmail());
             phoneLabel.setText("SĐT: " + user.getPhone());
-        } else {
-            emailLabel.setText("");
-            phoneLabel.setText("");
-            totalBooksBorrowedLabel.setText("");
-            totalBooksCurrentlyBorrowedLabel.setText("");
+            totalBooksBorrowedLabel.setText("Tổng sách đã mượn: " + getTotalBooksBorrowed(user.getUserId()));
+            totalBooksCurrentlyBorrowedLabel.setText("Sách đang mượn: " + getTotalBooksCurrentlyBorrowed(user.getUserId()));
         }
+    }
+
+    private int getTotalBooksBorrowed(int userId) {
+        String query = "SELECT SUM(borrowed_copies) AS total FROM borrowed WHERE user_id = " + userId + ";";
+        try (Statement stmt = connection.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
+            if (rs.next()) {
+                return rs.getInt("total");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    private int getTotalBooksCurrentlyBorrowed(int userId) {
+        String query = "SELECT SUM(borrowed_copies) AS total FROM borrowed WHERE user_id = " + userId + " AND status = 'borrowed';";
+        try (Statement stmt = connection.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
+            if (rs.next()) {
+                return rs.getInt("total");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }
