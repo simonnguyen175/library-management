@@ -166,17 +166,20 @@ public class Library {
                 return false;
             }
             int availableCopies = resultSet.getInt("copies");
+            String sql = "SELECT SUM(borrowed_copies) FROM Borrowed WHERE book_id = ? AND status = 'borrowed'";
+            PreparedStatement preparedStatement = Controller.connection.prepareStatement(sql);
+            preparedStatement.setInt(1, book_id);
+            ResultSet rS = preparedStatement.executeQuery();
+            if (!rS.next()) {
+                System.err.println("DB Error");
+                return false;
+            }
+            availableCopies -= rS.getInt(1);
             if (borrowed_copies > availableCopies) {
                 System.err.println("Not enough copies available. Available: " + availableCopies +
                     ", Requested: " + borrowed_copies);
                 return false;
             }
-            // Giam so luong copies trong table books
-            String updateCopiesSQL = "UPDATE Books SET copies = copies - ? WHERE id = ?";
-            PreparedStatement updateCopiesStmt = Controller.connection.prepareStatement(updateCopiesSQL);
-            updateCopiesStmt.setInt(1, borrowed_copies);
-            updateCopiesStmt.setInt(2, book_id);
-            updateCopiesStmt.executeUpdate();
             // Them truy van borrowed vao table borrowed
             String insertBorrowSQL = "INSERT INTO Borrowed (user_id, book_id, borrowed_copies, borrow_date, due_date, status) "
                 + "VALUES (?, ?, ?, ?, ?, ?)";
@@ -198,7 +201,7 @@ public class Library {
             } catch (SQLException rollbackEx) {
                 System.err.println("Rollback error: " + rollbackEx.getMessage());
             }
-            System.err.println("Error while adding comment: " + e.getMessage());
+            System.err.println("Error while adding borrowed: " + e.getMessage());
             return false;
         }
     }
@@ -222,12 +225,6 @@ public class Library {
             int bookId = resultSet.getInt("book_id");
             int borrowedCopies = resultSet.getInt("borrowed_copies");
 
-            // Cap nhat so luon sach
-            String updateBookCopiesSQL = "UPDATE Books SET copies = copies + ? WHERE id = ?";
-            PreparedStatement updateBookCopiesStmt = Controller.connection.prepareStatement(updateBookCopiesSQL);
-            updateBookCopiesStmt.setInt(1, borrowedCopies);
-            updateBookCopiesStmt.setInt(2, bookId);
-            updateBookCopiesStmt.executeUpdate();
 
             // Cap nhat thanh 'returned'
             String updateBorrowedStatusSQL = "UPDATE Borrowed SET status = 'returned' WHERE borrow_id = ?";

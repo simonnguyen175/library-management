@@ -34,7 +34,7 @@ class LibraryTest {
       String dbPassword = "0";
       Controller.connection = DriverManager.getConnection(url, dbUser, dbPassword);
       Library lb = Library.getInstance();
-      lb.BorrowBook(240008, 1001, 1, "2024-12-01");
+      lb.BorrowBook(240008, 1002, 1, "2024-12-01");
     } catch (Exception e)
     {
       e.printStackTrace();
