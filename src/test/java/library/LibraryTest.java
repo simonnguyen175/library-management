@@ -2,8 +2,10 @@ package library;
 
 import controller.Controller;
 import java.sql.DriverManager;
+import java.util.ArrayList;
 import java.util.Date;
 
+import java.util.List;
 import org.junit.jupiter.api.Test;
 
 class LibraryTest {
@@ -32,7 +34,7 @@ class LibraryTest {
       String dbPassword = "0";
       Controller.connection = DriverManager.getConnection(url, dbUser, dbPassword);
       Library lb = Library.getInstance();
-      lb.BorrowBook(240008, 1001, 1, "2024-12-01");
+      lb.BorrowBook(240008, 1002, 1, "2024-12-01");
     } catch (Exception e)
     {
       e.printStackTrace();
@@ -49,6 +51,55 @@ class LibraryTest {
       Controller.connection = DriverManager.getConnection(url, dbUser, dbPassword);
       Library lb = Library.getInstance();
       lb.ReturnBook(27);
+    } catch (Exception e)
+    {
+      e.printStackTrace();
+    }
+  }
+
+  @Test
+  void suggestBook() {
+    try {
+      String url = "jdbc:mysql://localhost:3306/library";
+      String dbUser = "root";
+      String dbPassword = "0";
+      Controller.connection = DriverManager.getConnection(url, dbUser, dbPassword);
+      Library lb = Library.getInstance();
+      List<Book> list = lb.suggestBook(240006);
+      for (Book book : list) {
+        System.out.print(book.getBookId() + " ");
+        System.out.println(book.getTitle() + " ");
+      }
+    } catch (Exception e)
+    {
+      e.printStackTrace();
+    }
+  }
+
+  @Test
+  void getTotalBooks() {
+    try {
+      String url = "jdbc:mysql://localhost:3306/library";
+      String dbUser = "root";
+      String dbPassword = "0";
+      Controller.connection = DriverManager.getConnection(url, dbUser, dbPassword);
+      Library lb = Library.getInstance();
+      System.out.print(lb.getTotalBooks());
+    } catch (Exception e)
+    {
+      e.printStackTrace();
+    }
+  }
+
+  @Test
+  void getTotalUser() {
+    try {
+      String url = "jdbc:mysql://localhost:3306/library";
+      String dbUser = "root";
+      String dbPassword = "0";
+      Controller.connection = DriverManager.getConnection(url, dbUser, dbPassword);
+      Library lb = Library.getInstance();
+      System.out.print(lb.getTotalUser());
     } catch (Exception e)
     {
       e.printStackTrace();
