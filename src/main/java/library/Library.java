@@ -2,14 +2,12 @@ package library;
 
 import controller.Controller;
 
-import java.lang.classfile.instruction.LabelTarget;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -359,6 +357,50 @@ public class Library {
         return books.stream().anyMatch(book -> book.getBookId() == bookId);
     }
 
+    public int getTotalBooks() {
+
+        // Câu SQL để tính tổng cột copies
+        String query = "SELECT SUM(copies) AS total_copies FROM Books";
+
+        // Kết quả trả về
+        int totalCopies = 0;
+
+        try (PreparedStatement statement = Controller.connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery()) {
+
+            // Xử lý kết quả truy vấn
+            if (resultSet.next()) {
+                totalCopies = resultSet.getInt("total_copies");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return totalCopies;
+    }
+
+    public int getTotalUser() {
+        // Câu SQL để đếm số sách
+        String query = "SELECT COUNT(*) AS total FROM Users";
+
+        // Kết quả trả về
+        int totalBooks = 0;
+
+        try (PreparedStatement statement = Controller.connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery()) {
+
+            // Xử lý kết quả truy vấn
+            if (resultSet.next()) {
+                totalBooks = resultSet.getInt("total");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return totalBooks;
+    }
 
 
 }

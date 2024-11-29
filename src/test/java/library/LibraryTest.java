@@ -75,4 +75,34 @@ class LibraryTest {
       e.printStackTrace();
     }
   }
+
+  @Test
+  void getTotalBooks() {
+    try {
+      String url = "jdbc:mysql://localhost:3306/library";
+      String dbUser = "root";
+      String dbPassword = "0";
+      Controller.connection = DriverManager.getConnection(url, dbUser, dbPassword);
+      Library lb = Library.getInstance();
+      System.out.print(lb.getTotalBooks());
+    } catch (Exception e)
+    {
+      e.printStackTrace();
+    }
+  }
+
+  @Test
+  void getTotalUser() {
+    try {
+      String url = "jdbc:mysql://localhost:3306/library";
+      String dbUser = "root";
+      String dbPassword = "0";
+      Controller.connection = DriverManager.getConnection(url, dbUser, dbPassword);
+      Library lb = Library.getInstance();
+      System.out.print(lb.getTotalUser());
+    } catch (Exception e)
+    {
+      e.printStackTrace();
+    }
+  }
 }
