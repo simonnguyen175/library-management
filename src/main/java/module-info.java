@@ -16,6 +16,8 @@ module main.librarymanagement {
     requires com.google.zxing;
     requires com.google.zxing.javase;
     requires javafx.swing;
+    requires fontawesomefx;
+    requires mysql.connector.j;
 
     opens main to javafx.fxml;
     exports main;

@@ -49,7 +49,7 @@
                 </Tab>
             </tabs>
         </TabPane>
-        <TitledPane fx:id="detailsPane" animated="false" expanded="false" layoutX="724.0" layoutY="85.0" prefHeight="187.0" prefWidth="462.0" text="User details">
+        <TitledPane fx:id="detailsPane" animated="false" expanded="true" layoutX="724.0" layoutY="85.0" prefHeight="187.0" prefWidth="462.0" text="User details">
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="130.0" prefWidth="461.0">
                     <children>

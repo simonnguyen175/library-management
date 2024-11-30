@@ -4,8 +4,8 @@ public class User {
     private final int userId;
     private final String fullname;
     private final String username;
-    private final String phone;
-    private final String email;
+    private String phone;
+    private String email;
 
     public User(int userId, String fullname, String username, String phone, String email) {
         this.userId = userId;
@@ -41,5 +41,15 @@ public class User {
 
     public String getEmail() {
         return email;
+    }
+
+    public void setPhone(String phone) {
+        // Update the phone number
+        this.phone = phone;
+    }
+
+    public void setEmail(String email) {
+        // Update the email address
+        this.email = email;
     }
 }

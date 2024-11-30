@@ -1,21 +1,32 @@
 package controller;
 
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import library.Library;
-import library.User;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import library.*;
+import controller.FixUserController;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
@@ -103,20 +114,40 @@ public class UsersController extends Controller implements Initializable {
                 });
             }
         });
+
+        detailsPane.setExpanded(false);
     }
 
     private void addDeleteButtonToTable() {
         deleteColumn.setCellFactory(param -> new TableCell<>() {
-            private final Button deleteButton = new Button("Delete");
-            private final HBox hBox = new HBox(deleteButton);
+            private final Button deleteButton = new Button();
+            private final Button fixButton = new Button();
+            private final HBox hBox = new HBox(5, fixButton, deleteButton); // Spacing of 5
 
             {
-                hBox.setStyle("-fx-alignment: center;");
-                HBox.setHgrow(deleteButton, Priority.ALWAYS);
+                hBox.setAlignment(Pos.CENTER);
+            }
+
+            {
+                // Setting FontAwesome icons as Text
+                Text deleteIcon = new Text("\uf1f8"); // trash
+                deleteIcon.setStyle("-fx-font-family: 'FontAwesome'; -fx-font-size: 16px;");
+
+                Text fixIcon = new Text("\uf044");  // edit/fix
+                fixIcon.setStyle("-fx-font-family: 'FontAwesome'; -fx-font-size: 16px;");
+
+                // Set the buttons' graphic
+                deleteButton.setGraphic(deleteIcon);
+                fixButton.setGraphic(fixIcon);
 
                 deleteButton.setOnAction(event -> {
                     User user = getTableView().getItems().get(getIndex());
                     deleteUser(user);
+                });
+
+                fixButton.setOnAction(event -> {
+                    User user = getTableView().getItems().get(getIndex());
+                    fixUser(user);
                 });
             }
 
@@ -132,6 +163,27 @@ public class UsersController extends Controller implements Initializable {
         });
     }
 
+    private void fixUser(User user) {
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FixUser.fxml"));
+            AnchorPane root = loader.load();
+            FixUserController controller = loader.getController();
+            controller.setUser(user);
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Fix User");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+
+            ObservableList<User> updatedUsers = getUserData();
+            userTable.setItems(updatedUsers);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     private void deleteUser(User user) {
         String query = "DELETE FROM users WHERE user_id = " + user.getUserId() + ";";
 
@@ -142,7 +194,18 @@ public class UsersController extends Controller implements Initializable {
                 ObservableList<User> updatedUsers = getUserData();
                 userTable.setItems(updatedUsers);
             } catch (SQLException e) {
-                e.printStackTrace();
+                if (e instanceof SQLIntegrityConstraintViolationException) {
+                    Platform.runLater(() -> {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Deletion Error");
+                        alert.setHeaderText("Cannot delete user");
+                        alert.setContentText("This user currently borrows book.");
+                        alert.showAndWait();
+                    });
+                }
+                else {
+                    e.printStackTrace();
+                }
             }
         });
         dbThread.start();
@@ -188,13 +251,14 @@ public class UsersController extends Controller implements Initializable {
         Thread dbThread = new Thread(() -> {
             try (Statement stmt = connection.createStatement(); ResultSet rs = stmt.executeQuery(query)) {
                 while (rs.next()) {
-                    users.add(new User(
+                    User user = new User(
                             rs.getInt("user_id"),
                             rs.getString("fullname"),
                             rs.getString("username"),
                             rs.getString("phone"),
                             rs.getString("email")
-                    ));
+                    );
+                    Platform.runLater(() -> users.add(user));
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
