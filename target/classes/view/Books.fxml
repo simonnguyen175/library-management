@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 
 <AnchorPane fx:id="rootPane" prefHeight="584.0" prefWidth="1237.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BooksController">
-   <GridPane fx:id="booksGridPane" layoutX="59.0" layoutY="96.0" />
+   <GridPane fx:id="booksGridPane" layoutX="59.0" layoutY="96.0" AnchorPane.leftAnchor="175.0" AnchorPane.topAnchor="110.0" />
    <HBox layoutX="58.0" layoutY="57.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="50.0">
       <children>
          <Button fx:id="searchButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="80.0" text="Tìm kiếm">
@@ -19,7 +19,7 @@
          </Button>
          <TextField fx:id="bookTitleTextField" prefHeight="26.0" prefWidth="156.0" promptText="Tên sách" />
          <TextField fx:id="authorTextField" prefHeight="25.0" prefWidth="150.0" promptText="Tác giả" />
-         <ComboBox fx:id="genreComboBox" promptText="Thể loại" />
+         <ComboBox fx:id="genreComboBox" maxWidth="-Infinity" prefWidth="90.0" promptText="Thể loại" />
       </children>
    </HBox>
    <HBox layoutX="1150.0" layoutY="538.0" prefHeight="15.0" prefWidth="73.0" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0">
