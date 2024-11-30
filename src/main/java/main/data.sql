@@ -39,6 +39,14 @@ INSERT INTO Users (fullname, username, password, phone, email) VALUES
 
 select * from users;
 
+insert into users (fullname, username, password, phone, email) values
+('Đinh Gia Minh', 'dinhgiaminh', 'minh123', '0917-890-123', 'dinhgiaminh@example.com');
+
+update users
+set user_id = 240025
+where username = 'dinhgiaminh';
+
+
 CREATE TABLE Books (
                        id INT AUTO_INCREMENT PRIMARY KEY,
                        title VARCHAR(255) NOT NULL,
