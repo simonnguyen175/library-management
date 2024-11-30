@@ -16,15 +16,13 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
-import library.Comment;
-import library.Library;
-import services.APIController;
+import library.*;
+import services.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import library.Book;
 import services.QRCodeGenerator;
 import javafx.scene.input.MouseEvent;
 
@@ -74,6 +72,8 @@ public class BookDetailController {
     private TextField commentField;
     @FXML
     private ScrollPane commentScrollPane;
+    @FXML
+    private Button fixButton;
 
     private ImageView qrCodeImage;
 
@@ -115,6 +115,31 @@ public class BookDetailController {
         commentScrollPane.setContent(commentList);
         commentScrollPane.setFitToWidth(true);
         commentScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+
+        if ( Library.role == "admin") {
+            fixButton.setVisible(true);
+        }
+        else fixButton.setVisible(false);
+        fixButton.setOnAction(event -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FixBook.fxml"));
+                AnchorPane fixBookPane = loader.load();
+                Stage fixBookStage = new Stage();
+                fixBookStage.setResizable(false);
+                fixBookStage.setScene(new Scene(fixBookPane));
+                fixBookStage.setTitle("Fix Book");
+                FixBookController fixBookController = loader.getController();
+                fixBookController.setBook(book);
+                fixBookStage.initModality(Modality.APPLICATION_MODAL);
+                fixBookPane.setOnMouseClicked(mouseEvent -> fixBookPane.requestFocus());
+                fixBookStage.showAndWait();
+
+                // Update the book details
+                setBook(book);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     public void setBook(Book book) {
