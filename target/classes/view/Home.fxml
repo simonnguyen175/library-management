@@ -3,6 +3,8 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -51,6 +53,36 @@
                   </Label>
                </children>
             </Group>
+            <Label layoutX="150.0" layoutY="352.0" text="Label" AnchorPane.topAnchor="350.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="150.0" layoutY="387.0" text="Label" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="390.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="150.0" layoutY="421.0" text="Label" AnchorPane.topAnchor="430.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="firstBook" fitHeight="142.0" fitWidth="125.0" layoutX="853.0" layoutY="359.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="850.0">
+               <image>
+                  <Image url="@../image-placeholder.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="secondBook" fitHeight="142.0" fitWidth="125.0" layoutX="700.0" layoutY="358.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="700.0">
+               <image>
+                  <Image url="@../image-placeholder.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="thirdBook" fitHeight="125.0" fitWidth="125.0" layoutX="1000.0" layoutY="359.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="1000.0">
+               <image>
+                  <Image url="@../image-placeholder.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </children>
