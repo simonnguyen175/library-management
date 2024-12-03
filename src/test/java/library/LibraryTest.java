@@ -105,4 +105,60 @@ class LibraryTest {
       e.printStackTrace();
     }
   }
+
+  @Test
+  void addBook() {
+    try {
+      String url = "jdbc:mysql://localhost:3306/library";
+      String dbUser = "root";
+      String dbPassword = "0";
+      Controller.connection = DriverManager.getConnection(url, dbUser, dbPassword);
+      Library lb = Library.getInstance();
+    } catch (Exception e)
+    {
+      e.printStackTrace();
+    }
+  }
+
+  @Test
+  void deleteBook() {
+    try {
+      String url = "jdbc:mysql://localhost:3306/library";
+      String dbUser = "root";
+      String dbPassword = "0";
+      Controller.connection = DriverManager.getConnection(url, dbUser, dbPassword);
+      Library lb = Library.getInstance();
+    } catch (Exception e)
+    {
+      e.printStackTrace();
+    }
+  }
+
+  @Test
+  void addUser() {
+    try {
+      String url = "jdbc:mysql://localhost:3306/library";
+      String dbUser = "root";
+      String dbPassword = "0";
+      Controller.connection = DriverManager.getConnection(url, dbUser, dbPassword);
+      Library lb = Library.getInstance();
+    } catch (Exception e)
+    {
+      e.printStackTrace();
+    }
+  }
+
+  @Test
+  void deleteUser() {
+    try {
+      String url = "jdbc:mysql://localhost:3306/library";
+      String dbUser = "root";
+      String dbPassword = "0";
+      Controller.connection = DriverManager.getConnection(url, dbUser, dbPassword);
+      Library lb = Library.getInstance();
+    } catch (Exception e)
+    {
+      e.printStackTrace();
+    }
+  }
 }
