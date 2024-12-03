@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="584" prefWidth="1237.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomeController">
+<AnchorPane prefHeight="584" prefWidth="1237.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomeController" stylesheets="@../style/style.css">
    <children>
       <Label layoutX="353.0" layoutY="49.0" text="CHAO MUNG DEN VOI THU VIEN">
          <font>

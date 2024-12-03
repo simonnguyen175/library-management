@@ -9,7 +9,7 @@
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="584.0" prefWidth="1237.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BorrowListController">
+<AnchorPane prefHeight="584.0" prefWidth="1237.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BorrowListController" stylesheets="@../style/style.css">
    <children>
       <TableView fx:id="BorrowTable" layoutX="52.0" layoutY="95.0" prefHeight="393.0" prefWidth="750.0" AnchorPane.leftAnchor="52.0">
          <columns>

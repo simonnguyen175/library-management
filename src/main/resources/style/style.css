@@ -1,24 +1,193 @@
 /* styles.css */
 
-/* Style for the navigation bar buttons */
-.nav-button {
-    -fx-background-radius: 10;
-    -fx-background-color: lightgray;
-    -fx-text-fill: black;
-}
-
-.nav-button:hover {
-    -fx-background-color: darkgray;
-    -fx-text-fill: white;
-}
-
-.nav-button.selected {
-    -fx-background-color: black;
-    -fx-text-fill: white;
-}
 
 /* Style for the main label */
 .main-label {
     -fx-font-family: "Consolas Bold";
     -fx-font-size: 30px;
 }
+
+.button {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #D2B48C;
+    -fx-padding: 5px;
+    -fx-wrap-text: true;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.button:hover {
+    -fx-background-color: #D2B48C;
+    -fx-text-fill: white;
+    -fx-background-radius: 5px;
+}
+
+.button:pressed {
+    -fx-background-color: #D2B48C;
+    -fx-text-fill: white;
+    -fx-background-radius: 5px;
+}
+
+#menu {
+    -fx-background-color: #FFFFFF ;
+    -fx-background-radius: 10px;
+    -fx-padding: 10px;
+    -fx-spacing: 10px;
+}
+/* Style for the navigation bar buttons */
+
+
+.nav-button {
+    -fx-border-color: white !important;
+    -fx-background-radius: 5;
+    -fx-background-color: white;
+}
+
+.nav-button:hover {
+    -fx-background-color: white !important;
+    -fx-border-color: #D2B48C !important;
+    -fx-border-radius: 5;
+    -fx-text-fill: #D2B48C !important;
+}
+
+.nav-button:pressed {
+    -fx-background-color:  #D2B48C !important;
+    -fx-border-color: #D2B48C !important;
+    -fx-border-radius: 5;
+    -fx-text-fill: white !important;
+}
+
+
+.label {
+    -fx-color: #D2B48C;
+}
+
+.text-field {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #D2B48C;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+
+.text-field:pressed {
+    -fx-background-color: #D2B48C;
+    -fx-text-fill: white !important;
+    -fx-background-radius: 5px;
+}
+
+.text-area {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #D2B48C;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px;
+    -fx-background-radius: 5px;
+}
+
+/* Loại bỏ nền của thanh cuộn trong TextArea */
+.text-area .scroll-bar {
+    -fx-background-color: transparent;  /* Loại bỏ nền của thanh cuộn */
+}
+
+/* Loại bỏ nền của phần track (đường nền của thanh cuộn) */
+.text-area .scroll-bar .track {
+    -fx-background-color: transparent;  /* Loại bỏ nền của track */
+}
+
+/* Loại bỏ nền của các nút increment và decrement (nút cuộn) */
+.text-area .scroll-bar .increment-button,
+.text-area .scroll-bar .decrement-button {
+    -fx-background-color: transparent;  /* Loại bỏ nền các nút cuộn */
+}
+
+#roleBox
+{
+    -fx-background-color: white !important;
+    -fx-border-color: #D2B48C !important;
+    -fx-border-radius: 5px !important;
+    -fx-background-radius: 5px !important;
+}
+
+#roleBox:pressed {
+    -fx-background-color: #D2B48C !important;
+    -fx-text-fill: white !important;
+    -fx-border-radius: 5px !important;
+    -fx-background-radius: 5px !important;
+}
+
+#roleBox .list-cell {
+    -fx-background-color: white !important;
+    -fx-text-fill: black  !important;
+    -fx-border-radius: 5px !important;
+    -fx-background-radius: 5px !important;
+}
+
+#roleBox .list-cell:hover {
+    -fx-background-color: #D2B48C !important;
+    -fx-text-fill: white !important;
+    -fx-border-radius: 5px !important;
+    -fx-background-radius: 5px !important;
+}
+
+#roleBox .list-cell:pressed {
+    -fx-background-color: #D2B48C !important;
+    -fx-text-fill: white !important;
+    -fx-border-radius: 5px !important;
+    -fx-background-radius: 5px !important;
+}
+
+#genreComboBox
+{
+    -fx-background-color: white !important;
+    -fx-border-color: #D2B48C !important;
+    -fx-border-radius: 5px !important;
+    -fx-background-radius: 5px !important;
+}
+
+#genreComboBox:pressed {
+    -fx-background-color: #D2B48C !important;
+    -fx-text-fill: white !important;
+    -fx-border-radius: 5px !important;
+    -fx-background-radius: 5px !important;
+}
+
+#genreComboBox .list-cell {
+    -fx-background-color: white !important;
+    -fx-text-fill: black  !important;
+    -fx-border-radius: 5px !important;
+    -fx-background-radius: 5px !important;
+}
+
+#genreComboBox .list-cell:hover {
+    -fx-background-color: #D2B48C !important;
+    -fx-text-fill: white !important;
+    -fx-border-radius: 5px !important;
+    -fx-background-radius: 5px !important;
+}
+
+#genreComboBox .list-cell:pressed {
+    -fx-background-color: #D2B48C !important;
+    -fx-text-fill: white !important;
+    -fx-border-radius: 5px !important;
+    -fx-background-radius: 5px !important;
+}
+
+.combo-box-popup .scroll-bar{
+    -fx-background-color: transparent;
+}
+
+#backButton {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+#backButton:hover {
+    -fx-border-color: #D2B48C;
+}
+
+#backButton:pressed {
+    -fx-background-color: #D2B48C;
+    -fx-text-fill: white;
+}
+
