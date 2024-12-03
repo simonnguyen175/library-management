@@ -1,18 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="584" prefWidth="1237.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomeController">
    <children>
-      <Label layoutX="353.0" layoutY="49.0" text="CHAO MUNG DEN VOI THU VIEN">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </Label>
-      <Label fx:id="dateLabel" layoutX="50.0" layoutY="150.0" text="Date: " />
-      <Label fx:id="userCountLabel" layoutX="50.0" layoutY="200.0" text="Number of Users: " />
-      <Label fx:id="bookCountLabel" layoutX="50.0" layoutY="250.0" text="Number of Books: " />
+      <AnchorPane fx:id="container" prefHeight="584.0" prefWidth="1237.0">
+         <children>
+            <Group layoutX="123.0" layoutY="225.0" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="75.0">
+               <children>
+                  <FontAwesomeIcon glyphName="USERS" layoutY="-18.0" size="8em" />
+                  <Label layoutX="124.0" layoutY="-100.0" text="Total users">
+                     <font>
+                        <Font name="Consolas Bold" size="30.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="190.0" layoutY="-52.0" prefHeight="0.0" prefWidth="35.0" text="100">
+                     <font>
+                        <Font name="Consolas Bold" size="30.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Group>
+            <Group layoutX="599.1964111328125" layoutY="113.0" />
+            <Label layoutX="100.0" layoutY="292.0" text="Top users" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="300.0">
+               <font>
+                  <Font name="Consolas Bold" size="30.0" />
+               </font>
+            </Label>
+            <Label layoutX="700.0" layoutY="292.0" text="Top books" AnchorPane.leftAnchor="700.0" AnchorPane.topAnchor="300.0">
+               <font>
+                  <Font name="Consolas Bold" size="30.0" />
+               </font>
+            </Label>
+            <Group layoutX="790.0" layoutY="175.0" AnchorPane.leftAnchor="700.0">
+               <children>
+                  <FontAwesomeIcon glyphName="BOOK" layoutY="-18.0" size="8em" />
+                  <Label layoutX="124.0" layoutY="-100.0" text="Total books">
+                     <font>
+                        <Font name="Consolas Bold" size="30.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="190.0" layoutY="-52.0" prefHeight="0.0" prefWidth="35.0" text="100">
+                     <font>
+                        <Font name="Consolas Bold" size="30.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Group>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
