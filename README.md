@@ -4,7 +4,7 @@
 
 A **beautiful** and **easy-to-use** Management Tool
 
-<img src="Anh Demo" width="50%">
+<img src="/src/main/resources/pictures/Anh Demo.png" width="50%">
 
 </div>
 
@@ -15,6 +15,9 @@ A **beautiful** and **easy-to-use** Management Tool
 - [Thành Viên Nhóm](#thành-viên-nhóm)
 - [Tài Khoản Dùng Thử](#tài-khoản-dùng-thử)
 - [Chức Năng Chính](#chức-năng-chính)
+  - [Giao diện quản lý](#giao-diện-quản-lý)
+  - [Giao diện người mượn](#giao-diện-người-mượn)
+- [Class Diagram của Dự án](#class-diagram-của-dự-án)
 - [Bugs Report](#bugs-report)
 
 
@@ -34,7 +37,7 @@ A **beautiful** and **easy-to-use** Management Tool
 ## Tài Khoản dùng thử
 | stt | Tên Tài Khoản     | Mật Khẩu |
 |-----|-------------------|----------|
-| 1   | TKADMIN           | MKADMIN  |
+| 1   | admin             | admin    |
 | 2   | nguyenvanan       | an123    |
 | 3   | tranthibich       | bich123  |
 | 4   | leminhchau        | chau123  |
@@ -50,7 +53,9 @@ A **beautiful** and **easy-to-use** Management Tool
 ## Chức Năng Chính
 &nbsp;
 
-<img align="right" src="Anh dang nhap" width="500px">
+
+
+<img align="right" src="/src/main/resources/pictures/Anh Dang Nhap.png" width="500px">
 
 <div align="left">
 
@@ -59,12 +64,16 @@ A **beautiful** and **easy-to-use** Management Tool
 ---
 
 Trang đăng nhập được thiết kế **hiện đại**, **tối giản**.
-
+<br><br><br><br><br><br><br><br><br><br>
 </div>
 
-<br><br><br><br><br><br><br><br><br><br>
 
-<img align="left" src="Anh Trang chu" width="500px">
+## Giao diện quản lý
+
+<br><br><br><br>
+
+
+<img align="left" src="/src/main/resources/pictures/Anh Trang chu.png" width="500px">
 
 <div align="right">
 
@@ -79,7 +88,7 @@ Trang Chủ được thiết kế **trực quan** giúp người sử dụng có
 
 <br><br><br><br><br><br><br><br><br><br>
 
-<img align="right" src="Anh trang danh sach muon" width="500px">
+<img align="right" src="/src/main/resources/pictures/Anh danh sach muon.png" width="500px">
 
 <div align="left">
 
@@ -97,7 +106,7 @@ Trang quản lý mượn sách tối giản với nhiều **tính năng hỗ tr�
 
 <br><br><br><br><br><br><br><br><br><br>
 
-<img align="left" src="Review Menu" width="500px">
+<img align="left" src="/src/main/resources/pictures/Anh Menu chon.png" width="500px">
 
 <div align="right">
 
@@ -111,9 +120,12 @@ Menu Chọn **tối giản**, **gọn gàng**.
 
 <br><br><br><br><br><br><br><br><br><br>
 
-<img align="right" src="Anh trang nguoi dung" width="500px">
+<img align="right" src="/src/main/resources/pictures/Anh trang nguoi dung.png" width="500px">
+<br><br><br><br><br><br><br><br><br><br>
+<img align="right" src="/src/main/resources/pictures/Anh trang sua thong tin nguoi dung.png" width="500px">
 
 <div align="left">
+
 
 ### Quản lý người dùng
 
@@ -127,17 +139,17 @@ Chức năng quản lý người dùng tiện dụng bằng những thao tác đ
 
 </div>
 
-<br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br>
 
-<img align="right" src="Anh Trang sach" width="500px">
+<img align="right" src="/src/main/resources/pictures/Anh trang sach.png" width="500px">
 
-<img align="right" src="Anh Trang them sach" width="500px">
+<img align="right" src="/src/main/resources/pictures/Anh Trang them sach.png" width="500px">
 
-<img align="right" src="Anh trang Hien thong tin sach" width="500px">
+<img align="right" src="/src/main/resources/pictures/Anh trang Hien thong tin sach.png" width="500px">
 
-<img align="right" src="Anh Trang Muon Sach" width="500px">
+<img align="right" src="src/main/resources/pictures/Anh Trang Muon Sach.png" width="500px">
 
-<img align="right" src="Anh Trang Hien Ma QR" width="500px">
+<img align="right" src="src/main/resources/pictures/Anh Trang Hien Ma QR.png" width="500px">
 
 <div align="left">
 
@@ -153,16 +165,44 @@ Quản lý **trực quan** những quyển sách trong Thư viện
 + Hỗ trợ **Mượn sách** dễ thao tác và Trực quan.
 + Tính năng **sinh mã QR** để người dùng dễ dàng lấy được thông tin sách.
 
-
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </div>
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+## Giao diện người mượn
 
-<img align="left" src="QR bugs report" width="500px">
+<br><br><br><br>
+
+
+<img align="left" src="/src/main/resources/pictures/Anh giao dien nguoi muon.png" width="500px">
 
 <div align="right">
 
-### Bugs Report
+### Trang Chủ
+
+---
+
+Trang Chủ được thiết kế **thân thiện**, **gợi ý** sách cho người dùng.
+
+</div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+
+
+
+
+## Class Diagram của Dự án
+
+---
+<img src="/src/main/resources/pictures/Library Mangement Class Diagram.png" width="700px">
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+<img align="left" src="/src/main/resources/pictures/QR bugs report.png" width="300px">
+
+<div align="right">
+
+
+## Bugs Report
 
 ---
 
