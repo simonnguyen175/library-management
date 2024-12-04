@@ -12,9 +12,9 @@ public abstract class Controller {
     }
 
     private void connectToDatabase() {
-        String url = "jdbc:mysql://localhost:3306/library";
+        String url = "jdbc:mysql://localhost:3307/library";
         String dbUser = "root";
-        String dbPassword = "";
+        String dbPassword = "long20122005";
 
         try {
             Thread dbThread = new Thread(() -> {

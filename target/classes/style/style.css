@@ -183,7 +183,7 @@
 
 /* Màu chữ cho các ô dữ liệu */
 #BorrowTable .table-cell {
-    -fx-text-fill: #8B5E3C; /* Màu chữ nâu ấm */
+    -fx-text-fill: black; /* Màu chữ nâu ấm */
     -fx-border-color: white;
     -fx-border-width: 0.4px; /* Bo góc cho ô */
     -fx-font-size: 12px; /* Cỡ chữ phù hợp với bảng */
@@ -254,7 +254,7 @@
 
 /* Màu chữ cho các ô dữ liệu */
 #userTable .table-cell {
-    -fx-text-fill: #8B5E3C; /* Màu chữ nâu ấm */
+    -fx-text-fill: black; /* Màu chữ nâu ấm */
     -fx-border-color: white;
     -fx-border-width: 0.4px; /* Bo góc cho ô */
     -fx-font-size: 12px; /* Cỡ chữ phù hợp với bảng */

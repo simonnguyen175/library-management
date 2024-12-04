@@ -29,12 +29,12 @@
         </StackPane>
         <Button fx:id="forwardButton" layoutX="780.0" layoutY="178.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="29.0">
             <graphic>
-                <FontAwesomeIcon glyphName="ANGLE_RIGHT" size="3em" />
+                <FontAwesomeIcon glyphName="ANGLE_RIGHT" size="3em" styleClass="font-awesome-icon"/>
             </graphic>
         </Button>
         <Button fx:id="backButton" layoutX="430.0" layoutY="178.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="29.0">
             <graphic>
-                <FontAwesomeIcon glyphName="ANGLE_LEFT" size="3em" />
+                <FontAwesomeIcon glyphName="ANGLE_LEFT" size="3em" styleClass="font-awesome-icon"/>
             </graphic>
         </Button>
       <StackPane layoutX="369.0" layoutY="321.0" AnchorPane.topAnchor="335.0">

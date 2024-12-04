@@ -20,7 +20,7 @@
                 <TextField fx:id="searchTextField" layoutX="80.0" layoutY="1.0" prefHeight="26.0" prefWidth="241.0" promptText="Mã số, Tên..." />
                 <Button fx:id="searchButton" prefHeight="26.0" prefWidth="80.0" text="Tìm kiếm">
                     <graphic>
-                        <FontAwesomeIcon glyphName="SEARCH" />
+                        <FontAwesomeIcon glyphName="SEARCH" styleClass="font-awesome-icon"/>
                     </graphic>
                 </Button>
             </children>
