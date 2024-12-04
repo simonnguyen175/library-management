@@ -73,7 +73,7 @@ Trang đăng nhập được thiết kế **hiện đại**, **tối giản**.
 <br><br><br><br>
 
 
-<img align="left" src="/src/main/resources/Pictures/Anh Trang chu.png" width="500px">
+<img align="left" src="/src/main/resources/Pictures/Anh trang chu.png" width="500px">
 
 <div align="right">
 
@@ -88,7 +88,7 @@ Trang Chủ được thiết kế **trực quan** giúp người sử dụng có
 
 <br><br><br><br><br><br><br><br><br><br>
 
-<img align="right" src="/src/main/resources/Pictures/Anh danh sach muon.png" width="500px">
+<img align="right" src="/src/main/resources/Pictures/Anh Danh Sach Muon.png" width="500px">
 
 <div align="left">
 
