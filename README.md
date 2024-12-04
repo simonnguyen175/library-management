@@ -145,11 +145,11 @@ Chức năng quản lý người dùng tiện dụng bằng những thao tác đ
 
 <img align="right" src="/src/main/resources/Pictures/Anh Trang them sach.png" width="500px">
 
-<img align="right" src="/src/main/resources/Pictures/Anh trang Hien thong tin sach.png" width="500px">
+<img align="right" src="/src/main/resources/Pictures/Anh Trang hien thong tin sach.png" width="500px">
 
-<img align="right" src="src/main/resources/Pictures/Anh Trang Muon Sach.png" width="500px">
+<img align="right" src="src/main/resources/Pictures/Anh Trang muon sach.png" width="500px">
 
-<img align="right" src="src/main/resources/Pictures/Anh Trang Hien Ma QR.png" width="500px">
+<img align="right" src="src/main/resources/Pictures/Anh Trang hien ma QR.png" width="500px">
 
 <div align="left">
 
