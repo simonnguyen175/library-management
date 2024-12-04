@@ -11,7 +11,8 @@ public class APIControllerTest {
         APIController apiController = APIController.getInstance();
 
         // Thực hiện tìm kiếm cuốn sách với tiêu đề "Chí Phèo"
-        String title = "The Great Gatsby"; ;
+        String title = "The Great Gatsby";
+        ;
         String ISBN = "9781250123824";
 
         Book result = apiController.getBookInfoFromAPI(ISBN);
@@ -24,13 +25,13 @@ public class APIControllerTest {
         // In ra thông tin sách (nếu cần để debug)
         System.out.println("Title: " + result.getTitle());
         System.out.println("Author: " + result.getAuthor());
-        System.out.println ("ISBN: " + result.getIsbn());
-        System.out.println ("Pages: " + result.getPages());
-        System.out.println ("Language: " + result.getLanguage());
-        System.out.println ("Genre: " + result.getGenre());
-        System.out.println ("Image URL: " + result.getImageUrl());
-        System.out.println ("Year Published: " + result.getPublicationYear());
-        System.out.println ("Description: " + description);
+        System.out.println("ISBN: " + result.getIsbn());
+        System.out.println("Pages: " + result.getPages());
+        System.out.println("Language: " + result.getLanguage());
+        System.out.println("Genre: " + result.getGenre());
+        System.out.println("Image URL: " + result.getImageUrl());
+        System.out.println("Year Published: " + result.getPublicationYear());
+        System.out.println("Description: " + description);
     }
 
     @Test

@@ -5,9 +5,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import library.Library;
 import library.User;
 
-public class FixUserController {
+public class FixUserController extends Controller {
     @FXML
     private TextField emailField;
     @FXML
@@ -37,6 +38,9 @@ public class FixUserController {
         user.setEmail(emailField.getText());
         user.setPhone(phoneField.getText());
         // Save changes to the database or perform other necessary actions
+        Library myLib = Library.getInstance();
+        myLib.fixUser(user);
+
         ((Stage) applyButton.getScene().getWindow()).close();
     }
 }

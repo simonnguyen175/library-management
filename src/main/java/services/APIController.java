@@ -13,7 +13,6 @@ import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 
 public class APIController {
-
     protected final String api = "https://www.googleapis.com/books/v1/volumes?q=";
     protected final String API_KEY = "AIzaSyCGjYZoZgZxXgNmU3_uVQxag9ddQN_O2p4";
     static APIController instance = null;
@@ -48,8 +47,7 @@ public class APIController {
                 JsonNode items = node.get("items");
                 if (items.size() > 2) {
                     temp.setTitle(items.get(1).get("volumeInfo").get("title").asText().trim());
-                }
-                else {
+                } else {
                     temp.setTitle(items.get(0).get("volumeInfo").get("title").asText().trim());
                 }
                 // Vòng lặp đầu tiên: Kiểm tra xem có kết quả nào đầy đủ thông tin không
@@ -137,8 +135,7 @@ public class APIController {
                 alert.setContentText("Please try again with another book");
                 alert.showAndWait();
                 return null;
-            }
-            else {
+            } else {
                 if (temp.getGenre() == null) {
                     temp.setGenre("No genre found");
                 }
@@ -154,7 +151,7 @@ public class APIController {
         }
     }
 
-    private String getBookDescriptionFromJson(String json , String raw_title) {
+    private String getBookDescriptionFromJson(String json, String raw_title) {
         try {
             String result = "No description found";
             JsonNode node = new ObjectMapper().readTree(json);
@@ -200,6 +197,7 @@ public class APIController {
 
     /**
      * Lấy thông tin sách từ API
+     *
      * @param inp Tên sách hoặc mã ISBN
      * @return Đối tượng Book chứa thông tin sách
      */
@@ -209,12 +207,13 @@ public class APIController {
                 return getBookFromISBN(inp);
             }
             String encode_title = URLEncoder.encode(inp.trim(), StandardCharsets.UTF_8);
-            return getBookInfoFromJson(getHttpResponse(api + "intitle:"+ encode_title + "&key=" + API_KEY));
+            return getBookInfoFromJson(getHttpResponse(api + "intitle:" + encode_title + "&key=" + API_KEY));
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
+
     // trả về mô tả của sách
     public String getBookDescriptionFromAPI(String title) {
         try {
@@ -226,7 +225,7 @@ public class APIController {
         }
     }
 
-    private String getBookTitleFromJson (String json){
+    private String getBookTitleFromJson(String json) {
         try {
             JsonNode node = new ObjectMapper().readTree(json);
             JsonNode items = node.get("items");
@@ -264,7 +263,7 @@ public class APIController {
                     result.setAuthor(volumeInfo.get("authors").get(0).asText().trim());
                     if (volumeInfo.has("publisher")) {
                         result.setPublisher(volumeInfo.get("publisher").asText().trim());
-                    }else {
+                    } else {
                         result.setPublisher("No publisher found");
                     }
                     if (volumeInfo.has("categories")) {

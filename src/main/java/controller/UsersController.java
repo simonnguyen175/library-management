@@ -164,7 +164,7 @@ public class UsersController extends Controller implements Initializable {
     }
 
     private void fixUser(User user) {
-        try{
+        try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FixUser.fxml"));
             AnchorPane root = loader.load();
             FixUserController controller = loader.getController();
@@ -202,8 +202,7 @@ public class UsersController extends Controller implements Initializable {
                         alert.setContentText("This user currently borrows book.");
                         alert.showAndWait();
                     });
-                }
-                else {
+                } else {
                     e.printStackTrace();
                 }
             }

@@ -1,6 +1,7 @@
 package library;
 
 import controller.Controller;
+import javafx.scene.control.Alert;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -118,6 +119,11 @@ public class Library {
                 System.out.println("No book found with ID " + bookId + ".");
             }
         } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Delete Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Can not delete book!");
+            alert.showAndWait();
             System.err.println("Error while deleting book: " + e.getMessage());
         }
     }
@@ -141,6 +147,7 @@ public class Library {
             System.err.println("Error while adding user: " + e.getMessage());
         }
     }
+
     // delete user from database
     public void deleteUser(int userId) {
         String sql = "DELETE FROM Users WHERE user_id = ?";
@@ -158,6 +165,7 @@ public class Library {
             System.err.println("Error while deleting user: " + e.getMessage());
         }
     }
+
     // them comment
     public void addComment(Comment comment) {
         String sql = "INSERT INTO Comments (user_id, book_id, content, comment_date) VALUES (?, ?, ?, ?)";
@@ -177,10 +185,10 @@ public class Library {
             System.err.println("Error while adding comment: " + e.getMessage());
         }
     }
+
     // them truy van muon sach
     // luu y: dueDate dau vao phai co dinh dang "YYYY-MM-DD" VD: "2005-01-07"
-    public boolean BorrowBook(int user_id, int book_id, int borrowed_copies, String dueDate)
-    {
+    public boolean BorrowBook(int user_id, int book_id, int borrowed_copies, String dueDate) {
         try {
             Controller.connection.setAutoCommit(false);
             // kiem tra xem book_id co ton tai ko, kiem tra xem so luong sach co du ko
@@ -204,12 +212,12 @@ public class Library {
             availableCopies -= rS.getInt(1);
             if (borrowed_copies > availableCopies) {
                 System.err.println("Not enough copies available. Available: " + availableCopies +
-                    ", Requested: " + borrowed_copies);
+                        ", Requested: " + borrowed_copies);
                 return false;
             }
             // Them truy van borrowed vao table borrowed
             String insertBorrowSQL = "INSERT INTO Borrowed (user_id, book_id, borrowed_copies, borrow_date, due_date, status) "
-                + "VALUES (?, ?, ?, ?, ?, ?)";
+                    + "VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement insertBorrowStmt = Controller.connection.prepareStatement(insertBorrowSQL);
             insertBorrowStmt.setInt(1, user_id);
             insertBorrowStmt.setInt(2, book_id);
@@ -232,6 +240,7 @@ public class Library {
             return false;
         }
     }
+
     // Truy van tra sach
     public boolean ReturnBook(int borrowedId) {
 
@@ -279,34 +288,34 @@ public class Library {
 
         // SQL queries
         String queryGenresAuthors = """
-            SELECT DISTINCT b.genre, b.author
-            FROM Borrowed br
-            JOIN Books b ON br.book_id = b.id
-            WHERE br.user_id = ?;
-        """;
+                    SELECT DISTINCT b.genre, b.author
+                    FROM Borrowed br
+                    JOIN Books b ON br.book_id = b.id
+                    WHERE br.user_id = ?;
+                """;
 
         String querySuggestionsTemplate = """
-            SELECT b.*
-            FROM Books b
-            WHERE (%s OR %s)
-            AND b.id NOT IN (
-                SELECT book_id FROM Borrowed WHERE user_id = ?
-            )
-            LIMIT 5;
-        """;
+                    SELECT b.*
+                    FROM Books b
+                    WHERE (%s OR %s)
+                    AND b.id NOT IN (
+                        SELECT book_id FROM Borrowed WHERE user_id = ?
+                    )
+                    LIMIT 5;
+                """;
 
         String queryMostBorrowed = """
-            SELECT b.*
-            FROM Books b
-            JOIN (
-                SELECT book_id
-                FROM Borrowed
-                GROUP BY book_id
-                ORDER BY COUNT(*) DESC
-            ) as most_borrowed ON b.id = most_borrowed.book_id;
-        """;
+                    SELECT b.*
+                    FROM Books b
+                    JOIN (
+                        SELECT book_id
+                        FROM Borrowed
+                        GROUP BY book_id
+                        ORDER BY COUNT(*) DESC
+                    ) as most_borrowed ON b.id = most_borrowed.book_id;
+                """;
 
-        try  {
+        try {
             // Step 1: Get genres and authors of books the user has borrowed
             List<String> genres = new ArrayList<>();
             List<String> authors = new ArrayList<>();
@@ -325,9 +334,9 @@ public class Library {
             // Step 2: Suggest books based on genres and authors
             if (!genres.isEmpty() || !authors.isEmpty()) {
                 String genreCondition = genres.isEmpty() ? "1=0" :
-                    "b.genre IN ('" + String.join("','", genres) + "')";
+                        "b.genre IN ('" + String.join("','", genres) + "')";
                 String authorCondition = authors.isEmpty() ? "1=0" :
-                    "b.author IN ('" + String.join("','", authors) + "')";
+                        "b.author IN ('" + String.join("','", authors) + "')";
 
                 String querySuggestions = String.format(querySuggestionsTemplate, genreCondition, authorCondition);
 
@@ -345,7 +354,7 @@ public class Library {
             // Step 3: If list size < 5, fill with most borrowed books
             if (suggestedBooks.size() < 5) {
                 try (PreparedStatement ps = Controller.connection.prepareStatement(queryMostBorrowed);
-                    ResultSet rs = ps.executeQuery()) {
+                     ResultSet rs = ps.executeQuery()) {
 
                     while (rs.next() && suggestedBooks.size() < 5) {
                         Book book = buildBookFromResultSet(rs);
@@ -395,7 +404,7 @@ public class Library {
         int totalCopies = 0;
 
         try (PreparedStatement statement = Controller.connection.prepareStatement(query);
-            ResultSet resultSet = statement.executeQuery()) {
+             ResultSet resultSet = statement.executeQuery()) {
 
             // Xử lý kết quả truy vấn
             if (resultSet.next()) {
@@ -417,7 +426,7 @@ public class Library {
         int totalBooks = 0;
 
         try (PreparedStatement statement = Controller.connection.prepareStatement(query);
-            ResultSet resultSet = statement.executeQuery()) {
+             ResultSet resultSet = statement.executeQuery()) {
 
             // Xử lý kết quả truy vấn
             if (resultSet.next()) {
@@ -454,33 +463,33 @@ public class Library {
 
         // Query SQL để lấy top 3 sách
         String sql = """
-            SELECT b.id, b.title, b.author, b.genre, b.publisher, b.publication_year, 
-                   b.isbn, b.pages, b.language, b.copies, b.imageURL, 
-                   SUM(br.borrowed_copies) AS borrow_count
-            FROM Books b
-            JOIN Borrowed br ON b.id = br.book_id
-            GROUP BY b.id
-            ORDER BY borrow_count DESC
-            LIMIT 3;
-        """;
+                    SELECT b.id, b.title, b.author, b.genre, b.publisher, b.publication_year, 
+                           b.isbn, b.pages, b.language, b.copies, b.imageURL, 
+                           SUM(br.borrowed_copies) AS borrow_count
+                    FROM Books b
+                    JOIN Borrowed br ON b.id = br.book_id
+                    GROUP BY b.id
+                    ORDER BY borrow_count DESC
+                    LIMIT 3;
+                """;
 
         try (PreparedStatement statement = Controller.connection.prepareStatement(sql);
-            ResultSet resultSet = statement.executeQuery()) {
+             ResultSet resultSet = statement.executeQuery()) {
 
             // Duyệt qua kết quả và tạo danh sách đối tượng Book
             while (resultSet.next()) {
                 Book book = new Book(
-                    resultSet.getInt("id"),
-                    resultSet.getString("title"),
-                    resultSet.getString("author"),
-                    resultSet.getString("genre"),
-                    resultSet.getString("publisher"),
-                    resultSet.getInt("publication_year"),
-                    resultSet.getString("isbn"),
-                    resultSet.getInt("pages"),
-                    resultSet.getString("language"),
-                    resultSet.getInt("copies"),
-                    resultSet.getString("imageURL")
+                        resultSet.getInt("id"),
+                        resultSet.getString("title"),
+                        resultSet.getString("author"),
+                        resultSet.getString("genre"),
+                        resultSet.getString("publisher"),
+                        resultSet.getInt("publication_year"),
+                        resultSet.getString("isbn"),
+                        resultSet.getInt("pages"),
+                        resultSet.getString("language"),
+                        resultSet.getInt("copies"),
+                        resultSet.getString("imageURL")
                 );
                 topBooks.add(book);
             }
@@ -498,26 +507,26 @@ public class Library {
 
         // Truy vấn SQL
         String sql = """
-            SELECT u.user_id, u.fullname, u.username, u.phone, u.email, 
-                   COUNT(c.comment_id) AS total_comments
-            FROM Users u
-            JOIN Comments c ON u.user_id = c.user_id
-            GROUP BY u.user_id
-            ORDER BY total_comments DESC
-            LIMIT 3;
-        """;
+                    SELECT u.user_id, u.fullname, u.username, u.phone, u.email, 
+                           COUNT(c.comment_id) AS total_comments
+                    FROM Users u
+                    JOIN Comments c ON u.user_id = c.user_id
+                    GROUP BY u.user_id
+                    ORDER BY total_comments DESC
+                    LIMIT 3;
+                """;
 
         try (PreparedStatement statement = Controller.connection.prepareStatement(sql);
-            ResultSet resultSet = statement.executeQuery()) {
+             ResultSet resultSet = statement.executeQuery()) {
 
             // Duyệt qua kết quả và tạo danh sách đối tượng User
             while (resultSet.next()) {
                 User user = new User(
-                    resultSet.getInt("user_id"),
-                    resultSet.getString("fullname"),
-                    resultSet.getString("username"),
-                    resultSet.getString("phone"),
-                    resultSet.getString("email")
+                        resultSet.getInt("user_id"),
+                        resultSet.getString("fullname"),
+                        resultSet.getString("username"),
+                        resultSet.getString("phone"),
+                        resultSet.getString("email")
                 );
                 topUsers.add(user);
             }
@@ -530,5 +539,46 @@ public class Library {
         return topUsers;
     }
 
+    public void fixUser(User user) {
+        String sql = "UPDATE Users SET email = ?, phone = ? WHERE user_id = ?";
+
+        try (PreparedStatement preparedStatement = Controller.connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, user.getEmail());
+            preparedStatement.setString(2, user.getPhone());
+            preparedStatement.setInt(3, user.getUserId());
+
+            int rowsAffected = preparedStatement.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("User updated successfully.");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error while updating user: " + e.getMessage());
+        }
+    }
+
+    public void fixBook(Book book) {
+        String sql = "UPDATE Books SET title = ?, author = ?, genre = ?, publisher = ?, publication_year = ?, isbn = ?, pages = ?, language = ?, copies = ?, imageUrl = ? WHERE id = ?";
+
+        try (PreparedStatement preparedStatement = Controller.connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, book.getTitle());
+            preparedStatement.setString(2, book.getAuthor());
+            preparedStatement.setString(3, book.getGenre());
+            preparedStatement.setString(4, book.getPublisher());
+            preparedStatement.setInt(5, book.getPublicationYear());
+            preparedStatement.setString(6, book.getIsbn());
+            preparedStatement.setInt(7, book.getPages());
+            preparedStatement.setString(8, book.getLanguage());
+            preparedStatement.setInt(9, book.getCopies());
+            preparedStatement.setString(10, book.getImageUrl());
+            preparedStatement.setInt(11, book.getBookId());
+
+            int rowsAffected = preparedStatement.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Book updated successfully.");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error while updating book: " + e.getMessage());
+        }
+    }
 }
 

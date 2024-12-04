@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeUserController {
+public class HomeUserController extends Controller {
     @FXML
     private AnchorPane rootPane;
     @FXML
@@ -55,7 +55,7 @@ public class HomeUserController {
     private final double IMAGE_HEIGHT = 150; // Height of each image
 
     @FXML
-    private void initialize() {
+    public void initialize() {
         // Show progress indicator
         progressIndicator.setVisible(true);
         progressIndicator1.setVisible(true);
