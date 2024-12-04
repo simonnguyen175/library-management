@@ -106,7 +106,7 @@ Trang quản lý mượn sách tối giản với nhiều **tính năng hỗ tr�
 
 <br><br><br><br><br><br><br><br><br><br>
 
-<img align="left" src="/src/main/resources/Pictures/Anh Menu chon.png" width="500px">
+<img align="left" src="/src/main/resources/Pictures/Anh menu chon.png" width="500px">
 
 <div align="right">
 
