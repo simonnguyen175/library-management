@@ -39,12 +39,12 @@ INSERT INTO Users (fullname, username, password, phone, email) VALUES
 
 select * from users;
 
-insert into users (fullname, username, password, phone, email) values
-('Đinh Gia Minh', 'dinhgiaminh', 'minh123', '0917-890-123', 'dinhgiaminh@example.com');
-
-update users
-set user_id = 240025
-where username = 'dinhgiaminh';
+# insert into users (fullname, username, password, phone, email) values
+# ('Đinh Gia Minh', 'dinhgiaminh', 'minh123', '0917-890-123', 'dinhgiaminh@example.com');
+#
+# update users
+# set user_id = 240025
+# where username = 'dinhgiaminh';
 
 
 CREATE TABLE Books (
@@ -196,6 +196,6 @@ VALUES
 
 select * from comments;
 
-delete from comments
-where comment_date = '2024-11-30';
+# delete from comments
+# where comment_date = '2024-11-30';
 
