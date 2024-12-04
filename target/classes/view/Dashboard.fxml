@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1297.0" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DashboardController" fx:id="root">
+<AnchorPane prefHeight="720.0" prefWidth="1297.0" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DashboardController">
 <!-- Main Container -->
 <children>
     <!-- Navigation Bar -->
-    <HBox fx:id="menu" layoutX="754.0" layoutY="27.0" spacing="10" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
+    <HBox fx:id="menu" layoutX="754.0" layoutY="27.0" spacing="10" style="-fx-background-color: lightgray; -fx-background-radius: 10; -fx-padding: 10;" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
         <children>
             <Button fx:id="homeButton" styleClass="nav-button" text="Trang chủ" />
             <Button fx:id="booksButton" styleClass="nav-button" text="Sách" />
@@ -19,11 +21,54 @@
             <Button fx:id="logoutButton" styleClass="nav-button" text="Đăng xuất" />
         </children>
     </HBox>
-    <Label layoutX="30.0" layoutY="51.0" text="Library Management" AnchorPane.leftAnchor="75.0" AnchorPane.topAnchor="51.0">
+    <Label layoutX="30.0" layoutY="51.0" text="Library Management" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="51.0">
         <font>
             <Font name="Consolas Bold" size="36.0" />
         </font>
     </Label>
-    <AnchorPane fx:id="container" layoutY="152.0" prefHeight="584.0" prefWidth="1237.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" />
+    <AnchorPane fx:id="container" layoutY="152.0" prefHeight="584.0" prefWidth="1237.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
+         <children>
+            <Group layoutX="123.0" layoutY="225.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="50.0">
+               <children>
+                  <FontAwesomeIcon glyphName="USERS" layoutY="3.1428604125976562" size="10em" />
+                  <Label layoutX="140.0" layoutY="-100.0" text="Total users">
+                     <font>
+                        <Font name="Consolas Bold" size="36.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="140.0" layoutY="-40.0" prefHeight="0.0" prefWidth="35.0" text="100">
+                     <font>
+                        <Font name="Consolas Bold" size="36.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Group>
+            <Group layoutX="599.1964111328125" layoutY="113.0" />
+            <Group layoutX="599.0" layoutY="240.0" AnchorPane.leftAnchor="700.0" AnchorPane.topAnchor="50.0">
+               <children>
+                  <FontAwesomeIcon glyphName="BOOK" layoutY="3.1428604125976562" size="10em" />
+                  <Label layoutX="140.0" layoutY="-100.0" text="Total books">
+                     <font>
+                        <Font name="Consolas Bold" size="36.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="140.0" layoutY="-40.0" text="100">
+                     <font>
+                        <Font name="Consolas Bold" size="36.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Group>
+            <Label layoutX="100.0" layoutY="292.0" text="Top users" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="300.0">
+               <font>
+                  <Font name="Consolas Bold" size="36.0" />
+               </font>
+            </Label>
+            <Label layoutX="700.0" layoutY="292.0" text="Top books" AnchorPane.leftAnchor="700.0" AnchorPane.topAnchor="300.0">
+               <font>
+                  <Font name="Consolas Bold" size="36.0" />
+               </font>
+            </Label>
+         </children></AnchorPane>
 </children>
 </AnchorPane>

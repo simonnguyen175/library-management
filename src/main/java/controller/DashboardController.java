@@ -19,6 +19,8 @@ import java.time.LocalDate;
 import java.util.IllegalFormatCodePointException;
 import java.util.List;
 
+import static library.Library.role;
+
 public class DashboardController {
     @FXML
     private Button homeButton, booksButton, usersButton, borrowListButton, notiButton, logoutButton;
@@ -48,11 +50,14 @@ public class DashboardController {
     }
 
     public void initialize(){
-        showPane("/view/Home.fxml");
+        if ( role == "admin" ) showPane("/view/Home.fxml");
+        else showPane("/view/HomeUser.fxml");
+
         homeButton.setOnAction(actionEvent -> {
             try {
                 container.getChildren().clear();
-                showPane("/view/Home.fxml");
+                if ( role == "admin" ) showPane("/view/Home.fxml");
+                else showPane("/view/HomeUser.fxml");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -66,7 +71,7 @@ public class DashboardController {
             }
         });
 
-        if (Library.role == "user") { // Assuming 1 represents the user role
+        if (role == "user") { // Assuming 1 represents the user role
             menu.getChildren().remove(usersButton);
         }
 

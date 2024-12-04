@@ -9,7 +9,7 @@
 
 <AnchorPane prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FixUserController" stylesheets="@../style/style.css">
     <children>
-        <Label layoutX="14.0" layoutY="14.0" text="Sửa thông tin sách">
+        <Label layoutX="14.0" layoutY="14.0" text="Sửa thông tin người dùng">
             <font>
                 <Font name="Consolas Bold" size="24.0" />
             </font>

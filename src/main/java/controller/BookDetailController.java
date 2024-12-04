@@ -79,6 +79,8 @@ public class BookDetailController {
 
     private Book book;
 
+    private String backPane;
+
     @FXML
     private void initialize() {
         backButton.setOnAction(event -> {
@@ -135,15 +137,16 @@ public class BookDetailController {
                 fixBookStage.showAndWait();
 
                 // Update the book details
-                setBook(book);
+                setBook(book, "backPane");
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
     }
 
-    public void setBook(Book book) {
+    public void setBook(Book book, String backPane) {
         this.book = book;
+        this.backPane = backPane;
         labelTitle.setText(book.getTitle());
 
         new Thread(()->{
@@ -247,7 +250,7 @@ public class BookDetailController {
 
     private void handleBackButtonAction() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Books.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(backPane));
             AnchorPane booksPane = loader.load();
             rootPane.getChildren().setAll(booksPane);
         } catch (IOException e) {

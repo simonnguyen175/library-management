@@ -26,6 +26,7 @@ import controller.AddBookController;
 public class BooksController implements Initializable {
     @FXML
     private AnchorPane rootPane;
+
     @FXML
     private GridPane booksGridPane;
     @FXML
@@ -50,7 +51,6 @@ public class BooksController implements Initializable {
         loadBooksFromDatabase("SELECT * FROM books");
         loadGenresFromDatabase();
         loadPage(currentPage);
-        System.out.println(buttonBoxes.size());
 
         previousButton.setOnAction(event -> {
             if (currentPage > 0) {
@@ -199,11 +199,10 @@ public class BooksController implements Initializable {
         ImageView bookImageView = new ImageView();
         if (book.getImageUrl() != null) {
             new Thread(() -> {
+                bookImageView.setImage(new Image(getClass().getResource("/image-placeholder.png").toExternalForm()));
                 Image image = new Image(book.getImageUrl());
                 bookImageView.setImage(image);
             }).start();
-        } else {
-            bookImageView.setImage(new Image("/resources/image-placeholder.png"));
         }
 
         bookImageView.setFitHeight(100);
@@ -220,12 +219,11 @@ public class BooksController implements Initializable {
         Button detailButton = new Button("Detail");
         detailButton.setOnAction(event -> {
             try {
-                System.out.println("Detail button clicked");
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/BookDetail.fxml"));
                 AnchorPane bookDetailPane = loader.load();
 
                 BookDetailController controller = loader.getController();
-                controller.setBook(book);
+                controller.setBook(book, "/view/Books.fxml");
 
                 rootPane.getChildren().clear();
                 rootPane.getChildren().setAll(bookDetailPane);

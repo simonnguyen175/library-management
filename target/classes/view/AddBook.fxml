@@ -29,6 +29,6 @@
          </font>
       </Label>
       <Button fx:id="addButton" layoutX="177.0" layoutY="460.0" mnemonicParsing="false" text="Add" AnchorPane.leftAnchor="177.0" AnchorPane.topAnchor="435.0" />
-      <Button fx:id="autofillButton" layoutX="284.0" layoutY="256.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="Autofill" AnchorPane.leftAnchor="280.0" AnchorPane.topAnchor="255.0" />
+      <Button fx:id="autofillButton" layoutX="284.0" layoutY="256.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="Autofill" AnchorPane.leftAnchor="280.0" AnchorPane.topAnchor="250.0" />
    </children>
 </AnchorPane>
