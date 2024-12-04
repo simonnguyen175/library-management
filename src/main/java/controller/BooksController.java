@@ -199,11 +199,10 @@ public class BooksController implements Initializable {
         ImageView bookImageView = new ImageView();
         if (book.getImageUrl() != null) {
             new Thread(() -> {
+                bookImageView.setImage(new Image(getClass().getResource("/image-placeholder.png").toExternalForm()));
                 Image image = new Image(book.getImageUrl());
                 bookImageView.setImage(image);
             }).start();
-        } else {
-            bookImageView.setImage(new Image("/resources/image-placeholder.png"));
         }
 
         bookImageView.setFitHeight(100);

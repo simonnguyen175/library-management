@@ -23,8 +23,8 @@
         </Label>
         <StackPane fx:id="bookStackPane" layoutX="444.0" layoutY="125.0">
             <children>
-                <HBox fx:id="bookHBox" prefHeight="150.0" prefWidth="350.0" />
                 <ProgressIndicator fx:id="progressIndicator" maxHeight="30.0" maxWidth="30.0" style="-fx-progress-color: grey;" />
+                <HBox fx:id="bookHBox" prefHeight="150.0" prefWidth="350.0" />
             </children>
         </StackPane>
         <Button fx:id="forwardButton" layoutX="780.0" layoutY="178.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="29.0">

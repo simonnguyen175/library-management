@@ -56,6 +56,10 @@ public class HomeUserController {
 
     @FXML
     private void initialize() {
+        // Show progress indicator
+        progressIndicator.setVisible(true);
+        progressIndicator1.setVisible(true);
+
         // Set button actions
         backButton.setOnAction(event -> showPreviousBooks());
         forwardButton.setOnAction(event -> showNextBooks());
@@ -66,9 +70,6 @@ public class HomeUserController {
         Rectangle clip = new Rectangle(MAX_VISIBLE * (IMAGE_WIDTH + IMAGE_SPACING) - IMAGE_SPACING, IMAGE_HEIGHT);
         bookStackPane.setClip(clip);
 
-        // Show progress indicator
-        progressIndicator.setVisible(true);
-        progressIndicator1.setVisible(true);
 
         // Load recommended books and initialize the image views
         Library myLib = Library.getInstance();
@@ -109,17 +110,42 @@ public class HomeUserController {
     }
 
     private void showPreviousBooks() {
+        if (bookImageViews == null || bookImageViews.isEmpty()) {
+            return; // Exit if bookImageViews is null or empty
+        }
         if (currentIndex > 0) {
             currentIndex--; // Move back by one index
             updateBookDisplay();
+        } else {
+            currentIndex = bookImageViews.size() - MAX_VISIBLE; // Set to the last index
+            animateScrollToEnd();
         }
     }
 
+    private void animateScrollToEnd() {
+        double translateX = -(currentIndex * (IMAGE_WIDTH + IMAGE_SPACING)); // Calculate the translate X position
+        TranslateTransition transition = new TranslateTransition(Duration.millis(1000), bookHBox); // 1000ms animation
+        transition.setToX(translateX); // Set the target translation
+        transition.play(); // Start the animation
+    }
+
     private void showNextBooks() {
+        if (bookImageViews == null || bookImageViews.isEmpty()) {
+            return; // Exit if bookImageViews is null or empty
+        }
         if (currentIndex + MAX_VISIBLE < bookImageViews.size()) {
             currentIndex++; // Move forward by one index
             updateBookDisplay();
+        } else {
+            currentIndex = 0; // Reset to the beginning
+            animateScrollToBeginning();
         }
+    }
+
+    private void animateScrollToBeginning() {
+        TranslateTransition transition = new TranslateTransition(Duration.millis(1000), bookHBox); // 1000ms animation
+        transition.setToX(0); // Set the target translation to the beginning
+        transition.play(); // Start the animation
     }
 
     private void animateScroll(double translateX) {
