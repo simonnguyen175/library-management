@@ -5,7 +5,6 @@ import java.util.List;
 public class Book {
 
 
-
     private int bookId;
     private String title;
     private String author;
@@ -18,7 +17,7 @@ public class Book {
     private int copies;
     private String imageUrl;
 
-    public Book(){
+    public Book() {
 
     }
 

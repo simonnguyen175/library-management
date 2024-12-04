@@ -9,7 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import library.Book;
 
-public class AddBookController {
+public class AddBookController extends Controller {
 
     @FXML
     private TextField titleTextField, authorTextField, genreTextField, publisherTextField, yearTextField, isbnTextField, pagesTextField, languageTextField, copiesTextField, imageUrlTextField;
@@ -62,8 +62,7 @@ public class AddBookController {
             alert.setContentText("Missing information");
             alert.showAndWait();
             return;
-        }
-        else{
+        } else {
             // Add book to database
             addSuccess = true;
             Library myLib = Library.getInstance();

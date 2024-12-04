@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import library.Book;
 
 import javafx.scene.image.ImageView;
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -21,9 +22,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
 import controller.AddBookController;
 
-public class BooksController implements Initializable {
+public class BooksController extends Controller implements Initializable {
     @FXML
     private AnchorPane rootPane;
 
@@ -66,7 +68,7 @@ public class BooksController implements Initializable {
             }
         });
 
-        if ( Library.role == "admin" ){
+        if (Library.role == "admin") {
             newBookButton.setVisible(true);
         } else {
             newBookButton.setVisible(false);
@@ -84,7 +86,7 @@ public class BooksController implements Initializable {
                 addBookPane.setOnMouseClicked(mouseEvent -> addBookPane.requestFocus());
                 addBookStage.showAndWait();
                 AddBookController addController = loader.getController();
-                if ( addController.isAddSuccess() == true ) {
+                if (addController.isAddSuccess() == true) {
                     loadBooksFromDatabase("SELECT * FROM books");
                     loadGenresFromDatabase();
                     loadPage(currentPage);
@@ -115,6 +117,7 @@ public class BooksController implements Initializable {
         }
 
         loadBooksFromDatabase(query);
+        currentPage = 0;
         loadPage(currentPage);
     }
 
@@ -153,9 +156,9 @@ public class BooksController implements Initializable {
                 String imageUrl = resultSet.getString("imageUrl");
                 String isbn = resultSet.getString("isbn");
 
-                if ( imageUrl == null || imageUrl.isEmpty() ) {
+                if (imageUrl == null || imageUrl.isEmpty()) {
                     imageUrl = apiController.getBookInfoFromAPI(resultSet.getString("isbn")).getImageUrl();
-                    if ( imageUrl == null ){
+                    if (imageUrl == null) {
                         imageUrl = apiController.getBookInfoFromAPI(resultSet.getString("title")).getImageUrl();
                     }
                     if (imageUrl != null) {
@@ -232,7 +235,7 @@ public class BooksController implements Initializable {
             }
         });
 
-        if ( Library.role != "admin" ){
+        if (Library.role != "admin") {
             return new HBox(10, detailButton);
         }
 

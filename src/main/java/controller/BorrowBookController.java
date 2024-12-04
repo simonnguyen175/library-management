@@ -12,7 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class BorrowBookController {
+public class BorrowBookController extends Controller {
     @FXML
     private Button borrowButton;
 
@@ -33,7 +33,7 @@ public class BorrowBookController {
 
     public void setBook(Book book) {
         titleLabel.setText(book.getTitle());
-        new Thread(()->{
+        new Thread(() -> {
             remainLabel.setText("Available: " + getAvailable(book.getBookId(), book.getCopies()));
         }).start();
         borrowButton.setOnAction(event -> handleBorrowButtonAction(book));

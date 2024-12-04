@@ -7,11 +7,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import library.Book;
+import library.Library;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class FixBookController implements Initializable {
+public class FixBookController extends Controller implements Initializable {
 
     @FXML
     private TextField authorField;
@@ -69,7 +70,10 @@ public class FixBookController implements Initializable {
         book.setIsbn(isbnField.getText());
         book.setCopies(Integer.parseInt(copiesField.getText()));
         book.setImageUrl(imageUrlField.getText());
-        // Save changes to the database or perform other necessary actions
+
+        //Save changes to the database or perform other necessary actions
+        Library myLib = Library.getInstance();
+        myLib.fixBook(book);
 
         // Close the window
         applyButton.getScene().getWindow().hide();

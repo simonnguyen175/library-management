@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 import static controller.Controller.connection;
 
-public class BorrowListController implements Initializable {
+public class BorrowListController extends Controller implements Initializable {
 
     @FXML
     private TableView<Borrowed> BorrowTable;

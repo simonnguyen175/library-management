@@ -37,7 +37,7 @@ import java.util.List;
 
 import static controller.Controller.connection;
 
-public class BookDetailController {
+public class BookDetailController extends Controller {
     @FXML
     private Button backButton;
     @FXML
@@ -82,7 +82,7 @@ public class BookDetailController {
     private String backPane;
 
     @FXML
-    private void initialize() {
+    public void initialize() {
         backButton.setOnAction(event -> {
             handleBackButtonAction();
         });
@@ -93,8 +93,7 @@ public class BookDetailController {
 
         if (Library.role == "admin") {
             borrowButton.setVisible(true);
-        }
-        else{
+        } else {
             borrowButton.setVisible(false);
             QRButton.setLayoutX(QRButton.getLayoutX() + 25);
         }
@@ -105,8 +104,7 @@ public class BookDetailController {
 
         if (Library.role == "admin") {
             commentField.setDisable(true);
-        }
-        else commentField.setDisable(false);
+        } else commentField.setDisable(false);
 
         commentField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
@@ -118,10 +116,9 @@ public class BookDetailController {
         commentScrollPane.setFitToWidth(true);
         commentScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
-        if ( Library.role == "admin") {
+        if (Library.role == "admin") {
             fixButton.setVisible(true);
-        }
-        else fixButton.setVisible(false);
+        } else fixButton.setVisible(false);
         fixButton.setOnAction(event -> {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FixBook.fxml"));
@@ -137,7 +134,7 @@ public class BookDetailController {
                 fixBookStage.showAndWait();
 
                 // Update the book details
-                setBook(book, "backPane");
+                setBook(book, "/view/Books.fxml");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -149,7 +146,7 @@ public class BookDetailController {
         this.backPane = backPane;
         labelTitle.setText(book.getTitle());
 
-        new Thread(()->{
+        new Thread(() -> {
             Image image = new Image(book.getImageUrl());
             bookImage.setImage(image);
         }).start();
@@ -159,8 +156,7 @@ public class BookDetailController {
             String des = apiController.getBookDescriptionFromAPI(book.getTitle());
             if (des != null) {
                 description.setText(des);
-            }
-            else {
+            } else {
                 description.setText("No description available");
             }
         }).start();
@@ -181,7 +177,7 @@ public class BookDetailController {
         }).start();
 
         // Generate QR code
-        new Thread(()->{
+        new Thread(() -> {
             qrCodeImage = new ImageView();
             QRCodeGenerator QR = QRCodeGenerator.getInstance();
             qrCodeImage.setImage(QR.generateQRCode(book.getIsbn()));
@@ -207,7 +203,7 @@ public class BookDetailController {
              ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
                 int commentId = rs.getInt("comment_id");
-                int userId= rs.getInt("user_id");
+                int userId = rs.getInt("user_id");
                 String content = rs.getString("content");
                 Date date = rs.getDate("comment_date");
                 comments.add(new Comment(commentId, userId, bookId, content, date));

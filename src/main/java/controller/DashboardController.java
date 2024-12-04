@@ -21,7 +21,7 @@ import java.util.List;
 
 import static library.Library.role;
 
-public class DashboardController {
+public class DashboardController extends Controller {
     @FXML
     private Button homeButton, booksButton, usersButton, borrowListButton, notiButton, logoutButton;
 
@@ -49,14 +49,14 @@ public class DashboardController {
         }
     }
 
-    public void initialize(){
-        if ( role == "admin" ) showPane("/view/Home.fxml");
+    public void initialize() {
+        if (role == "admin") showPane("/view/Home.fxml");
         else showPane("/view/HomeUser.fxml");
 
         homeButton.setOnAction(actionEvent -> {
             try {
                 container.getChildren().clear();
-                if ( role == "admin" ) showPane("/view/Home.fxml");
+                if (role == "admin") showPane("/view/Home.fxml");
                 else showPane("/view/HomeUser.fxml");
             } catch (Exception e) {
                 e.printStackTrace();
