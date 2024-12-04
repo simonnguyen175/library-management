@@ -12,7 +12,7 @@
 }
 
 #menu {
-    -fx-background-color: #F4E1D2 ; /* Nền sáng nhẹ */
+    -fx-background-color: #EED2B7 ; /* Nền sáng nhẹ */
     -fx-background-radius: 10px;
     -fx-padding: 10px;
     -fx-spacing: 10px;
@@ -20,8 +20,8 @@
 
 /* Nút điều hướng (Nav Button) với màu nâu */
 .nav-button {
-    -fx-background-color: #F4E1D2; /* Màu nền nâu */
-    -fx-border-color: #F4E1D2; /* Màu viền nâu */
+    -fx-background-color: #EED2B7; /* Màu nền nâu */
+    -fx-border-color: #EED2B7; /* Màu viền nâu */
     -fx-text-fill: #8B5E3C ; /* Màu chữ trắng */
     -fx-background-radius: 5px;
     -fx-border-radius: 5px;
@@ -89,36 +89,36 @@
 
 /* RoleBox với màu nâu ấm */
 #roleBox {
-    -fx-background-color: #8B5E3C !important;
+    -fx-background-color: white !important;
     -fx-border-color: #8B5E3C !important;
     -fx-border-radius: 5px !important;
     -fx-background-radius: 5px !important;
 }
 
 #roleBox .list-cell {
-    -fx-background-color: #8B5E3C !important;
-    -fx-text-fill: white !important;
-    -fx-border-radius: 2px !important;
-    -fx-background-radius: 2px !important;
+    -fx-background-color: white ;
+    -fx-text-fill: #8B5E3C ;
+    -fx-border-radius: 5px ;
+    -fx-background-radius: 5px ;
 }
 
 #roleBox .list-cell:hover {
     -fx-background-color: #8B5E3C !important;
     -fx-text-fill: white !important;
-    -fx-border-radius: 2px !important;
-    -fx-background-radius: 2px !important;
+    -fx-border-radius: 5px !important;
+    -fx-background-radius: 5px !important;
 }
 
 #roleBox .list-cell:pressed {
     -fx-background-color: #8B5E3C !important;
     -fx-text-fill: white !important;
-    -fx-border-radius: 2px !important;
-    -fx-background-radius: 2px !important;
+    -fx-border-radius: 5px !important;
+    -fx-background-radius: 5px !important;
 }
 
 /* GenreComboBox với nền trắng và viền nâu */
 #genreComboBox {
-    -fx-background-color: #8B5E3C !important;
+    -fx-background-color: white !important;
     -fx-border-color: #8B5E3C !important;
     -fx-border-radius: 5px !important;
     -fx-background-radius: 5px !important;
@@ -157,20 +157,8 @@
 }
 
 
-/* Nền đăng nhập với gradient nhẹ */
-.loginPane {
-    -fx-background-color: linear-gradient(to bottom right, #F4E1D2, #D8B79D); /* Gradient từ kem nhạt đến nâu sáng */
-}
-
 .font-awesome-icon {
     -fx-fill: white; /* Đổi màu icon thành trắng */
-}
-
-#root {
-    -fx-background-image: url("bk.png");
-    -fx-background-repeat: no-repeat; /* Lặp lại hoặc không */
-    -fx-background-size: cover; /* Kích thước phủ toàn bộ */
-    -fx-background-position: center; /* Đặt vị trí trung tâm */
 }
 
 /* Màu nền và chữ cho các ô đầu trong bảng */
@@ -196,9 +184,21 @@
 /* Màu chữ cho các ô dữ liệu */
 #BorrowTable .table-cell {
     -fx-text-fill: #8B5E3C; /* Màu chữ nâu ấm */
+    -fx-border-color: white;
+    -fx-border-width: 0.4px; /* Bo góc cho ô */
     -fx-font-size: 12px; /* Cỡ chữ phù hợp với bảng */
 }
 
+#BorrowTable :selected {
+    -fx-background-color: #8B5E3C; /* Nền nâu ấm khi chọn */
+    -fx-text-fill: white; /* Chữ trắng khi chọn */
+}
+
+#BorrowTable .table-row-cell:selected {
+    -fx-background-color: #F4E1D2; /* Nền sáng nhẹ cho hàng lẻ */
+    -fx-text-fill: white; /* Chữ nâu ấm cho hàng lẻ */
+    -fx-border-color: #8B5E3C; /* Viền nâu ấm */
+}
 /* Màu nền cho các ô khi hover */
 #BorrowTable .table-cell:hover {
     -fx-background-color: #F4E1D2; /* Nền sáng nhẹ khi hover */
@@ -207,12 +207,15 @@
 /* Màu nền cho các ô đầu khi hover */
 #BorrowTable .column-header:hover {
     -fx-background-color: #7A4E32; /* Nền nâu đậm hơn khi hover */
+    -fx-border-color:#8B5E3C;
 }
 
 /* Màu nền cho các ô đầu khi nhấn */
 #BorrowTable .column-header:pressed {
     -fx-background-color: #7A4E32; /* Nền nâu đậm khi nhấn */
+    -fx-border-color:#8B5E3C;
 }
+
 
 /* Màu nền cho các nút trong bảng */
 #returnBookButton, #searchButton {
@@ -252,27 +255,25 @@
 /* Màu chữ cho các ô dữ liệu */
 #userTable .table-cell {
     -fx-text-fill: #8B5E3C; /* Màu chữ nâu ấm */
+    -fx-border-color: white;
+    -fx-border-width: 0.4px; /* Bo góc cho ô */
     -fx-font-size: 12px; /* Cỡ chữ phù hợp với bảng */
 }
 
+#userTable :selected {
+    -fx-background-color: #8B5E3C; /* Nền nâu ấm khi chọn */
+    -fx-text-fill: white; /* Chữ trắng khi chọn */
+}
+
+#userTable .table-row-cell:selected {
+    -fx-background-color: #F4E1D2; /* Nền sáng nhẹ cho hàng lẻ */
+    -fx-text-fill: white; /* Chữ nâu ấm cho hàng lẻ */
+    -fx-border-color: #8B5E3C; /* Viền nâu ấm */
+}
 /* Màu nền cho các ô khi hover */
 #userTable .table-cell:hover {
     -fx-background-color: #F4E1D2; /* Nền sáng nhẹ khi hover */
 }
-
-/* Đổi màu nền của hàng khi chọn */
-#userTable .table-row-cell:selected {
-    -fx-background-color: #FFD700;  /* Màu vàng khi chọn */
-    -fx-text-fill: #FFFFFF;  /* Màu chữ trắng */
-    -fx-border-color:#8B5E3C;
-}
-
-/* Đổi màu nền khi di chuột lên hàng đã chọn */
-#userTable .table-row-cell:selected:hover {
-    -fx-background-color: #F4E1D2;  /* Màu cam khi hover */
-    -fx-border-color:#8B5E3C;
-}
-
 
 /* Màu nền cho các ô đầu khi hover */
 #userTable .column-header:hover {
@@ -286,13 +287,7 @@
     -fx-border-color:#8B5E3C;
 }
 
-/* Ngừng hiển thị sự thay đổi độ rộng cột */
-.table-view .table-column-header .label {
-    -fx-padding: 5px;  /* Đảm bảo cột có padding đều */
-}
-
-/* Ẩn các đường viền động khi thay đổi cột */
-.table-view .column-header .resizer {
+#userTable .scroll-bar {
     -fx-background-color: transparent;
 }
 
