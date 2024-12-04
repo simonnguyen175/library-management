@@ -448,4 +448,87 @@ public class Library {
 
         return newArrivals;
     }
+
+    public List<Book> getTopBooks() {
+        List<Book> topBooks = new ArrayList<>();
+
+        // Query SQL để lấy top 3 sách
+        String sql = """
+            SELECT b.id, b.title, b.author, b.genre, b.publisher, b.publication_year, 
+                   b.isbn, b.pages, b.language, b.copies, b.imageURL, 
+                   SUM(br.borrowed_copies) AS borrow_count
+            FROM Books b
+            JOIN Borrowed br ON b.id = br.book_id
+            GROUP BY b.id
+            ORDER BY borrow_count DESC
+            LIMIT 3;
+        """;
+
+        try (PreparedStatement statement = Controller.connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery()) {
+
+            // Duyệt qua kết quả và tạo danh sách đối tượng Book
+            while (resultSet.next()) {
+                Book book = new Book(
+                    resultSet.getInt("id"),
+                    resultSet.getString("title"),
+                    resultSet.getString("author"),
+                    resultSet.getString("genre"),
+                    resultSet.getString("publisher"),
+                    resultSet.getInt("publication_year"),
+                    resultSet.getString("isbn"),
+                    resultSet.getInt("pages"),
+                    resultSet.getString("language"),
+                    resultSet.getInt("copies"),
+                    resultSet.getString("imageURL")
+                );
+                topBooks.add(book);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        // Trả về danh sách top 3 sách
+        return topBooks;
+    }
+
+    public List<User> getTopUsers() {
+        List<User> topUsers = new ArrayList<>();
+
+
+        // Truy vấn SQL
+        String sql = """
+            SELECT u.user_id, u.fullname, u.username, u.phone, u.email, 
+                   COUNT(c.comment_id) AS total_comments
+            FROM Users u
+            JOIN Comments c ON u.user_id = c.user_id
+            GROUP BY u.user_id
+            ORDER BY total_comments DESC
+            LIMIT 3;
+        """;
+
+        try (PreparedStatement statement = Controller.connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery()) {
+
+            // Duyệt qua kết quả và tạo danh sách đối tượng User
+            while (resultSet.next()) {
+                User user = new User(
+                    resultSet.getInt("user_id"),
+                    resultSet.getString("fullname"),
+                    resultSet.getString("username"),
+                    resultSet.getString("phone"),
+                    resultSet.getString("email")
+                );
+                topUsers.add(user);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // Trả về danh sách top 3 người dùng
+        return topUsers;
+    }
+
 }
+

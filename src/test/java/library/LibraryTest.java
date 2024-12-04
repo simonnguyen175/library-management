@@ -161,4 +161,42 @@ class LibraryTest {
       e.printStackTrace();
     }
   }
+
+  @Test
+  void getTopBooks() {
+    try {
+      String url = "jdbc:mysql://localhost:3306/library";
+      String dbUser = "root";
+      String dbPassword = "0";
+      Controller.connection = DriverManager.getConnection(url, dbUser, dbPassword);
+      Library lb = Library.getInstance();
+      List<Book> list = lb.getTopBooks();
+      for (Book book : list) {
+        System.out.print(book.getBookId() + " ");
+        System.out.println(book.getTitle() + " ");
+      }
+    } catch (Exception e)
+    {
+      e.printStackTrace();
+    }
+  }
+
+  @Test
+  void getTopUsers() {
+    try {
+      String url = "jdbc:mysql://localhost:3306/library";
+      String dbUser = "root";
+      String dbPassword = "0";
+      Controller.connection = DriverManager.getConnection(url, dbUser, dbPassword);
+      Library lb = Library.getInstance();
+      List<User> list = lb.getTopUsers();
+      for (User user : list) {
+        System.out.print(user.getUserId() + " ");
+        System.out.println(user.getFullname() + " ");
+      }
+    } catch (Exception e)
+    {
+      e.printStackTrace();
+    }
+  }
 }
