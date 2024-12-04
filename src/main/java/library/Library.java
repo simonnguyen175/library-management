@@ -431,5 +431,21 @@ public class Library {
         return totalBooks;
     }
 
+    public List<Book> getNewArrivals(int limit) {
+        List<Book> newArrivals = new ArrayList<>();
+        String query = "SELECT * FROM Books ORDER BY id DESC LIMIT ?";
 
+        try (PreparedStatement ps = Controller.connection.prepareStatement(query)) {
+            ps.setInt(1, limit);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    newArrivals.add(buildBookFromResultSet(rs));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return newArrivals;
+    }
 }

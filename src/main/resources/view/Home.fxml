@@ -10,7 +10,7 @@
 
 <AnchorPane prefHeight="584" prefWidth="1237.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomeController">
    <children>
-      <AnchorPane fx:id="container" prefHeight="584.0" prefWidth="1237.0">
+      <AnchorPane prefHeight="584.0" prefWidth="1237.0">
          <children>
             <Group layoutX="123.0" layoutY="225.0" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="75.0">
                <children>
