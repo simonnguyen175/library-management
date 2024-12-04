@@ -20,7 +20,7 @@
    <children>
       <Button fx:id="backButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="45.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="50.0">
          <graphic>
-            <FontAwesomeIcon glyphName="ANGLE_LEFT" size="2em" />
+            <FontAwesomeIcon glyphName="ANGLE_LEFT" size="2em" styleClass="font-awesome-icon"/>
          </graphic>
       </Button>
       <Group layoutX="107.0" layoutY="51.0">
@@ -34,9 +34,9 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <Button fx:id="fixButton"  alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false">
+                        <Button fx:id="fixButton"  alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" >
                            <graphic>
-                              <FontAwesomeIcon glyphName="PENCIL" size="1.5em" text="" />
+                              <FontAwesomeIcon glyphName="PENCIL" size="1.5em" text="" styleClass="font-awesome-icon"/>
                            </graphic>
                            <HBox.margin>
                               <Insets top="2.0" />
@@ -64,12 +64,12 @@
                <children>
                   <Button fx:id="QRButton" mnemonicParsing="false" prefHeight="32.0" prefWidth="50.0">
                      <graphic>
-                        <FontAwesomeIcon glyphName="QRCODE" size="2em" />
+                        <FontAwesomeIcon glyphName="QRCODE" size="2em" styleClass="font-awesome-icon"/>
                      </graphic>
                   </Button>
                   <Button fx:id="borrowButton" layoutX="50.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="50.0">
                      <graphic>
-                        <FontAwesomeIcon glyphName="BOOK" size="2em" text="" />
+                        <FontAwesomeIcon glyphName="BOOK" size="2em" text="" styleClass="font-awesome-icon"/>
                      </graphic>
                   </Button>
                </children>

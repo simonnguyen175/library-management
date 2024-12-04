@@ -1,193 +1,314 @@
-/* styles.css */
-
-
-/* Style for the main label */
-.main-label {
-    -fx-font-family: "Consolas Bold";
-    -fx-font-size: 30px;
-}
-
+/* Button màu nâu ấm */
 .button {
-    -fx-background-color: #FFFFFF;
-    -fx-border-color: #D2B48C;
-    -fx-padding: 5px;
-    -fx-wrap-text: true;
-    -fx-border-radius: 5px;
-    -fx-background-radius: 5px;
-}
-
-.button:hover {
-    -fx-background-color: #D2B48C;
+    -fx-background-color: #8B5E3C; /* Nâu ấm */
     -fx-text-fill: white;
     -fx-background-radius: 5px;
 }
 
 .button:pressed {
-    -fx-background-color: #D2B48C;
+    -fx-background-color: #7A4A2A; /* Nâu đậm hơn khi nhấn */
     -fx-text-fill: white;
     -fx-background-radius: 5px;
 }
 
 #menu {
-    -fx-background-color: #FFFFFF ;
+    -fx-background-color: #F4E1D2 ; /* Nền sáng nhẹ */
     -fx-background-radius: 10px;
     -fx-padding: 10px;
     -fx-spacing: 10px;
 }
-/* Style for the navigation bar buttons */
 
-
+/* Nút điều hướng (Nav Button) với màu nâu */
 .nav-button {
-    -fx-border-color: white !important;
-    -fx-background-radius: 5;
-    -fx-background-color: white;
+    -fx-background-color: #F4E1D2; /* Màu nền nâu */
+    -fx-border-color: #F4E1D2; /* Màu viền nâu */
+    -fx-text-fill: #8B5E3C ; /* Màu chữ trắng */
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-font-weight: bold;
+    -fx-transition: background-color 0.3s, -fx-text-fill 0.3s, -fx-border-color 0.3s; /* Hiệu ứng chuyển màu mượt mà */
 }
 
 .nav-button:hover {
-    -fx-background-color: white !important;
-    -fx-border-color: #D2B48C !important;
-    -fx-border-radius: 5;
-    -fx-text-fill: #D2B48C !important;
+    -fx-background-color: #7A4E32; /* Màu nền nâu đậm hơn khi hover */
+    -fx-border-color: #7A4E32; /* Màu viền nâu đậm hơn khi hover */
+    -fx-text-fill: white; /* Màu chữ trắng khi hover */
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0.0, 0.0, 5); /* Bóng đổ mạnh hơn khi hover */
 }
 
 .nav-button:pressed {
-    -fx-background-color:  #D2B48C !important;
-    -fx-border-color: #D2B48C !important;
-    -fx-border-radius: 5;
-    -fx-text-fill: white !important;
+    -fx-background-color: #5C3D2D; /* Màu nền nâu đậm khi nhấn */
+    -fx-border-color: #5C3D2D; /* Màu viền nâu đậm khi nhấn */
+    -fx-text-fill: white; /* Màu chữ trắng khi nhấn */
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.5), 6, 0.0, 0.0, 6); /* Bóng đổ mạnh khi nhấn */
 }
 
 
+
+/* Label màu nâu ấm */
 .label {
-    -fx-color: #D2B48C;
+    -fx-text-fill: #8B5E3C;
 }
 
+/* TextField với viền nâu nhẹ */
 .text-field {
     -fx-background-color: #FFFFFF;
-    -fx-border-color: #D2B48C;
+    -fx-border-color: #8B5E3C;
+    -fx-text-fill: #8B5E3C;
+    -fx-font-size: 11px;
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
 }
-
 
 .text-field:pressed {
-    -fx-background-color: #D2B48C;
-    -fx-text-fill: white !important;
+    -fx-background-color: #8B5E3C;
+    -fx-text-fill: white;
     -fx-background-radius: 5px;
 }
 
+/* TextArea viền nâu sáng */
 .text-area {
     -fx-background-color: #FFFFFF;
-    -fx-border-color: #D2B48C;
+    -fx-border-color: #8B5E3C;
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
-    -fx-padding: 5px;
-    -fx-background-radius: 5px;
 }
 
-/* Loại bỏ nền của thanh cuộn trong TextArea */
 .text-area .scroll-bar {
-    -fx-background-color: transparent;  /* Loại bỏ nền của thanh cuộn */
+    -fx-background-color: transparent;
 }
 
-/* Loại bỏ nền của phần track (đường nền của thanh cuộn) */
 .text-area .scroll-bar .track {
-    -fx-background-color: transparent;  /* Loại bỏ nền của track */
+    -fx-background-color: transparent;
 }
 
-/* Loại bỏ nền của các nút increment và decrement (nút cuộn) */
 .text-area .scroll-bar .increment-button,
 .text-area .scroll-bar .decrement-button {
-    -fx-background-color: transparent;  /* Loại bỏ nền các nút cuộn */
+    -fx-background-color: transparent;
 }
 
-#roleBox
-{
-    -fx-background-color: white !important;
-    -fx-border-color: #D2B48C !important;
-    -fx-border-radius: 5px !important;
-    -fx-background-radius: 5px !important;
-}
-
-#roleBox:pressed {
-    -fx-background-color: #D2B48C !important;
-    -fx-text-fill: white !important;
+/* RoleBox với màu nâu ấm */
+#roleBox {
+    -fx-background-color: #8B5E3C !important;
+    -fx-border-color: #8B5E3C !important;
     -fx-border-radius: 5px !important;
     -fx-background-radius: 5px !important;
 }
 
 #roleBox .list-cell {
-    -fx-background-color: white !important;
-    -fx-text-fill: black  !important;
-    -fx-border-radius: 5px !important;
-    -fx-background-radius: 5px !important;
+    -fx-background-color: #8B5E3C !important;
+    -fx-text-fill: white !important;
+    -fx-border-radius: 2px !important;
+    -fx-background-radius: 2px !important;
 }
 
 #roleBox .list-cell:hover {
-    -fx-background-color: #D2B48C !important;
+    -fx-background-color: #8B5E3C !important;
     -fx-text-fill: white !important;
-    -fx-border-radius: 5px !important;
-    -fx-background-radius: 5px !important;
+    -fx-border-radius: 2px !important;
+    -fx-background-radius: 2px !important;
 }
 
 #roleBox .list-cell:pressed {
-    -fx-background-color: #D2B48C !important;
+    -fx-background-color: #8B5E3C !important;
     -fx-text-fill: white !important;
-    -fx-border-radius: 5px !important;
-    -fx-background-radius: 5px !important;
+    -fx-border-radius: 2px !important;
+    -fx-background-radius: 2px !important;
 }
 
-#genreComboBox
-{
-    -fx-background-color: white !important;
-    -fx-border-color: #D2B48C !important;
+/* GenreComboBox với nền trắng và viền nâu */
+#genreComboBox {
+    -fx-background-color: #8B5E3C !important;
+    -fx-border-color: #8B5E3C !important;
     -fx-border-radius: 5px !important;
     -fx-background-radius: 5px !important;
 }
 
 #genreComboBox:pressed {
-    -fx-background-color: #D2B48C !important;
+    -fx-background-color: #8B5E3C !important;
     -fx-text-fill: white !important;
     -fx-border-radius: 5px !important;
     -fx-background-radius: 5px !important;
 }
 
 #genreComboBox .list-cell {
-    -fx-background-color: white !important;
-    -fx-text-fill: black  !important;
-    -fx-border-radius: 5px !important;
-    -fx-background-radius: 5px !important;
+    -fx-background-color: white ;
+    -fx-text-fill: #8B5E3C ;
+    -fx-border-radius: 5px ;
+    -fx-background-radius: 5px ;
 }
 
 #genreComboBox .list-cell:hover {
-    -fx-background-color: #D2B48C !important;
+    -fx-background-color: #8B5E3C !important;
     -fx-text-fill: white !important;
     -fx-border-radius: 5px !important;
     -fx-background-radius: 5px !important;
 }
 
 #genreComboBox .list-cell:pressed {
-    -fx-background-color: #D2B48C !important;
+    -fx-background-color: #8B5E3C !important;
     -fx-text-fill: white !important;
     -fx-border-radius: 5px !important;
     -fx-background-radius: 5px !important;
 }
 
-.combo-box-popup .scroll-bar{
+.combo-box-popup .scroll-bar {
     -fx-background-color: transparent;
 }
 
-#backButton {
+
+/* Nền đăng nhập với gradient nhẹ */
+.loginPane {
+    -fx-background-color: linear-gradient(to bottom right, #F4E1D2, #D8B79D); /* Gradient từ kem nhạt đến nâu sáng */
+}
+
+.font-awesome-icon {
+    -fx-fill: white; /* Đổi màu icon thành trắng */
+}
+
+#root {
+    -fx-background-image: url("bk.png");
+    -fx-background-repeat: no-repeat; /* Lặp lại hoặc không */
+    -fx-background-size: cover; /* Kích thước phủ toàn bộ */
+    -fx-background-position: center; /* Đặt vị trí trung tâm */
+}
+
+/* Màu nền và chữ cho các ô đầu trong bảng */
+#BorrowTable .column-header {
+    -fx-background-color: #8B5E3C; /* Nền nâu ấm cho các ô đầu */
+    -fx-border-color: #F4E1D2;
+}
+
+#BorrowTable .column-header .label {
+    -fx-text-fill: white; /* Chữ trắng */
+    -fx-font-weight: bold; /* Chữ đậm để dễ nhìn */
+    -fx-font-size: 14px; /* Cỡ chữ lớn hơn cho dễ đọc */
+}
+
+/* Màu nền của bảng */
+#BorrowTable {
+    -fx-background-color: #FFF8E1; /* Nền bảng màu kem nhẹ */
+    -fx-background-radius: 3px; /* Bo góc mềm mại cho bảng */
+    -fx-border-color:#8B5E3C;
+    -fx-border-radius:3px;
+}
+
+/* Màu chữ cho các ô dữ liệu */
+#BorrowTable .table-cell {
+    -fx-text-fill: #8B5E3C; /* Màu chữ nâu ấm */
+    -fx-font-size: 12px; /* Cỡ chữ phù hợp với bảng */
+}
+
+/* Màu nền cho các ô khi hover */
+#BorrowTable .table-cell:hover {
+    -fx-background-color: #F4E1D2; /* Nền sáng nhẹ khi hover */
+}
+
+/* Màu nền cho các ô đầu khi hover */
+#BorrowTable .column-header:hover {
+    -fx-background-color: #7A4E32; /* Nền nâu đậm hơn khi hover */
+}
+
+/* Màu nền cho các ô đầu khi nhấn */
+#BorrowTable .column-header:pressed {
+    -fx-background-color: #7A4E32; /* Nền nâu đậm khi nhấn */
+}
+
+/* Màu nền cho các nút trong bảng */
+#returnBookButton, #searchButton {
+    -fx-background-color: #8B5E3C; /* Nền nút màu nâu ấm */
+    -fx-text-fill: white; /* Chữ trắng */
+    -fx-background-radius: 5px; /* Bo góc mềm mại cho nút */
+}
+
+#returnBookButton:hover, #searchButton:hover {
+    -fx-background-color: #7A4E32; /* Nền nút nâu đậm khi hover */
+}
+
+#BorrowTable .scroll-bar {
     -fx-background-color: transparent;
-    -fx-border-color: transparent;
 }
 
-#backButton:hover {
-    -fx-border-color: #D2B48C;
+/* Màu nền và chữ cho các ô đầu trong bảng */
+#userTable .column-header {
+    -fx-background-color: #8B5E3C; /* Nền nâu ấm cho các ô đầu */
+    -fx-border-color: #F4E1D2;
 }
 
-#backButton:pressed {
-    -fx-background-color: #D2B48C;
-    -fx-text-fill: white;
+#userTable .column-header .label {
+    -fx-text-fill: white; /* Chữ trắng */
+    -fx-font-weight: bold; /* Chữ đậm để dễ nhìn */
+    -fx-font-size: 14px; /* Cỡ chữ lớn hơn cho dễ đọc */
+}
+
+/* Màu nền của bảng */
+#userTable {
+    -fx-background-color: #FFF8E1; /* Nền bảng màu kem nhẹ */
+    -fx-background-radius: 3px; /* Bo góc mềm mại cho bảng */
+    -fx-border-color:#8B5E3C;
+    -fx-border-radius:3px;
+}
+
+/* Màu chữ cho các ô dữ liệu */
+#userTable .table-cell {
+    -fx-text-fill: #8B5E3C; /* Màu chữ nâu ấm */
+    -fx-font-size: 12px; /* Cỡ chữ phù hợp với bảng */
+}
+
+/* Màu nền cho các ô khi hover */
+#userTable .table-cell:hover {
+    -fx-background-color: #F4E1D2; /* Nền sáng nhẹ khi hover */
+}
+
+/* Đổi màu nền của hàng khi chọn */
+#userTable .table-row-cell:selected {
+    -fx-background-color: #FFD700;  /* Màu vàng khi chọn */
+    -fx-text-fill: #FFFFFF;  /* Màu chữ trắng */
+    -fx-border-color:#8B5E3C;
+}
+
+/* Đổi màu nền khi di chuột lên hàng đã chọn */
+#userTable .table-row-cell:selected:hover {
+    -fx-background-color: #F4E1D2;  /* Màu cam khi hover */
+    -fx-border-color:#8B5E3C;
+}
+
+
+/* Màu nền cho các ô đầu khi hover */
+#userTable .column-header:hover {
+    -fx-background-color: #7A4E32; /* Nền nâu đậm hơn khi hover */
+    -fx-border-color:#8B5E3C;
+}
+
+/* Màu nền cho các ô đầu khi nhấn */
+#userTable .column-header:pressed {
+    -fx-background-color: #7A4E32; /* Nền nâu đậm khi nhấn */
+    -fx-border-color:#8B5E3C;
+}
+
+/* Ngừng hiển thị sự thay đổi độ rộng cột */
+.table-view .table-column-header .label {
+    -fx-padding: 5px;  /* Đảm bảo cột có padding đều */
+}
+
+/* Ẩn các đường viền động khi thay đổi cột */
+.table-view .column-header .resizer {
+    -fx-background-color: transparent;
+}
+
+
+/* Đổi màu nền phần body (content) của TitledPane */
+.titled-pane .content {
+    -fx-background-color: #FFF8E1; /* Màu kem pastel */
+    -fx-padding: 10px; /* Thêm padding cho phần nội dung */
+    -fx-border-color: #8B5E3C; /* Viền nâu ấm */
+    -fx-border-radius: 2px; /* Bo góc cho phần body */
+}
+
+/* Cài đặt màu nền cho TabPane */
+#tabAddU {
+    -fx-background-color: #FFF8DC; /* Nền màu sáng cho TabPane */
+    -fx-border-color: #8B5E3C; /* Viền nâu ấm */
+    -fx-border-radius: 2px; /* Bo góc cho phần body */
 }
 

@@ -16,6 +16,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -132,9 +133,11 @@ public class UsersController extends Controller implements Initializable {
                 // Setting FontAwesome icons as Text
                 Text deleteIcon = new Text("\uf1f8"); // trash
                 deleteIcon.setStyle("-fx-font-family: 'FontAwesome'; -fx-font-size: 16px;");
+                deleteIcon.setFill(Color.web("white"));
 
                 Text fixIcon = new Text("\uf044");  // edit/fix
                 fixIcon.setStyle("-fx-font-family: 'FontAwesome'; -fx-font-size: 16px;");
+                fixIcon.setFill(Color.web("white"));
 
                 // Set the buttons' graphic
                 deleteButton.setGraphic(deleteIcon);

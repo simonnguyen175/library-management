@@ -26,12 +26,12 @@
       <children>
          <Button fx:id="previousButton" prefHeight="32.0" prefWidth="51.0">
             <graphic>
-               <FontAwesomeIcon glyphName="ANGLE_LEFT" selectionStart="1" size="2em" />
+               <FontAwesomeIcon glyphName="ANGLE_LEFT" selectionStart="1" size="2em" styleClass="font-awesome-icon"/>
             </graphic>
          </Button>
          <Button fx:id="nextButton" prefWidth="51.0">
             <graphic>
-               <FontAwesomeIcon glyphName="ANGLE_RIGHT" size="2em" text="" />
+               <FontAwesomeIcon glyphName="ANGLE_RIGHT" size="2em" text="" styleClass="font-awesome-icon"/>
             </graphic>
          </Button>
       </children>
