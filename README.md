@@ -168,6 +168,9 @@ Quản lý **trực quan** những quyển sách trong Thư viện
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </div>
 
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
 ## Giao diện người mượn
 
 <br><br><br><br>
@@ -185,7 +188,7 @@ Trang Chủ được thiết kế **thân thiện**, **gợi ý** sách cho ngư
 
 </div>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
 
 
 
