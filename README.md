@@ -4,7 +4,7 @@
 
 A **beautiful** and **easy-to-use** Management Tool
 
-<img src="/src/main/resources/pictures/Anh Demo.png" width="50%">
+<img src="/src/main/resources/Pictures/Anh Demo.png" width="50%">
 
 </div>
 
@@ -55,7 +55,7 @@ A **beautiful** and **easy-to-use** Management Tool
 
 
 
-<img align="right" src="/src/main/resources/pictures/Anh Dang Nhap.png" width="500px">
+<img align="right" src="/src/main/resources/Pictures/Anh Dang Nhap.png" width="500px">
 
 <div align="left">
 
@@ -73,7 +73,7 @@ Trang đăng nhập được thiết kế **hiện đại**, **tối giản**.
 <br><br><br><br>
 
 
-<img align="left" src="/src/main/resources/pictures/Anh Trang chu.png" width="500px">
+<img align="left" src="/src/main/resources/Pictures/Anh Trang chu.png" width="500px">
 
 <div align="right">
 
@@ -88,7 +88,7 @@ Trang Chủ được thiết kế **trực quan** giúp người sử dụng có
 
 <br><br><br><br><br><br><br><br><br><br>
 
-<img align="right" src="/src/main/resources/pictures/Anh danh sach muon.png" width="500px">
+<img align="right" src="/src/main/resources/Pictures/Anh danh sach muon.png" width="500px">
 
 <div align="left">
 
@@ -106,7 +106,7 @@ Trang quản lý mượn sách tối giản với nhiều **tính năng hỗ tr�
 
 <br><br><br><br><br><br><br><br><br><br>
 
-<img align="left" src="/src/main/resources/pictures/Anh Menu chon.png" width="500px">
+<img align="left" src="/src/main/resources/Pictures/Anh Menu chon.png" width="500px">
 
 <div align="right">
 
@@ -120,9 +120,9 @@ Menu Chọn **tối giản**, **gọn gàng**.
 
 <br><br><br><br><br><br><br><br><br><br>
 
-<img align="right" src="/src/main/resources/pictures/Anh trang nguoi dung.png" width="500px">
+<img align="right" src="/src/main/resources/Pictures/Anh trang nguoi dung.png" width="500px">
 <br><br><br><br><br><br><br><br><br><br>
-<img align="right" src="/src/main/resources/pictures/Anh trang sua thong tin nguoi dung.png" width="500px">
+<img align="right" src="/src/main/resources/Pictures/Anh trang sua thong tin nguoi dung.png" width="500px">
 
 <div align="left">
 
@@ -141,15 +141,15 @@ Chức năng quản lý người dùng tiện dụng bằng những thao tác đ
 
 <br><br><br><br><br><br><br><br><br><br><br>
 
-<img align="right" src="/src/main/resources/pictures/Anh trang sach.png" width="500px">
+<img align="right" src="/src/main/resources/Pictures/Anh trang sach.png" width="500px">
 
-<img align="right" src="/src/main/resources/pictures/Anh Trang them sach.png" width="500px">
+<img align="right" src="/src/main/resources/Pictures/Anh Trang them sach.png" width="500px">
 
-<img align="right" src="/src/main/resources/pictures/Anh trang Hien thong tin sach.png" width="500px">
+<img align="right" src="/src/main/resources/Pictures/Anh trang Hien thong tin sach.png" width="500px">
 
-<img align="right" src="src/main/resources/pictures/Anh Trang Muon Sach.png" width="500px">
+<img align="right" src="src/main/resources/Pictures/Anh Trang Muon Sach.png" width="500px">
 
-<img align="right" src="src/main/resources/pictures/Anh Trang Hien Ma QR.png" width="500px">
+<img align="right" src="src/main/resources/Pictures/Anh Trang Hien Ma QR.png" width="500px">
 
 <div align="left">
 
@@ -173,7 +173,7 @@ Quản lý **trực quan** những quyển sách trong Thư viện
 <br><br><br><br>
 
 
-<img align="left" src="/src/main/resources/pictures/Anh giao dien nguoi muon.png" width="500px">
+<img align="left" src="/src/main/resources/Pictures/Anh giao dien nguoi muon.png" width="500px">
 
 <div align="right">
 
@@ -193,11 +193,11 @@ Trang Chủ được thiết kế **thân thiện**, **gợi ý** sách cho ngư
 ## Class Diagram của Dự án
 
 ---
-<img src="/src/main/resources/pictures/Library Mangement Class Diagram.png" width="700px">
+<img src="/src/main/resources/Pictures/Library Mangement Class Diagram.png" width="700px">
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-<img align="left" src="/src/main/resources/pictures/QR bugs report.png" width="300px">
+<img align="left" src="/src/main/resources/Pictures/QR bugs report.png" width="300px">
 
 <div align="right">
 
