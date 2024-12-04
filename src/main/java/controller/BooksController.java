@@ -225,7 +225,7 @@ public class BooksController implements Initializable {
                 AnchorPane bookDetailPane = loader.load();
 
                 BookDetailController controller = loader.getController();
-                controller.setBook(book);
+                controller.setBook(book, "/view/Home.fmxl");
 
                 rootPane.getChildren().clear();
                 rootPane.getChildren().setAll(bookDetailPane);

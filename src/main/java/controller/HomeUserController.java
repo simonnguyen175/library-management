@@ -35,20 +35,17 @@ public class HomeUserController {
 
     @FXML
     private HBox bookHBox;
+    @FXML
+    private HBox bookHBox1;
 
     @FXML
     private ProgressIndicator progressIndicator;
 
     @FXML
-    private ImageView newArrival1;
-
-    @FXML
-    private ImageView newArrival2;
-
-    @FXML
-    private ImageView newArrival3;
+    private ProgressIndicator progressIndicator1;
 
     private List<Book> recommendedBooks;
+    private List<Book> newArrivalBooks;
     private List<ImageView> bookImageViews;
     private int currentIndex = 0;
 
@@ -63,6 +60,7 @@ public class HomeUserController {
         backButton.setOnAction(event -> showPreviousBooks());
         forwardButton.setOnAction(event -> showNextBooks());
         bookHBox.setSpacing(IMAGE_SPACING);
+        bookHBox1.setSpacing(IMAGE_SPACING);
 
         // Set clipping area for the HBox
         Rectangle clip = new Rectangle(MAX_VISIBLE * (IMAGE_WIDTH + IMAGE_SPACING) - IMAGE_SPACING, IMAGE_HEIGHT);
@@ -70,6 +68,7 @@ public class HomeUserController {
 
         // Show progress indicator
         progressIndicator.setVisible(true);
+        progressIndicator1.setVisible(true);
 
         // Load recommended books and initialize the image views
         Library myLib = Library.getInstance();
@@ -87,24 +86,8 @@ public class HomeUserController {
                 ImageView bookImageView = new ImageView(book.getImageUrl());
                 bookImageView.setFitHeight(IMAGE_HEIGHT);
                 bookImageView.setFitWidth(IMAGE_WIDTH);
-                Tooltip tooltip = new Tooltip(book.getTitle());
-                Tooltip.install(bookImageView, tooltip);
-
-                bookImageView.setOnMousePressed(event -> {
-                    try {
-                        // Handle book click
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/BookDetail.fxml"));
-                        AnchorPane bookDetailPane = loader.load();
-
-                        BookDetailController controller = loader.getController();
-                        controller.setBook(book);
-
-                        rootPane.getChildren().clear();
-                        rootPane.getChildren().setAll(bookDetailPane);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
+                setOnClickAction(bookImageView, book);
+                setHoverEffect(bookImageView);
                 tempImageViews.add(bookImageView);
             }
 
@@ -147,17 +130,48 @@ public class HomeUserController {
 
     private void loadNewArrivals() {
         Thread thread = new Thread(() -> {
+
             Library myLib = Library.getInstance();
             List<Book> newArrivals = myLib.getNewArrivals(3); // Fetch the last 3 books
 
             Platform.runLater(() -> {
-                if (newArrivals.size() >= 3) {
-                    newArrival1.setImage(new Image(newArrivals.get(0).getImageUrl()));
-                    newArrival2.setImage(new Image(newArrivals.get(1).getImageUrl()));
-                    newArrival3.setImage(new Image(newArrivals.get(2).getImageUrl()));
+                for (Book book : newArrivals) {
+                    ImageView bookImageView = new ImageView(book.getImageUrl());
+                    bookImageView.setFitHeight(IMAGE_HEIGHT + 50);
+                    bookImageView.setFitWidth(IMAGE_WIDTH + 50);
+
+                    setOnClickAction(bookImageView, book);
+                    setHoverEffect(bookImageView);
+
+                    bookHBox1.getChildren().add(bookImageView);
                 }
+                progressIndicator1.setVisible(false);
             });
         });
         thread.start();
+    }
+
+    private void setHoverEffect(ImageView imageView) {
+        Tooltip tooltip = new Tooltip("Click to view details");
+        Tooltip.install(imageView, tooltip);
+        imageView.setOnMouseEntered(event -> imageView.setOpacity(0.7));
+        imageView.setOnMouseExited(event -> imageView.setOpacity(1.0));
+    }
+
+    private void setOnClickAction(ImageView imageView, Book book) {
+        imageView.setOnMouseClicked(event -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/BookDetail.fxml"));
+                AnchorPane bookDetailPane = loader.load();
+
+                BookDetailController controller = loader.getController();
+                controller.setBook(book, "/view/HomeUser.fxml");
+
+                rootPane.getChildren().clear();
+                rootPane.getChildren().setAll(bookDetailPane);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 }
