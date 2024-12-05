@@ -37,7 +37,7 @@
       </TitledPane>
       <Button fx:id="searchButton" layoutX="46.0" layoutY="57.0" mnemonicParsing="false" text="Tìm kiếm" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="50.0">
          <graphic>
-            <FontAwesomeIcon glyphName="SEARCH" />
+            <FontAwesomeIcon glyphName="SEARCH" styleClass="font-awesome-icon"/>
          </graphic>
       </Button>
       <TextField fx:id="searchBar" layoutX="130.0" layoutY="50.0" prefHeight="25.0" prefWidth="250.0" promptText="Mã mượn, Người mượn, Tên sách ..." />
