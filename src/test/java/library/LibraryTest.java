@@ -110,6 +110,8 @@ class LibraryTest {
             String dbPassword = "123";
             Controller.connection = DriverManager.getConnection(url, dbUser, dbPassword);
             Library lb = Library.getInstance();
+            Book book = new Book();
+            lb.addBook(book);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -123,7 +125,7 @@ class LibraryTest {
             String dbPassword = "123";
             Controller.connection = DriverManager.getConnection(url, dbUser, dbPassword);
             Library lb = Library.getInstance();
-            lb.deleteBook(1009);
+            lb.deleteBook(1028);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -134,9 +136,11 @@ class LibraryTest {
         try {
             String url = "jdbc:mysql://localhost:3306/library";
             String dbUser = "root";
-            String dbPassword = "0";
+            String dbPassword = "123";
             Controller.connection = DriverManager.getConnection(url, dbUser, dbPassword);
             Library lb = Library.getInstance();
+            User user = new User("Nguyễn Đại Phong", "phongdai123", "0983-223-438", "daiphongdp@example.com");
+            lb.addUser(user);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -147,9 +151,10 @@ class LibraryTest {
         try {
             String url = "jdbc:mysql://localhost:3306/library";
             String dbUser = "root";
-            String dbPassword = "0";
+            String dbPassword = "123";
             Controller.connection = DriverManager.getConnection(url, dbUser, dbPassword);
             Library lb = Library.getInstance();
+            lb.deleteUser(240040);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -160,7 +165,7 @@ class LibraryTest {
         try {
             String url = "jdbc:mysql://localhost:3306/library";
             String dbUser = "root";
-            String dbPassword = "0";
+            String dbPassword = "123";
             Controller.connection = DriverManager.getConnection(url, dbUser, dbPassword);
             Library lb = Library.getInstance();
             List<Book> list = lb.getTopBooks();
@@ -178,7 +183,7 @@ class LibraryTest {
         try {
             String url = "jdbc:mysql://localhost:3306/library";
             String dbUser = "root";
-            String dbPassword = "0";
+            String dbPassword = "123";
             Controller.connection = DriverManager.getConnection(url, dbUser, dbPassword);
             Library lb = Library.getInstance();
             List<User> list = lb.getTopUsers();
