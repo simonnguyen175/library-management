@@ -185,29 +185,37 @@ public class UsersController extends Controller implements Initializable {
 
 
     private void deleteUser(User user) {
-        String query = "DELETE FROM users WHERE user_id = " + user.getUserId() + ";";
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete Confirmation");
+        alert.setHeaderText("Are you sure to delete user " + user.getUsername() + "?");
+        alert.setContentText("This action cannot be undone.");
 
-        Thread dbThread = new Thread(() -> {
-            try (Statement stmt = connection.createStatement()) {
-                stmt.executeUpdate(query);
-                // Reload the user data
-                ObservableList<User> updatedUsers = getUserData();
-                userTable.setItems(updatedUsers);
-            } catch (SQLException e) {
-                if (e instanceof SQLIntegrityConstraintViolationException) {
-                    Platform.runLater(() -> {
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle("Deletion Error");
-                        alert.setHeaderText("Cannot delete user");
-                        alert.setContentText("This user currently borrows book.");
-                        alert.showAndWait();
-                    });
-                } else {
-                    e.printStackTrace();
-                }
+        ButtonType deleteButton = new ButtonType("Delete");
+        ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(deleteButton, cancelButton);
+
+        alert.showAndWait().ifPresent(type -> {
+            if (type == deleteButton) {
+                Thread dbThread = new Thread(() -> {
+                    Library myLib = Library.getInstance();
+                    try {
+                        myLib.deleteUser(user.getUserId());
+                    } catch (SQLException e) {
+                        Platform.runLater(() -> {
+                            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                            errorAlert.setTitle("Deletion Error");
+                            errorAlert.setHeaderText("Failed to delete user " + user.getUsername());
+                            errorAlert.setContentText("This user may have borrowed");
+                            errorAlert.showAndWait();
+                        });
+                    }
+                    // Reload the user data
+                    ObservableList<User> updatedUsers = getUserData();
+                    Platform.runLater(() -> userTable.setItems(updatedUsers));
+                });
+                dbThread.start();
             }
         });
-        dbThread.start();
     }
 
     private void addUser() {

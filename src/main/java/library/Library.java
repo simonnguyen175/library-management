@@ -149,21 +149,26 @@ public class Library {
     }
 
     // delete user from database
-    public void deleteUser(int userId) {
-        String sql = "DELETE FROM Users WHERE user_id = ?";
+    public void deleteUser(int userId) throws SQLException{
+        String checkBorrowedSql = "SELECT COUNT(*) FROM borrowed WHERE user_id = ?";
+        String deleteCommentsSql = "DELETE FROM comments WHERE user_id = ?";
+        String deleteUserSql = "DELETE FROM users WHERE user_id = ?";
 
-        try (PreparedStatement preparedStatement = Controller.connection.prepareStatement(sql)) {
-            preparedStatement.setString(1, Integer.toString(userId));
 
-            int rowsAffected = preparedStatement.executeUpdate();
-            if (rowsAffected > 0) {
-                System.out.println("User with ID " + userId + " was deleted successfully.");
-            } else {
-                System.out.println("No user found with ID " + userId + ".");
-            }
-        } catch (SQLException e) {
-            System.err.println("Error while deleting user: " + e.getMessage());
-        }
+        PreparedStatement checkBorrowedStmt = Controller.connection.prepareStatement(checkBorrowedSql);
+        PreparedStatement deleteCommentsStmt = Controller.connection.prepareStatement(deleteCommentsSql);
+        PreparedStatement deleteUserStmt = Controller.connection.prepareStatement(deleteUserSql);
+        // Kiểm tra xem người dùng có mượn sách không
+        checkBorrowedStmt.setInt(1, userId);
+        ResultSet resultSet = checkBorrowedStmt.executeQuery();
+
+        // Xóa các comment của người dùng
+        deleteCommentsStmt.setInt(1, userId);
+        deleteCommentsStmt.executeUpdate();
+
+        // Xóa người dùng
+        deleteUserStmt.setInt(1, userId);
+        int rowsAffected = deleteUserStmt.executeUpdate();
     }
 
     // them comment
